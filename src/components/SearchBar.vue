@@ -41,7 +41,7 @@ onUnmounted(() => {
   >
     <button
       @click="closeSearchbar"
-      class="mr-4 rounded-full px-2 py-2 hover:bg-red-700 hover:text-white"
+      class="mr-2 rounded-full px-2 py-2 hover:bg-red-700 hover:text-white"
       :class="isExpanded ? '' : 'hidden'"
     >
       <IconCross class="h-6 w-6"></IconCross>
@@ -63,7 +63,7 @@ onUnmounted(() => {
     >
       <IconsSearch class="h-6 w-6 text-white"></IconsSearch>
     </button>
-    <button>
+    <button :class="isExpanded ? 'hidden' : ''">
       <IconHamburgerMenu class="h-6 w-6"></IconHamburgerMenu>
     </button>
   </div>
