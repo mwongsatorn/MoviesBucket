@@ -7,8 +7,8 @@ const isSearchbarExpaned = ref(false);
 </script>
 
 <template>
-  <header class="px-4 shadow-md">
-    <div class="mx-auto flex h-[56px] max-w-7xl items-center">
+  <header class="shadow-md">
+    <div class="mx-auto flex h-[56px] max-w-7xl items-center px-4">
       <div class="flex shrink-0 items-center space-x-8">
         <RouterLink :class="isSearchbarExpaned ? 'hidden' : ''" to="/">
           <img class="" src="../assets/moviesbucket-logo.svg" alt="" />
