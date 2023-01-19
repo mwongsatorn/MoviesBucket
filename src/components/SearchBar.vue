@@ -4,7 +4,12 @@ import IconsSearch from "./Icons/IconSearch.vue";
 import IconHamburgerMenu from "./Icons/IconHamburgerMenu.vue";
 import IconCross from "./Icons/IconCross.vue";
 
-const emit = defineEmits(["closeSearchbar", "expandSearchbar"]);
+interface Emits {
+  (e: "closeSearchbar"): void;
+  (e: "expandSearchbar"): void;
+}
+
+const emit = defineEmits<Emits>();
 const isExpanded = ref(false);
 
 function closeSearchbar() {
