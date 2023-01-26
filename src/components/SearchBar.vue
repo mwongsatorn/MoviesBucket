@@ -23,7 +23,6 @@ function expandSearchbar() {
 }
 
 function handleResize() {
-  console.log(window.innerWidth);
   if (window.innerWidth > 640) {
     isExpanded.value = false;
     emit("closeSearchbar");
