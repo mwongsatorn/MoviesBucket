@@ -4,12 +4,18 @@ import IconsSearch from "./Icons/IconSearch.vue";
 import IconHamburgerMenu from "./Icons/IconHamburgerMenu.vue";
 import IconCross from "./Icons/IconCross.vue";
 
+interface Props {
+  isHomepage: boolean;
+  isScrolled: boolean;
+}
+const props = defineProps<Props>();
+
 interface Emits {
   (e: "closeSearchbar"): void;
   (e: "expandSearchbar"): void;
 }
-
 const emit = defineEmits<Emits>();
+
 const isExpanded = ref(false);
 
 function closeSearchbar() {
@@ -45,13 +51,21 @@ onUnmounted(() => {
   >
     <button
       @click="closeSearchbar"
-      class="mr-2 rounded-full px-2 py-2 hover:bg-red-700 hover:text-white"
+      class="mr-4"
       :class="isExpanded ? '' : 'hidden'"
     >
-      <IconCross class="h-6 w-6"></IconCross>
+      <IconCross
+        class="h-6 w-6"
+        :class="props.isScrolled || !props.isHomepage ? '' : 'text-white'"
+      ></IconCross>
     </button>
     <input
-      class="w-full rounded-l-lg border-2 py-1 px-4 focus:border-black focus:outline-none"
+      class="w-full rounded-l-lg border-2 bg-transparent py-1 px-4 focus:outline-none"
+      :class="
+        props.isScrolled || !props.isHomepage
+          ? 'focus:border-black'
+          : 'text-white'
+      "
       placeholder="Search for a movie, serie or person ..."
       type="text"
     />
@@ -62,13 +76,19 @@ onUnmounted(() => {
   <div class="ml-auto flex items-center space-x-4 sm:hidden">
     <button
       @click="expandSearchbar"
-      class="items-stretch rounded-full bg-red-700 px-2 py-2"
+      class="items-stretch rounded-full"
       :class="isExpanded ? 'hidden' : ''"
     >
-      <IconsSearch class="h-6 w-6 text-white"></IconsSearch>
+      <IconsSearch
+        class="h-6 w-6"
+        :class="props.isScrolled || !props.isHomepage ? '' : 'text-white'"
+      ></IconsSearch>
     </button>
     <button :class="isExpanded ? 'hidden' : ''">
-      <IconHamburgerMenu class="h-6 w-6"></IconHamburgerMenu>
+      <IconHamburgerMenu
+        class="h-6 w-6"
+        :class="props.isScrolled || !props.isHomepage ? '' : 'text-white'"
+      ></IconHamburgerMenu>
     </button>
   </div>
 </template>
