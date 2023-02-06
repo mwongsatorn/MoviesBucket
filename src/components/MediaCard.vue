@@ -2,23 +2,25 @@
 import { RouterLink } from "vue-router";
 
 interface Props {
-  id: string;
+  id: number;
   title: string;
   release_date: string;
   vote_average: number;
   poster_path: string;
+  media_type: string;
 }
 const props = withDefaults(defineProps<Props>(), {
-  id: "0",
+  id: 0,
   title: "Title",
-  release_date: "Release date",
+  release_date: "01/01/2023",
   vote_average: 0,
+  media_type: "movies",
 });
 </script>
 
 <template>
   <RouterLink
-    :to="`/movies/${props.id}`"
+    :to="`/${props.media_type}/${props.id}`"
     class="relative h-[375px] w-[250px] shrink-0 border-4 border-gray-200 shadow-black transition-transform hover:scale-105"
   >
     <img :src="`https://image.tmdb.org/t/p/w500/${poster_path}`" alt="" />
