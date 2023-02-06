@@ -5,7 +5,16 @@ import AppHeader from "./components/AppHeader.vue";
 
 <template>
   <AppHeader></AppHeader>
-  <RouterView></RouterView>
+  <RouterView v-slot="{ Component }">
+    <Suspense timeout="0">
+      <template #default>
+        <component :is="Component"></component>
+      </template>
+      <template #fallback>
+        <div>Loading from app</div>
+      </template>
+    </Suspense>
+  </RouterView>
 </template>
 
 <style></style>
