@@ -15,7 +15,7 @@ const { data: popularSeries } = getPopularMedia("tv");
       class="main-scrollbar flex snap-x snap-mandatory overflow-auto"
     >
       <div
-        v-for="media in trendingMedia?.results.slice(0, 11)"
+        v-for="media in trendingMedia?.results.slice(0, 7)"
         :key="media.id"
         class="relative h-[480px] w-full shrink-0 snap-start bg-black"
       >
@@ -53,7 +53,7 @@ const { data: popularSeries } = getPopularMedia("tv");
       <h1 class="px-4 text-2xl font-bold">Popular Movies</h1>
       <div class="main-scrollbar flex space-x-2 overflow-auto py-8 px-4">
         <MediaCard
-          v-for="movie in popularMovies?.results"
+          v-for="movie in popularMovies?.results.splice(0, 10)"
           :key="movie.id"
           :id="movie.id"
           :title="movie.title"
@@ -68,7 +68,7 @@ const { data: popularSeries } = getPopularMedia("tv");
       <h1 class="px-4 text-2xl font-bold">Popular Series</h1>
       <div class="main-scrollbar flex space-x-2 overflow-auto py-8 px-4">
         <MediaCard
-          v-for="serie in popularSeries?.results"
+          v-for="serie in popularSeries?.results.splice(0, 10)"
           :key="serie.id"
           :id="serie.id"
           :title="serie.name"
