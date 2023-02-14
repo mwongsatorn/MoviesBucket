@@ -5,7 +5,7 @@ import IconHamburgerMenu from "./Icons/IconHamburgerMenu.vue";
 import IconCross from "./Icons/IconCross.vue";
 
 interface Props {
-  isHomepage: boolean;
+  isSpecificPages: boolean;
   isScrolled: boolean;
 }
 const props = defineProps<Props>();
@@ -56,13 +56,13 @@ onUnmounted(() => {
     >
       <IconCross
         class="h-6 w-6"
-        :class="props.isScrolled || !props.isHomepage ? '' : 'text-white'"
+        :class="props.isScrolled || !props.isSpecificPages ? '' : 'text-white'"
       ></IconCross>
     </button>
     <input
       class="w-full rounded-l-lg border-2 bg-transparent py-1 px-4 focus:outline-none"
       :class="
-        props.isScrolled || !props.isHomepage
+        props.isScrolled || !props.isSpecificPages
           ? 'focus:border-black'
           : 'text-white'
       "
@@ -81,13 +81,13 @@ onUnmounted(() => {
     >
       <IconsSearch
         class="h-6 w-6"
-        :class="props.isScrolled || !props.isHomepage ? '' : 'text-white'"
+        :class="props.isScrolled || !props.isSpecificPages ? '' : 'text-white'"
       ></IconsSearch>
     </button>
     <button :class="isExpanded ? 'hidden' : ''">
       <IconHamburgerMenu
         class="h-6 w-6"
-        :class="props.isScrolled || !props.isHomepage ? '' : 'text-white'"
+        :class="props.isScrolled || !props.isSpecificPages ? '' : 'text-white'"
       ></IconHamburgerMenu>
     </button>
   </div>

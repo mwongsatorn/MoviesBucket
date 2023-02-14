@@ -7,8 +7,9 @@ const isSearchbarExpaned = ref(false);
 const isScrolled = ref(false);
 const route = useRoute();
 
-const isHomepage = computed(() => {
-  return route.path === "/";
+const isSpecificPages = computed(() => {
+  const specificPages = ["Home", "MovieDetails", "SerieDetails"];
+  return specificPages.includes(route.name as string);
 });
 
 function handleScroll() {
@@ -26,8 +27,11 @@ onUnmounted(() => {
 
 <template>
   <header
-    class="fixed z-50 w-full transition duration-300"
-    :class="isScrolled || !isHomepage ? 'bg-white shadow-lg' : ''"
+    class="top-0 z-50 w-full transition duration-300"
+    :class="[
+      isScrolled || !isSpecificPages ? 'bg-white shadow-lg' : '',
+      isSpecificPages ? 'fixed' : 'sticky',
+    ]"
   >
     <div class="mx-auto flex h-[56px] max-w-7xl items-center px-4">
       <div class="flex shrink-0 items-center space-x-8">
@@ -36,14 +40,14 @@ onUnmounted(() => {
         </RouterLink>
         <nav
           class="ml-auto hidden space-x-4 font-bold sm:flex"
-          :class="isScrolled || !isHomepage ? '' : 'text-white'"
+          :class="[isScrolled || !isSpecificPages ? '' : 'text-white']"
         >
           <RouterLink to="/movies">Movies</RouterLink>
           <RouterLink to="/series">Series</RouterLink>
         </nav>
       </div>
       <SearchBar
-        :is-homepage="isHomepage"
+        :is-specific-pages="isSpecificPages"
         :is-scrolled="isScrolled"
         @close-searchbar="isSearchbarExpaned = false"
         @expand-searchbar="isSearchbarExpaned = true"
