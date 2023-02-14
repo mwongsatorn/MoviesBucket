@@ -29,7 +29,7 @@ export function getMediaGenre(media: MediaType) {
 
 export function getMediaDetails(id: string, media: MediaType) {
   const { data, response, isLoading, error } = useFetch<MediaDetail>(
-    `${baseUrl}/${media}/${id}/?api_key=${TMDB_API_KEY}`
+    `${baseUrl}/${media}/${id}?api_key=${TMDB_API_KEY}`
   );
   return { data, response, isLoading, error };
 }
