@@ -27,16 +27,9 @@ export function getMediaGenre(media: MediaType) {
   return { data, response, isLoading, error };
 }
 
-export function getMovieDetail(id: string) {
+export function getMediaDetails(id: string, media: MediaType) {
   const { data, response, isLoading, error } = useFetch<MediaDetail>(
-    `${baseUrl}/movie/${id}/?api_key=${TMDB_API_KEY}`
-  );
-  return { data, response, isLoading, error };
-}
-
-export function getSerieDetail(id: string) {
-  const { data, response, isLoading, error } = useFetch<MediaDetail>(
-    `${baseUrl}/tv/${id}/?api_key=${TMDB_API_KEY}`
+    `${baseUrl}/${media}/${id}/?api_key=${TMDB_API_KEY}`
   );
   return { data, response, isLoading, error };
 }
