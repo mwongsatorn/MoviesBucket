@@ -40,7 +40,15 @@ const { data: popularSeries } = getPopularMedia("tv");
               {{ media.overview }}
             </div>
             <RouterLink
+              v-if="media.media_type === 'movie'"
               :to="`movies/${media.id}`"
+              class="w-fit rounded-lg border-2 border-white px-4 py-2 text-sm hover:border-transparent hover:bg-red-700"
+            >
+              More details
+            </RouterLink>
+            <RouterLink
+              v-else
+              :to="`series/${media.id}`"
               class="w-fit rounded-lg border-2 border-white px-4 py-2 text-sm hover:border-transparent hover:bg-red-700"
             >
               More details
