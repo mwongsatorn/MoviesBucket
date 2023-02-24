@@ -1,5 +1,5 @@
 import { useFetch } from "./fetch";
-import type { MediaType, PageResult, GenreResult, MediaDetail } from "@/types";
+import type { MediaType, PageResult, GenreResult, MediaDetails } from "@/types";
 
 const baseUrl = "https://api.themoviedb.org/3/";
 const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -28,7 +28,7 @@ export function getMediaGenre(media: MediaType) {
 }
 
 export function getMediaDetails(id: string, media: MediaType) {
-  const { data, response, isLoading, error } = useFetch<MediaDetail>(
+  const { data, response, isLoading, error } = useFetch<MediaDetails>(
     `${baseUrl}/${media}/${id}?api_key=${TMDB_API_KEY}`
   );
   return { data, response, isLoading, error };

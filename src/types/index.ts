@@ -2,7 +2,7 @@ export type MediaType = "movie" | "tv";
 
 export interface PageResult {
   page: number;
-  results: MediaDetail[];
+  results: MediaDetails[];
   total_pages: number;
   total_results: number;
 }
@@ -16,7 +16,7 @@ export interface ErrorResult {
   status_code: number;
 }
 
-export interface MediaDetail {
+export interface MediaDetails {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -28,7 +28,7 @@ export interface MediaDetail {
   poster_path: string;
   release_date?: string;
   first_air_date?: string;
-  title: string;
+  title?: string;
   name?: string;
   video: boolean;
   vote_average: number;
@@ -40,6 +40,7 @@ export interface MediaDetail {
   budget?: number;
   revenue?: number;
   status?: string;
+  tagline?: string;
   genres?: Genre[];
   production_companies?: any[];
   videos?: {
