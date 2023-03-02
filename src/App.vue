@@ -1,20 +1,17 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import AppHeader from "./components/AppHeader.vue";
+import AppFooter from "./components/AppFooter.vue";
 </script>
 
 <template>
-  <AppHeader></AppHeader>
-  <RouterView v-slot="{ Component }">
-    <Suspense timeout="0">
-      <template #default>
-        <component :is="Component"></component>
-      </template>
-      <template #fallback>
-        <div>Loading from app</div>
-      </template>
-    </Suspense>
-  </RouterView>
+  <div class="flex min-h-screen flex-col">
+    <AppHeader></AppHeader>
+    <RouterView v-slot="{ Component }">
+      <component :is="Component"></component>
+    </RouterView>
+    <AppFooter></AppFooter>
+  </div>
 </template>
 
 <style></style>
