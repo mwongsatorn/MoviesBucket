@@ -30,11 +30,14 @@ const { data: popularSeries } = getPopularMedia("tv");
           <div
             class="flex h-full w-full flex-col justify-end space-y-8 px-4 pb-12 text-white sm:w-[50%] sm:justify-center"
           >
-            <div v-if="media.title" class="text-2xl font-bold line-clamp-2">
-              {{ media.title }}
+            <div
+              v-if="media.media_type === 'movie'"
+              class="text-2xl font-bold line-clamp-2"
+            >
+              {{ media.title }} ({{ media?.release_date?.split("-")[0] }})
             </div>
             <div v-else class="text-2xl font-bold">
-              {{ media.name }}
+              {{ media.name }} ({{ media?.first_air_date?.split("-")[0] }})
             </div>
             <div class="text-sm line-clamp-3">
               {{ media.overview }}
@@ -42,14 +45,14 @@ const { data: popularSeries } = getPopularMedia("tv");
             <RouterLink
               v-if="media.media_type === 'movie'"
               :to="`movies/${media.id}`"
-              class="w-fit rounded-lg border-2 border-white px-4 py-2 text-sm hover:border-transparent hover:bg-red-700"
+              class="w-fit rounded-lg bg-rose-800 px-4 py-2 text-sm hover:bg-amber-500"
             >
               More details
             </RouterLink>
             <RouterLink
               v-else
               :to="`series/${media.id}`"
-              class="w-fit rounded-lg border-2 border-white px-4 py-2 text-sm hover:border-transparent hover:bg-red-700"
+              class="w-fit rounded-lg bg-rose-800 px-4 py-2 text-sm hover:bg-amber-500"
             >
               More details
             </RouterLink>
@@ -57,9 +60,9 @@ const { data: popularSeries } = getPopularMedia("tv");
         </div>
       </div>
     </section>
-    <section id="popular-movies" class="mx-auto max-w-7xl py-8">
-      <h1 class="px-4 text-2xl font-bold">Popular Movies</h1>
-      <div class="main-scrollbar flex space-x-2 overflow-auto py-8 px-4">
+    <section id="popular-movies" class="mx-auto my-8 max-w-7xl px-4">
+      <h1 class="text-2xl font-bold">Popular Movies</h1>
+      <div class="main-scrollbar flex space-x-2 overflow-auto py-6 px-1">
         <MediaCard
           v-for="movie in popularMovies?.results.splice(0, 10)"
           :key="movie.id"
@@ -72,9 +75,9 @@ const { data: popularSeries } = getPopularMedia("tv");
         />
       </div>
     </section>
-    <section id="popular-series" class="mx-auto max-w-7xl py-8">
-      <h1 class="px-4 text-2xl font-bold">Popular Series</h1>
-      <div class="main-scrollbar flex space-x-2 overflow-auto py-8 px-4">
+    <section id="popular-series" class="mx-auto my-8 max-w-7xl px-4">
+      <h1 class="text-2xl font-bold">Popular Series</h1>
+      <div class="main-scrollbar flex space-x-2 overflow-auto px-1 py-6">
         <MediaCard
           v-for="serie in popularSeries?.results.splice(0, 10)"
           :key="serie.id"
