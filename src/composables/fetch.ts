@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import type { Ref } from "vue";
 
-export function useFetch<T>(url: string) {
+export function useFetch<T>(url: string | URL) {
   const data = ref<T | null>(null) as Ref<T | null>;
   const response = ref<Response | null>(null);
   const isLoading = ref<boolean>(false);
