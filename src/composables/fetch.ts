@@ -1,13 +1,27 @@
-import { ref } from "vue";
-import type { Ref } from "vue";
+import { ref, shallowRef } from "vue";
+import type { Ref, ShallowRef } from "vue";
 
-export function useFetch<T>(url: string | URL) {
-  const data = ref<T | null>(null) as Ref<T | null>;
-  const response = ref<Response | null>(null);
+interface useFetchReturn<T> {
+  data: ShallowRef<T | null>;
+  response: ShallowRef<Response | null>;
+  isLoading: Ref<boolean>;
+  error: Ref<any>;
+}
+
+interface useFetchReturnWithExecute<T> extends useFetchReturn<T> {
+  execute: () => Promise<useFetchReturn<T>>;
+}
+
+export function useFetch<T>(
+  url: string | URL,
+  immediate = false
+): useFetchReturnWithExecute<T> & PromiseLike<useFetchReturn<T>> {
+  const data = shallowRef<T | null>(null);
+  const response = shallowRef<Response | null>(null);
   const isLoading = ref<boolean>(false);
-  const error = ref<any>(null) as Ref<any>;
+  const error = shallowRef<any>(null);
 
-  async function execute() {
+  async function execute(): Promise<useFetchReturn<T>> {
     try {
       isLoading.value = true;
       const res = await fetch(url);
@@ -17,12 +31,23 @@ export function useFetch<T>(url: string | URL) {
       data.value = result;
     } catch (e) {
       error.value = e;
+      throw error;
     } finally {
       isLoading.value = false;
     }
+    return { data, response, isLoading, error };
   }
 
-  execute();
+  immediate && execute();
 
-  return { data, response, isLoading, error, execute };
+  return {
+    data,
+    response,
+    isLoading,
+    error,
+    execute,
+    then(onFulfilled, onRejected) {
+      return execute().then(onFulfilled, onRejected);
+    },
+  };
 }
