@@ -95,8 +95,8 @@ export interface Person {
   biography?: string;
   external_ids?: ExternalIds;
   combined_credits?: {
-    cast?: MediaDetail[];
-    crew?: MediaDetail[];
+    cast?: MediaDetails[];
+    crew?: MediaDetails[];
   };
   images?: {
     profiles: Image[];
