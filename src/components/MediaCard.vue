@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import { vLazy } from "@/directives/lazy";
+import IconMediaPlaceholder from "./Icons/IconMediaPlaceholder.vue";
 
 interface Props {
   id: number;
@@ -31,6 +32,12 @@ const props = withDefaults(defineProps<Props>(), {
       :data-src="`https://image.tmdb.org/t/p/w500/${poster_path}`"
       alt=""
     />
+    <div
+      v-else
+      class="flex h-full w-full items-center justify-center bg-gray-400"
+    >
+      <IconMediaPlaceholder class="h-20 w-20 font-bold text-white" />
+    </div>
     <div
       class="absolute top-2 left-2 border-2 bg-red-800 px-2 py-1 text-xs font-bold text-white"
     >
