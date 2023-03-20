@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
+import { vLazy } from "@/directives/lazy";
 
 interface Props {
   id: number;
@@ -23,7 +24,13 @@ const props = withDefaults(defineProps<Props>(), {
     :to="`/${props.media_type}/${props.id}`"
     class="relative h-[375px] w-[250px] shrink-0 border-4 border-gray-200 shadow-black transition-transform hover:scale-105"
   >
-    <img :src="`https://image.tmdb.org/t/p/w500/${poster_path}`" alt="" />
+    <img
+      v-lazy
+      v-if="poster_path"
+      class="opacity-0 transition duration-500"
+      :data-src="`https://image.tmdb.org/t/p/w500/${poster_path}`"
+      alt=""
+    />
     <div
       class="absolute top-2 left-2 border-2 bg-red-800 px-2 py-1 text-xs font-bold text-white"
     >
