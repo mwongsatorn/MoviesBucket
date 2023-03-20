@@ -3,9 +3,16 @@ import { getPopularMedia, getTrendingMedia } from "@/composables/tmdb";
 import MediaCard from "@/components/MediaCard.vue";
 import { RouterLink } from "vue-router";
 
-const { data: trendingMedia } = getTrendingMedia("all", "week");
-const { data: popularMovies } = getPopularMedia("movie");
-const { data: popularSeries } = getPopularMedia("tv");
+const [trendingMediaResult, popularMoviesResult, popularSeriesResult] =
+  await Promise.all([
+    getTrendingMedia("all", "week"),
+    getPopularMedia("movie"),
+    getPopularMedia("tv"),
+  ]);
+
+const { data: trendingMedia } = trendingMediaResult;
+const { data: popularMovies } = popularMoviesResult;
+const { data: popularSeries } = popularSeriesResult;
 </script>
 
 <template>
