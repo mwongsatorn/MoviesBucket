@@ -26,7 +26,7 @@ onErrorCaptured((e) => {
       >
         <Suspense timeout="0">
           <template #default>
-            <component :is="Component"></component>
+            <component :is="Component" :key="$route.params"></component>
           </template>
           <template #fallback>
             <div>
