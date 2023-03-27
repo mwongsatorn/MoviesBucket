@@ -54,6 +54,10 @@ export interface MediaDetails {
     backdrops: Image[];
     posters: Image[];
   };
+  recommendations?: {
+    page: number;
+    results: MediaDetails[];
+  };
   external_ids?: ExternalIds;
 }
 
@@ -85,11 +89,28 @@ export interface Person {
   cast_id?: number;
   job?: string;
   character?: string;
-  credit_id: string;
+  credit_id?: string;
   order: number;
+  //aggregate credits
+  roles?: [
+    {
+      credit_id: string;
+      character: string;
+      episode_count: number;
+    }
+  ];
+  jobs?: [
+    {
+      credit_id: string;
+      job: string;
+      episode_count: number;
+    }
+  ];
+  total_episode_count: number;
   // details
   also_known_as?: string[];
   birthday?: string;
+  deathday?: string;
   place_of_birth?: string;
   homepage?: string;
   biography?: string;
