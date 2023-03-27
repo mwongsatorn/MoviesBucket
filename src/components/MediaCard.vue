@@ -23,18 +23,18 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
   <RouterLink
     :to="`/${props.media_type}/${props.id}`"
-    class="relative h-[375px] w-[250px] shrink-0 border-4 border-gray-200 shadow-black transition-transform hover:scale-105"
+    class="relative shrink-0 border-4 border-gray-200 bg-gray-200 shadow-black transition-transform duration-500 hover:scale-105"
   >
     <img
       v-lazy
       v-if="poster_path"
-      class="opacity-0 transition duration-500"
+      class="aspect-[2/3] w-[250px] opacity-0 transition duration-500"
       :data-src="`https://image.tmdb.org/t/p/w500/${poster_path}`"
       alt=""
     />
     <div
       v-else
-      class="flex h-full w-full items-center justify-center bg-gray-400"
+      class="flex aspect-[2/3] w-[250px] items-center justify-center bg-gray-400"
     >
       <IconMediaPlaceholder class="h-20 w-20 font-bold text-white" />
     </div>
