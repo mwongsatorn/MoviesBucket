@@ -24,7 +24,7 @@ const { data: popularSeries } = popularSeriesResult;
       <div
         v-for="media in trendingMedia?.results.slice(0, 7)"
         :key="media.id"
-        class="relative h-[480px] w-full shrink-0 snap-start bg-black"
+        class="relative h-[520px] w-full shrink-0 snap-start bg-black"
       >
         <img
           class="absolute top-0 right-0 h-[50%] w-full object-cover sm:h-full sm:w-[50%]"
