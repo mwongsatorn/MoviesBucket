@@ -60,7 +60,7 @@ onUnmounted(() => {
       ></IconCross>
     </button>
     <input
-      class="w-full rounded-l-lg border-2 bg-transparent py-1 px-4 focus:outline-none"
+      class="w-full rounded-l-lg border-2 bg-transparent px-4 py-1 focus:outline-none"
       :class="
         props.isScrolled || !props.isSpecificPages
           ? 'focus:border-black'

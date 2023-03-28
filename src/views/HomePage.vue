@@ -27,7 +27,7 @@ const { data: popularSeries } = popularSeriesResult;
         class="relative h-[520px] w-full shrink-0 snap-start bg-black"
       >
         <img
-          class="absolute top-0 right-0 h-[50%] w-full object-cover sm:h-full sm:w-[50%]"
+          class="absolute right-0 top-0 h-[50%] w-full object-cover sm:h-full sm:w-[50%]"
           :src="`https://image.tmdb.org/t/p/w1280/${media.backdrop_path}`"
           alt=""
         />
@@ -39,14 +39,14 @@ const { data: popularSeries } = popularSeriesResult;
           >
             <div
               v-if="media.media_type === 'movie'"
-              class="text-2xl font-bold line-clamp-2"
+              class="line-clamp-2 text-2xl font-bold"
             >
               {{ media.title }} ({{ media?.release_date?.split("-")[0] }})
             </div>
             <div v-else class="text-2xl font-bold">
               {{ media.name }} ({{ media?.first_air_date?.split("-")[0] }})
             </div>
-            <div class="text-sm line-clamp-3">
+            <div class="line-clamp-3 text-sm">
               {{ media.overview }}
             </div>
             <RouterLink
@@ -69,7 +69,7 @@ const { data: popularSeries } = popularSeriesResult;
     </section>
     <section id="popular-movies" class="mx-auto my-8 max-w-7xl px-4">
       <h1 class="text-2xl font-bold">Popular Movies</h1>
-      <div class="main-scrollbar flex space-x-2 overflow-auto py-6 px-1">
+      <div class="main-scrollbar flex space-x-2 overflow-auto px-1 py-6">
         <MediaCard
           v-for="movie in popularMovies?.results.splice(0, 10)"
           :key="movie.id"

@@ -33,6 +33,6 @@ console.log(props.id);
       <IconPerson class="h-20 w-20 text-white" />
     </div>
     <p class="px-2">{{ props.name }}</p>
-    <p class="px-2 text-sm text-gray-400 line-clamp-1">{{ props.character }}</p>
+    <p class="line-clamp-1 px-2 text-sm text-gray-400">{{ props.character }}</p>
   </RouterLink>
 </template>

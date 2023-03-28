@@ -39,7 +39,7 @@ const props = withDefaults(defineProps<Props>(), {
       <IconMediaPlaceholder class="h-20 w-20 font-bold text-white" />
     </div>
     <div
-      class="absolute top-2 left-2 border-2 bg-red-800 px-2 py-1 text-xs font-bold text-white"
+      class="absolute left-2 top-2 border-2 bg-red-800 px-2 py-1 text-xs font-bold text-white"
     >
       {{ props.vote_average }} / 10
     </div>
