@@ -10,8 +10,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
-console.log(props.id);
 </script>
 
 <template>
