@@ -34,7 +34,7 @@ export function getMediaDetails(id: string, media: MediaType) {
   const url = createUrl(`${media}/${id}`, {
     api_key: TMDB_API_KEY,
     append_to_response:
-      "videos,credits,aggregate_credits,images,external_ids,release_dates,recommendations",
+      "videos,credits,aggregate_credits,images,external_ids,release_dates,recommendations,keywords",
   });
   return useFetch<MediaDetails>(url);
 }
