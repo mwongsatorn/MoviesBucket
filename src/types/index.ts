@@ -81,7 +81,7 @@ export interface MovieDetails extends ShortMovieDetails {
       }
     ];
   };
-  recommendations: PageResult<ShortSerieDetails>;
+  recommendations: PageResult<ShortMovieDetails>;
 }
 
 export interface ShortSerieDetails {
