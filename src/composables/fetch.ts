@@ -1,32 +1,34 @@
 import { ref, shallowRef } from "vue";
 import type { Ref, ShallowRef } from "vue";
 
-interface useFetchReturn<T> {
-  data: ShallowRef<T | null>;
+interface useFetchReturn<ReturnData> {
+  data: ShallowRef<ReturnData | null>;
   response: ShallowRef<Response | null>;
   isLoading: Ref<boolean>;
   error: Ref<any>;
 }
 
-interface useFetchReturnWithExecute<T> extends useFetchReturn<T> {
-  execute: () => Promise<useFetchReturn<T>>;
+interface useFetchReturnWithExecute<ReturnData>
+  extends useFetchReturn<ReturnData> {
+  execute: () => Promise<useFetchReturn<ReturnData>>;
 }
 
-export function useFetch<T>(
+export function useFetch<ReturnData>(
   url: string | URL,
   immediate = false
-): useFetchReturnWithExecute<T> & PromiseLike<useFetchReturn<T>> {
-  const data = shallowRef<T | null>(null);
+): useFetchReturnWithExecute<ReturnData> &
+  PromiseLike<useFetchReturn<ReturnData>> {
+  const data = shallowRef<ReturnData | null>(null);
   const response = shallowRef<Response | null>(null);
   const isLoading = ref<boolean>(false);
   const error = shallowRef<any>(null);
 
-  async function execute(): Promise<useFetchReturn<T>> {
+  async function execute(): Promise<useFetchReturn<ReturnData>> {
     try {
       isLoading.value = true;
       const res = await fetch(url);
       response.value = res;
-      const result: T = await res.json();
+      const result: ReturnData = await res.json();
       if (!res.ok) throw result;
       data.value = result;
     } catch (e) {
