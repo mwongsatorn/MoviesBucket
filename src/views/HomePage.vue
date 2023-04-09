@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { RouterLink } from "vue-router";
 import { getPopularMedia, getTrendingMedia } from "@/composables/tmdb";
 import MediaCard from "@/components/MediaCard.vue";
-import { RouterLink } from "vue-router";
+import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
 
 const [trendingMediaResult, popularMoviesResult, popularSeriesResult] =
   await Promise.all([
@@ -13,6 +14,20 @@ const [trendingMediaResult, popularMoviesResult, popularSeriesResult] =
 const { data: trendingMedia } = trendingMediaResult;
 const { data: popularMovies } = popularMoviesResult;
 const { data: popularSeries } = popularSeriesResult;
+
+function mediaTitle(media: ShortMovieDetails | ShortSerieDetails) {
+  return "title" in media ? media.title : media.name;
+}
+
+function mediaReleaseYear(media: ShortMovieDetails | ShortSerieDetails) {
+  return "release_date" in media
+    ? media.release_date.split("-", 1)[0]
+    : media.first_air_date.split("-", 1)[0];
+}
+
+function mediaEndpointType(media: ShortMovieDetails | ShortSerieDetails) {
+  return media.media_type === "movie" ? "movies" : "series";
+}
 </script>
 
 <template>
@@ -37,28 +52,14 @@ const { data: popularSeries } = popularSeriesResult;
           <div
             class="flex h-full w-full flex-col justify-end space-y-8 px-4 pb-12 text-white sm:w-[50%] sm:justify-center"
           >
-            <div
-              v-if="media.media_type === 'movie'"
-              class="line-clamp-2 text-2xl font-bold"
-            >
-              {{ media.title }} ({{ media?.release_date?.split("-")[0] }})
-            </div>
-            <div v-else class="text-2xl font-bold">
-              {{ media.name }} ({{ media?.first_air_date?.split("-")[0] }})
+            <div class="line-clamp-2 text-2xl font-bold">
+              {{ mediaTitle(media) }} ({{ mediaReleaseYear(media) }})
             </div>
             <div class="line-clamp-3 text-sm">
               {{ media.overview }}
             </div>
             <RouterLink
-              v-if="media.media_type === 'movie'"
-              :to="`movies/${media.id}`"
-              class="w-fit rounded-lg bg-rose-800 px-4 py-2 text-sm hover:bg-amber-500"
-            >
-              More details
-            </RouterLink>
-            <RouterLink
-              v-else
-              :to="`series/${media.id}`"
+              :to="`${mediaEndpointType(media)}/${media.id}`"
               class="w-fit rounded-lg bg-rose-800 px-4 py-2 text-sm hover:bg-amber-500"
             >
               More details
