@@ -8,22 +8,16 @@ interface Props {
   title: string;
   release_date: string;
   vote_average: number;
-  poster_path: string;
+  poster_path: string | null;
   media_type: string;
 }
-const props = withDefaults(defineProps<Props>(), {
-  id: 0,
-  title: "Title",
-  release_date: "01/01/2023",
-  vote_average: 0,
-  media_type: "movies",
-});
+const props = defineProps<Props>();
 </script>
 
 <template>
   <RouterLink
     :to="`/${props.media_type}/${props.id}`"
-    class="relative shrink-0 border-4 border-gray-200 bg-gray-200 shadow-black transition-transform duration-500 hover:scale-105"
+    class="relative shrink-0 bg-gray-200 shadow-black transition-transform duration-500 hover:scale-105"
   >
     <img
       v-lazy

@@ -4,7 +4,7 @@ import IconPerson from "./Icons/IconPerson.vue";
 
 interface Props {
   id: number;
-  profile_path: string;
+  profile_path: string | null;
   name: string;
   character: string | undefined;
 }
@@ -15,7 +15,7 @@ const props = defineProps<Props>();
 <template>
   <RouterLink
     :to="`/people/${props.id}`"
-    class="relative w-[185px] shrink-0 space-y-1 shadow-lg transition-transform duration-300 hover:scale-105"
+    class="relative w-[185px] shrink-0 space-y-1 overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
   >
     <img
       v-lazy
