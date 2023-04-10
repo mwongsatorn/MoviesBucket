@@ -1,26 +1,38 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import PersonCard from "@/components/PersonCard.vue";
+import CreditsSection from "@/components/MediaDetailPages/DetailsSection/CreditsSection.vue";
+import EpisodesSection from "@/components/MediaDetailPages/DetailsSection/EpisodesSection.vue";
+import ImagesSection from "@/components/MediaDetailPages/DetailsSection/ImagesSection.vue";
+import VideosSection from "@/components/MediaDetailPages/DetailsSection/VideosSection.vue";
 import type { CreditsCastDetails } from "@/types";
 
 interface Props {
   cast: CreditsCastDetails[] | undefined;
 }
 
+const activeTab = ref<string>("Credits");
+const sectionTabs: Record<string, any> = {
+  Credits: CreditsSection,
+  Episodes: EpisodesSection,
+  Images: ImagesSection,
+  Videos: VideosSection,
+};
+
 const props = defineProps<Props>();
 </script>
 
 <template>
-  <section id="cast" class="my-8 px-4">
-    <h1 class="text-2xl font-bold">Cast</h1>
-    <div class="main-scrollbar flex space-x-2 overflow-auto px-1 py-6">
-      <PersonCard
-        v-for="person in props.cast"
-        :key="person.id"
-        :name="person.name"
-        :id="person.id"
-        :profile_path="person.profile_path"
-        :character="person.character"
-      />
-    </div>
-  </section>
+  <div class="flex flex-wrap place-items-center font-bold">
+    <button
+      v-for="(_, tab) in sectionTabs"
+      :key="tab"
+      @click="activeTab = tab"
+      class="w-1/3 px-4 py-4 text-center uppercase sm:w-1/4"
+      :class="[activeTab === tab ? 'bg-rose-800 text-white' : '']"
+    >
+      {{ tab }}
+    </button>
+  </div>
+  <component :is="sectionTabs[activeTab]"></component>
 </template>
