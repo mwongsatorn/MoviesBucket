@@ -52,10 +52,10 @@ function mediaEndpointType(media: ShortMovieDetails | ShortSerieDetails) {
           <div
             class="flex h-full w-full flex-col justify-end space-y-8 px-4 pb-12 text-white sm:w-[50%] sm:justify-center"
           >
-            <div class="line-clamp-2 text-2xl font-bold">
+            <div class="line-clamp-1 text-2xl font-bold">
               {{ mediaTitle(media) }} ({{ mediaReleaseYear(media) }})
             </div>
-            <div class="line-clamp-3 text-sm">
+            <div class="line-clamp-3">
               {{ media.overview }}
             </div>
             <RouterLink
