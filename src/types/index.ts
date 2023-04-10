@@ -72,7 +72,7 @@ export interface MovieDetails extends ShortMovieDetails {
     cast: CreditsCastDetails[];
     crew: CreditsCrewDetails[];
   };
-  external_ids: SerieAndPersonExternalIds;
+  external_ids: MovieExternalIds;
   keywords: {
     keywords: [
       {
