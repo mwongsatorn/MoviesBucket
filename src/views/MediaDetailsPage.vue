@@ -218,28 +218,28 @@ const mediaOriginalLang = computed(() => {
               :href="`https://www.imdb.com/title/${mediaDetails?.external_ids?.imdb_id}`"
               target="_blank"
             >
-              <IconImdb class="h-6 w-6" />
+              <IconImdb class="h-6 w-6 duration-300 hover:text-rose-800" />
             </a>
             <a
               v-if="mediaDetails?.external_ids?.facebook_id"
               :href="`https://www.facebook.com/${mediaDetails?.external_ids?.facebook_id}`"
               target="_blank"
             >
-              <IconFacebook class="h-6 w-6" />
+              <IconFacebook class="h-6 w-6 duration-300 hover:text-rose-800" />
             </a>
             <a
               v-if="mediaDetails?.external_ids?.twitter_id"
               :href="`https://twitter.com/${mediaDetails?.external_ids?.twitter_id}`"
               target="_blank"
             >
-              <IconTwitter class="h-6 w-6" />
+              <IconTwitter class="h-6 w-6 duration-300 hover:text-rose-800" />
             </a>
             <a
               v-if="mediaDetails?.external_ids?.twitter_id"
               :href="`https://www.instagram.com/${mediaDetails?.external_ids?.instagram_id}`"
               target="_blank"
             >
-              <IconInstagram class="h-6 w-6" />
+              <IconInstagram class="h-6 w-6 duration-300 hover:text-rose-800" />
             </a>
           </div>
           <p class="text-sm italic" v-else>No external sources</p>
