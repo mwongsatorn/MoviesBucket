@@ -240,7 +240,7 @@ export interface AggregateCreditsCastDetails extends ShortPersonDetails {
   roles: [
     {
       credit_id: string;
-      characater: string;
+      character: string;
       episode_count: number;
     }
   ];
