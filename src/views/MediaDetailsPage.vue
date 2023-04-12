@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, provide } from "vue";
 import { useRoute, RouterLink } from "vue-router";
 import { getMediaDetails } from "../composables/tmdb";
 
@@ -73,6 +73,15 @@ const mediaKeywords = computed(() => {
     ? mediaDetails.value.keywords.keywords
     : mediaDetails.value.keywords.results;
 });
+
+const mediaCredits = computed(() => {
+  if (!mediaDetails.value) return null;
+  return "aggregate_credits" in mediaDetails.value
+    ? mediaDetails.value.aggregate_credits
+    : mediaDetails.value.credits;
+});
+
+provide("credits", mediaCredits);
 </script>
 
 <template>
