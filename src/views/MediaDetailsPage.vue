@@ -4,8 +4,8 @@ import { useRoute, RouterLink } from "vue-router";
 import { getMediaDetails } from "../composables/tmdb";
 
 import MediaCard from "@/components/MediaCard.vue";
-import DetailsSection from "@/components/MediaDetailPages/DetailsSection.vue";
-import MoreDetailsSection from "@/components/MediaDetailPages/MoreDetailsSection.vue";
+import MediaDetails from "@/components/MediaDetails.vue";
+import MediaMoreDetails from "@/components/MediaMoreDetails.vue";
 
 const route = useRoute();
 
@@ -82,6 +82,7 @@ const mediaCredits = computed(() => {
 });
 
 provide("credits", mediaCredits);
+provide("images", mediaDetails.value?.images);
 </script>
 
 <template>
@@ -136,7 +137,7 @@ provide("credits", mediaCredits);
     </section>
     <div class="mx-auto grid max-w-7xl md:grid-cols-[1fr_240px]">
       <div class="overflow-hidden">
-        <DetailsSection :cast="mediaDetails?.credits.cast" />
+        <MediaDetails />
         <section id="recommendation-media" class="my-8 overflow-hidden px-4">
           <h1 class="text-2xl font-bold">Recommendations</h1>
           <div class="main-scrollbar flex space-x-2 overflow-auto px-1 py-6">
@@ -157,7 +158,7 @@ provide("credits", mediaCredits);
           </div>
         </section>
       </div>
-      <MoreDetailsSection
+      <MediaMoreDetails
         :keywords="mediaKeywords"
         :homepage="mediaDetails?.homepage"
         :original_language="mediaDetails?.original_language"
