@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, inject } from "vue";
 import PersonCard from "@/components/PersonCard.vue";
-import IconPerson from "@/components/Icons/IconPerson.vue";
+import PersonCreditItem from "./PersonCreditItem.vue";
 import type {
   CreditsCastDetails,
   CreditsCrewDetails,
@@ -18,14 +18,40 @@ const credits = inject<Inject>("credits");
 
 const activeSection = ref("short-cast");
 
-function personCharacter(
+function personCastProps(
   person: CreditsCastDetails | AggregateCreditsCastDetails
 ) {
-  return "roles" in person ? person.roles[0].character : person.character;
+  return "roles" in person
+    ? {
+        id: person.id,
+        name: person.name,
+        profile_path: person.profile_path,
+        character: person.roles[0].character,
+      }
+    : {
+        id: person.id,
+        name: person.name,
+        profile_path: person.profile_path,
+        character: person.character,
+      };
 }
 
-function personJob(person: CreditsCrewDetails | AggregateCreditsCrewDetails) {
-  return "jobs" in person ? person.jobs[0].job : person.job;
+function personCrewProps(
+  person: CreditsCrewDetails | AggregateCreditsCrewDetails
+) {
+  return "jobs" in person
+    ? {
+        id: person.id,
+        name: person.name,
+        profile_path: person.profile_path,
+        job: person.jobs[0].job,
+      }
+    : {
+        id: person.id,
+        name: person.name,
+        profile_path: person.profile_path,
+        job: person.job,
+      };
 }
 </script>
 
@@ -48,10 +74,7 @@ function personJob(person: CreditsCrewDetails | AggregateCreditsCrewDetails) {
       <PersonCard
         v-for="person in credits!.cast.slice(0, 10)"
         :key="person.id"
-        :name="person.name"
-        :id="person.id"
-        :profile_path="person.profile_path"
-        :character="personCharacter(person)"
+        v-bind="personCastProps(person)"
       />
     </div>
   </section>
@@ -60,65 +83,30 @@ function personJob(person: CreditsCrewDetails | AggregateCreditsCrewDetails) {
     id="full-credits"
     class="my-8 px-4"
   >
-    <div class="my-8">
-      <div class="flex items-center gap-x-4">
-        <h1 class="text-2xl font-bold">Cast ({{ credits?.cast.length }})</h1>
-        <button
-          @click="activeSection = 'short-cast'"
-          class="font-bold text-rose-800"
-        >
-          Back to the main cast
-        </button>
-      </div>
-      <div class="grid grid-cols-1 gap-x-2 gap-y-4 px-1 py-6 sm:grid-cols-2">
-        <div
-          v-for="person in credits?.cast"
-          :key="person.id"
-          class="flex gap-x-4"
-        >
-          <img
-            v-if="person.profile_path"
-            class="aspect-square w-[75px] object-cover object-center"
-            :src="`https://image.tmdb.org/t/p/w185/${person.profile_path}`"
-            alt=""
-          />
-          <div
-            v-else
-            class="flex aspect-square w-[75px] items-center justify-center bg-gray-400"
-          >
-            <IconPerson class="h-12 w-12 text-white" />
-          </div>
-          <div>
-            <p class="font-bold">{{ person.name }}</p>
-            <p class="text-sm text-gray-500">{{ personCharacter(person) }}</p>
-          </div>
-        </div>
-      </div>
+    <div class="flex items-center gap-x-4">
+      <h1 class="text-2xl font-bold">Cast ({{ credits?.cast.length }})</h1>
+      <button
+        @click="activeSection = 'short-cast'"
+        class="font-bold text-rose-800"
+      >
+        Back to the main cast
+      </button>
     </div>
+    <div class="grid grid-cols-1 gap-x-2 gap-y-4 px-1 py-6 sm:grid-cols-2">
+      <PersonCreditItem
+        v-for="person in credits?.cast"
+        :key="person.id"
+        v-bind="personCastProps(person)"
+      />
+    </div>
+
     <h1 class="text-2xl font-bold">Crew ({{ credits?.crew.length }})</h1>
     <div class="grid grid-cols-1 gap-x-2 gap-y-3 px-1 py-6 sm:grid-cols-2">
-      <div
+      <PersonCreditItem
         v-for="person in credits?.crew"
         :key="person.id"
-        class="flex gap-x-4"
-      >
-        <img
-          v-if="person.profile_path"
-          class="aspect-square w-[75px] object-cover object-center"
-          :src="`https://image.tmdb.org/t/p/w185/${person.profile_path}`"
-          alt=""
-        />
-        <div
-          v-else
-          class="flex aspect-square w-[75px] items-center justify-center bg-gray-400"
-        >
-          <IconPerson class="h-12 w-12 text-white" />
-        </div>
-        <div>
-          <p class="font-bold">{{ person.name }}</p>
-          <p class="text-sm text-gray-500">{{ personJob(person) }}</p>
-        </div>
-      </div>
+        v-bind="personCrewProps(person)"
+      />
     </div>
   </section>
 </template>
