@@ -1,20 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRoute } from "vue-router";
-import CreditsSection from "@/components/MediaDetailPages/DetailsSection/CreditsSection.vue";
-import EpisodesSection from "@/components/MediaDetailPages/DetailsSection/EpisodesSection.vue";
-import ImagesSection from "@/components/MediaDetailPages/DetailsSection/ImagesSection.vue";
-import VideosSection from "@/components/MediaDetailPages/DetailsSection/VideosSection.vue";
+import MediaCredits from "@/components/MediaCredits.vue";
 
 const route = useRoute();
 const mediaType = route.name === "MovieDetails" ? "movie" : "serie";
 
 const activeTab = ref<string>("Credits");
 const sectionTabs: Record<string, any> = {
-  Credits: CreditsSection,
-  ...(mediaType === "serie" && { Episodes: EpisodesSection }),
-  Images: ImagesSection,
-  Videos: VideosSection,
+  Credits: MediaCredits,
 };
 </script>
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, inject } from "vue";
 import PersonCard from "@/components/PersonCard.vue";
-import PersonCreditItem from "./PersonCreditItem.vue";
+import PersonCreditItem from "@/components/PersonCreditItem.vue";
 import type {
   CreditsCastDetails,
   CreditsCrewDetails,
