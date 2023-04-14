@@ -5,6 +5,7 @@ import { getMediaDetails } from "../composables/tmdb";
 
 import MediaCard from "@/components/MediaCard.vue";
 import MediaDetails from "@/components/MediaDetails.vue";
+import MediaCarousel from "@/components/MediaCarousel.vue";
 import MediaMoreDetails from "@/components/MediaMoreDetails.vue";
 
 const route = useRoute();
@@ -138,25 +139,25 @@ provide("images", mediaDetails.value?.images);
     <div class="mx-auto grid max-w-7xl md:grid-cols-[1fr_240px]">
       <div class="overflow-hidden">
         <MediaDetails />
-        <section id="recommendation-media" class="my-8 overflow-hidden px-4">
-          <h1 class="text-2xl font-bold">Recommendations</h1>
-          <div class="main-scrollbar flex space-x-2 overflow-auto px-1 py-6">
-            <MediaCard
-              v-for="media in mediaRecommendationList"
-              :key="media.id"
-              :id="media.id"
-              :release_date="
-                'release_date' in media
-                  ? media.release_date
-                  : media.first_air_date
-              "
-              :vote_average="media.vote_average"
-              :media_type="mediaEndpointType"
-              :poster_path="media.poster_path"
-              :title="'title' in media ? media.title : media.name"
-            />
-          </div>
-        </section>
+        <MediaCarousel
+          section-name="recommendations"
+          header-title="Recommendations"
+        >
+          <MediaCard
+            v-for="media in mediaRecommendationList"
+            :key="media.id"
+            :id="media.id"
+            :release_date="
+              'release_date' in media
+                ? media.release_date
+                : media.first_air_date
+            "
+            :vote_average="media.vote_average"
+            :media_type="mediaEndpointType"
+            :poster_path="media.poster_path"
+            :title="'title' in media ? media.title : media.name"
+          />
+        </MediaCarousel>
       </div>
       <MediaMoreDetails
         :keywords="mediaKeywords"
