@@ -7,11 +7,11 @@ import MediaCard from "@/components/MediaCard.vue";
 import MediaDetails from "@/components/MediaDetails.vue";
 import MediaCarousel from "@/components/MediaCarousel.vue";
 import MediaMoreDetails from "@/components/MediaMoreDetails.vue";
+import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
 
 const route = useRoute();
 
 const mediaType = route.name === "MovieDetails" ? "movie" : "tv";
-const mediaEndpointType = route.name === "MovieDetails" ? "movies" : "series";
 
 const { data: mediaDetails } = await getMediaDetails(
   route.params.id as string,
@@ -82,6 +82,30 @@ const mediaCredits = computed(() => {
     : mediaDetails.value.credits;
 });
 
+function mediaCardProps(media: ShortMovieDetails | ShortSerieDetails) {
+  return {
+    id: media.id,
+    title: "title" in media ? media.title : media.name,
+    vote_average: media.vote_average,
+    release_date:
+      "release_date" in media ? media.release_date : media.first_air_date,
+    poster_path: media.poster_path,
+    media_type: "title" in media ? "movies" : "series",
+  };
+}
+
+function mediaMoreDetailsProps() {
+  return {
+    keywords: mediaKeywords.value,
+    homepage: mediaDetails.value!.homepage,
+    original_language: mediaDetails.value!.original_language,
+    status: mediaDetails.value!.status,
+    budget: mediaBudget.value,
+    revenue: mediaRevenue.value,
+    external_ids: mediaDetails.value!.external_ids,
+  };
+}
+
 provide("credits", mediaCredits);
 provide("images", mediaDetails.value?.images);
 </script>
@@ -145,29 +169,12 @@ provide("images", mediaDetails.value?.images);
         >
           <MediaCard
             v-for="media in mediaRecommendationList"
+            v-bind="mediaCardProps(media)"
             :key="media.id"
-            :id="media.id"
-            :release_date="
-              'release_date' in media
-                ? media.release_date
-                : media.first_air_date
-            "
-            :vote_average="media.vote_average"
-            :media_type="mediaEndpointType"
-            :poster_path="media.poster_path"
-            :title="'title' in media ? media.title : media.name"
           />
         </MediaCarousel>
       </div>
-      <MediaMoreDetails
-        :keywords="mediaKeywords"
-        :homepage="mediaDetails?.homepage"
-        :original_language="mediaDetails?.original_language"
-        :status="mediaDetails?.status"
-        :budget="mediaBudget"
-        :revenue="mediaRevenue"
-        :external_ids="mediaDetails?.external_ids"
-      />
+      <MediaMoreDetails v-bind="mediaMoreDetailsProps()" />
     </div>
   </main>
 </template>
