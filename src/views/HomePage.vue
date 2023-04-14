@@ -28,6 +28,26 @@ function mediaReleaseYear(media: ShortMovieDetails | ShortSerieDetails) {
 function mediaEndpointType(media: ShortMovieDetails | ShortSerieDetails) {
   return media.media_type === "movie" ? "movies" : "series";
 }
+
+function mediaCardProps(media: ShortMovieDetails | ShortSerieDetails) {
+  return "title" in media
+    ? {
+        id: media.id,
+        title: media.title,
+        vote_average: media.vote_average,
+        release_date: media.release_date,
+        poster_path: media.poster_path,
+        media_type: "movies",
+      }
+    : {
+        id: media.id,
+        title: media.name,
+        vote_average: media.vote_average,
+        release_date: media.first_air_date,
+        poster_path: media.poster_path,
+        media_type: "series",
+      };
+}
 </script>
 
 <template>
@@ -72,14 +92,9 @@ function mediaEndpointType(media: ShortMovieDetails | ShortSerieDetails) {
       <h1 class="text-2xl font-bold">Popular Movies</h1>
       <div class="main-scrollbar flex space-x-2 overflow-auto px-1 py-6">
         <MediaCard
-          v-for="movie in popularMovies?.results.splice(0, 10)"
+          v-for="movie in popularMovies?.results"
+          v-bind="mediaCardProps(movie)"
           :key="movie.id"
-          :id="movie.id"
-          :title="movie.title"
-          :vote_average="movie.vote_average"
-          :release_date="movie.release_date"
-          :poster_path="movie.poster_path"
-          media_type="movies"
         />
       </div>
     </section>
@@ -87,14 +102,9 @@ function mediaEndpointType(media: ShortMovieDetails | ShortSerieDetails) {
       <h1 class="text-2xl font-bold">Popular Series</h1>
       <div class="main-scrollbar flex space-x-2 overflow-auto px-1 py-6">
         <MediaCard
-          v-for="serie in popularSeries?.results.splice(0, 10)"
+          v-for="serie in popularSeries?.results"
+          v-bind="mediaCardProps(serie)"
           :key="serie.id"
-          :id="serie.id"
-          :title="serie.name"
-          :vote_average="serie.vote_average"
-          :release_date="serie.first_air_date"
-          :poster_path="serie.poster_path"
-          media_type="series"
         />
       </div>
     </section>
