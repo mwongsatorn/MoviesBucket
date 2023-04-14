@@ -4,7 +4,7 @@ import IconPerson from "./Icons/IconPerson.vue";
 
 interface Props {
   id: number;
-  profile_path: string | null;
+  profilePath: string | null;
   name: string;
   character: string | undefined;
 }
@@ -19,10 +19,10 @@ const props = defineProps<Props>();
   >
     <img
       v-lazy
-      v-if="props.profile_path"
+      v-if="props.profilePath"
       class="aspect-[185/278] w-[185px] opacity-0 transition duration-500"
       alt=""
-      :data-src="`https://image.tmdb.org/t/p/w185/${props.profile_path}`"
+      :data-src="`https://image.tmdb.org/t/p/w185/${props.profilePath}`"
     />
     <div
       v-else

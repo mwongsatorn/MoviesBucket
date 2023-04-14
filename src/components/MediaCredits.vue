@@ -21,37 +21,23 @@ const activeSection = ref("short-cast");
 function personCastProps(
   person: CreditsCastDetails | AggregateCreditsCastDetails
 ) {
-  return "roles" in person
-    ? {
-        id: person.id,
-        name: person.name,
-        profile_path: person.profile_path,
-        character: person.roles[0].character,
-      }
-    : {
-        id: person.id,
-        name: person.name,
-        profile_path: person.profile_path,
-        character: person.character,
-      };
+  return {
+    id: person.id,
+    name: person.name,
+    profilePath: person.profile_path,
+    character: "roles" in person ? person.roles[0].character : person.character,
+  };
 }
 
 function personCrewProps(
   person: CreditsCrewDetails | AggregateCreditsCrewDetails
 ) {
-  return "jobs" in person
-    ? {
-        id: person.id,
-        name: person.name,
-        profile_path: person.profile_path,
-        job: person.jobs[0].job,
-      }
-    : {
-        id: person.id,
-        name: person.name,
-        profile_path: person.profile_path,
-        job: person.job,
-      };
+  return {
+    id: person.id,
+    name: person.name,
+    profilePath: person.profile_path,
+    job: "jobs" in person ? person.jobs[0].job : person.job,
+  };
 }
 </script>
 
@@ -101,7 +87,7 @@ function personCrewProps(
     </div>
 
     <h1 class="text-2xl font-bold">Crew ({{ credits?.crew.length }})</h1>
-    <div class="grid grid-cols-1 gap-x-2 gap-y-3 px-1 py-6 sm:grid-cols-2">
+    <div class="grid grid-cols-1 gap-x-2 gap-y-4 px-1 py-6 sm:grid-cols-2">
       <PersonCreditItem
         v-for="person in credits?.crew"
         :key="person.id"

@@ -6,24 +6,24 @@ import IconMediaPlaceholder from "./Icons/IconMediaPlaceholder.vue";
 interface Props {
   id: number;
   title: string;
-  release_date: string;
-  vote_average: number;
-  poster_path: string | null;
-  media_type: string;
+  releaseDate: string;
+  voteAverage: number;
+  posterPath: string | null;
+  mediaType: string;
 }
 const props = defineProps<Props>();
 </script>
 
 <template>
   <RouterLink
-    :to="`/${props.media_type}/${props.id}`"
+    :to="`/${props.mediaType}/${props.id}`"
     class="relative shrink-0 bg-gray-200 shadow-black transition-transform duration-500 hover:scale-105"
   >
     <img
       v-lazy
-      v-if="poster_path"
+      v-if="posterPath"
       class="aspect-[2/3] w-[250px] opacity-0 transition duration-500"
-      :data-src="`https://image.tmdb.org/t/p/w500/${poster_path}`"
+      :data-src="`https://image.tmdb.org/t/p/w500/${posterPath}`"
       alt=""
     />
     <div
@@ -35,7 +35,7 @@ const props = defineProps<Props>();
     <div
       class="absolute left-2 top-2 border-2 bg-red-800 px-2 py-1 text-xs font-bold text-white"
     >
-      {{ props.vote_average }} / 10
+      {{ props.voteAverage }} / 10
     </div>
     <div
       class="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-black/70"
@@ -43,7 +43,7 @@ const props = defineProps<Props>();
     <div class="absolute bottom-4 w-full space-y-2 px-4 text-white">
       <div class="text-sm font-bold">{{ props.title }}</div>
       <div class="flex justify-between text-xs italic">
-        <span>{{ props.release_date }}</span>
+        <span>{{ props.releaseDate }}</span>
       </div>
     </div>
   </RouterLink>

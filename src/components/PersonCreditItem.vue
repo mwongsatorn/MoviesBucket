@@ -4,7 +4,7 @@ import IconPerson from "@/components/Icons/IconPerson.vue";
 
 interface Props {
   id: number | null;
-  profile_path: string | null;
+  profilePath: string | null;
   name: string | null;
   character?: string | null;
   job?: string | null;
@@ -16,9 +16,9 @@ const props = defineProps<Props>();
 <template>
   <RouterLink class="flex gap-x-4" :to="`/people/${props.id}`">
     <img
-      v-if="props.profile_path"
+      v-if="props.profilePath"
       class="aspect-square w-[75px] rounded-lg object-cover object-center"
-      :src="`https://image.tmdb.org/t/p/w185/${props.profile_path}`"
+      :src="`https://image.tmdb.org/t/p/w185/${props.profilePath}`"
       alt=""
     />
     <div

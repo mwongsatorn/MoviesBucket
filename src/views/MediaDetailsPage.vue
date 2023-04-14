@@ -94,11 +94,11 @@ function mediaCardProps(media: ShortMovieDetails | ShortSerieDetails) {
   return {
     id: media.id,
     title: "title" in media ? media.title : media.name,
-    vote_average: media.vote_average,
-    release_date:
+    voteAverage: media.vote_average,
+    releaseDate:
       "release_date" in media ? media.release_date : media.first_air_date,
-    poster_path: media.poster_path,
-    media_type: "title" in media ? "movies" : "series",
+    posterPath: media.poster_path,
+    mediaType: "title" in media ? "movies" : "series",
   };
 }
 
@@ -106,11 +106,11 @@ function mediaMoreDetailsProps() {
   return {
     keywords: mediaKeywords.value,
     homepage: mediaDetails.value!.homepage,
-    original_language: mediaDetails.value!.original_language,
+    originalLanguage: mediaDetails.value!.original_language,
     status: mediaDetails.value!.status,
     budget: mediaBudget.value,
     revenue: mediaRevenue.value,
-    external_ids: mediaDetails.value!.external_ids,
+    externalIds: mediaDetails.value!.external_ids,
   };
 }
 

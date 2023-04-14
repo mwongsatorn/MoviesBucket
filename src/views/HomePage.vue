@@ -24,11 +24,11 @@ function mediaCardProps(media: ShortMovieDetails | ShortSerieDetails) {
   return {
     id: media.id,
     title: "title" in media ? media.title : media.name,
-    vote_average: media.vote_average,
-    release_date:
+    voteAverage: media.vote_average,
+    releaseDate:
       "release_date" in media ? media.release_date : media.first_air_date,
-    poster_path: media.poster_path,
-    media_type: "title" in media ? "movies" : "series",
+    posterPath: media.poster_path,
+    mediaType: "title" in media ? "movies" : "series",
   };
 }
 

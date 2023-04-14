@@ -10,10 +10,10 @@ import type { MovieExternalIds, SerieAndPersonExternalIds } from "@/types";
 interface Props {
   homepage: string | undefined;
   status: string | undefined;
-  original_language: string | undefined;
+  originalLanguage: string | undefined;
   budget: string | null;
   revenue: string | null;
-  external_ids: MovieExternalIds | SerieAndPersonExternalIds | undefined;
+  externalIds: MovieExternalIds | SerieAndPersonExternalIds | undefined;
   keywords:
     | [
         {
@@ -27,12 +27,12 @@ interface Props {
 const props = defineProps<Props>();
 
 const hasExternalIds = computed(() => {
-  if (!props.external_ids) return null;
+  if (!props.externalIds) return null;
   return (
-    props.external_ids.facebook_id !== null ||
-    props.external_ids.instagram_id !== null ||
-    props.external_ids.twitter_id !== null ||
-    props.external_ids.imdb_id !== null
+    props.externalIds.facebook_id !== null ||
+    props.externalIds.instagram_id !== null ||
+    props.externalIds.twitter_id !== null ||
+    props.externalIds.imdb_id !== null
   );
 });
 
@@ -41,8 +41,8 @@ const langCodeFormat = new Intl.DisplayNames("en-us", {
 });
 
 const mediaOriginalLang = computed(() => {
-  if (!props.original_language) return null;
-  return langCodeFormat.of(props.original_language);
+  if (!props.originalLanguage) return null;
+  return langCodeFormat.of(props.originalLanguage);
 });
 
 const hasKeywords = computed(() => {
@@ -76,29 +76,29 @@ const hasKeywords = computed(() => {
         class="flex flex-wrap items-center gap-x-4 gap-y-4"
       >
         <a
-          v-if="props.external_ids?.imdb_id"
-          :href="`https://www.imdb.com/title/${props.external_ids.imdb_id}`"
+          v-if="props.externalIds?.imdb_id"
+          :href="`https://www.imdb.com/title/${props.externalIds.imdb_id}`"
           target="_blank"
         >
           <IconImdb class="h-6 w-6 duration-300 hover:text-rose-800" />
         </a>
         <a
-          v-if="props.external_ids?.facebook_id"
-          :href="`https://www.facebook.com/${props.external_ids.facebook_id}`"
+          v-if="props.externalIds?.facebook_id"
+          :href="`https://www.facebook.com/${props.externalIds.facebook_id}`"
           target="_blank"
         >
           <IconFacebook class="h-6 w-6 duration-300 hover:text-rose-800" />
         </a>
         <a
-          v-if="props.external_ids?.twitter_id"
-          :href="`https://twitter.com/${props.external_ids.twitter_id}`"
+          v-if="props.externalIds?.twitter_id"
+          :href="`https://twitter.com/${props.externalIds.twitter_id}`"
           target="_blank"
         >
           <IconTwitter class="h-6 w-6 duration-300 hover:text-rose-800" />
         </a>
         <a
-          v-if="props.external_ids?.instagram_id"
-          :href="`https://www.instagram.com/${props.external_ids.instagram_id}`"
+          v-if="props.externalIds?.instagram_id"
+          :href="`https://www.instagram.com/${props.externalIds.instagram_id}`"
           target="_blank"
         >
           <IconInstagram class="h-6 w-6 duration-300 hover:text-rose-800" />
