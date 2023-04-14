@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import { getPopularMedia, getTrendingMedia } from "@/composables/tmdb";
-import MediaCard from "@/components/MediaCard.vue";
 import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
+import MediaCard from "@/components/MediaCard.vue";
+import MediaCarousel from "@/components/MediaCarousel.vue";
 
 const [trendingMediaResult, popularMoviesResult, popularSeriesResult] =
   await Promise.all([
@@ -88,25 +89,19 @@ function mediaCardProps(media: ShortMovieDetails | ShortSerieDetails) {
         </div>
       </div>
     </section>
-    <section id="popular-movies" class="mx-auto my-8 max-w-7xl px-4">
-      <h1 class="text-2xl font-bold">Popular Movies</h1>
-      <div class="main-scrollbar flex space-x-2 overflow-auto px-1 py-6">
-        <MediaCard
-          v-for="movie in popularMovies?.results"
-          v-bind="mediaCardProps(movie)"
-          :key="movie.id"
-        />
-      </div>
-    </section>
-    <section id="popular-series" class="mx-auto my-8 max-w-7xl px-4">
-      <h1 class="text-2xl font-bold">Popular Series</h1>
-      <div class="main-scrollbar flex space-x-2 overflow-auto px-1 py-6">
-        <MediaCard
-          v-for="serie in popularSeries?.results"
-          v-bind="mediaCardProps(serie)"
-          :key="serie.id"
-        />
-      </div>
-    </section>
+    <MediaCarousel section-name="popular-movies" header-title="Popular Movies">
+      <MediaCard
+        v-for="movie in popularMovies?.results"
+        v-bind="mediaCardProps(movie)"
+        :key="movie.id"
+      />
+    </MediaCarousel>
+    <MediaCarousel section-name="popular-series" header-title="Popular Series">
+      <MediaCard
+        v-for="serie in popularSeries?.results"
+        v-bind="mediaCardProps(serie)"
+        :key="serie.id"
+      />
+    </MediaCarousel>
   </main>
 </template>
