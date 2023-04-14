@@ -21,43 +21,29 @@ function mediaReleaseYear(date: string) {
 }
 
 function mediaCardProps(media: ShortMovieDetails | ShortSerieDetails) {
-  return "title" in media
-    ? {
-        id: media.id,
-        title: media.title,
-        vote_average: media.vote_average,
-        release_date: media.release_date,
-        poster_path: media.poster_path,
-        media_type: "movies",
-      }
-    : {
-        id: media.id,
-        title: media.name,
-        vote_average: media.vote_average,
-        release_date: media.first_air_date,
-        poster_path: media.poster_path,
-        media_type: "series",
-      };
+  return {
+    id: media.id,
+    title: "title" in media ? media.title : media.name,
+    vote_average: media.vote_average,
+    release_date:
+      "release_date" in media ? media.release_date : media.first_air_date,
+    poster_path: media.poster_path,
+    media_type: "title" in media ? "movies" : "series",
+  };
 }
 
 function mediaDisplayProps(media: ShortMovieDetails | ShortSerieDetails) {
-  return "title" in media
-    ? {
-        id: media.id,
-        title: media.title,
-        overview: media.overview,
-        releaseYear: mediaReleaseYear(media.release_date),
-        backdropPath: media.backdrop_path,
-        mediaType: "movies",
-      }
-    : {
-        id: media.id,
-        title: media.name,
-        overview: media.overview,
-        releaseYear: mediaReleaseYear(media.first_air_date),
-        backdropPath: media.backdrop_path,
-        mediaType: "movies",
-      };
+  return {
+    id: media.id,
+    title: "title" in media ? media.title : media.name,
+    overview: media.overview,
+    releaseYear:
+      "release_date" in media
+        ? mediaReleaseYear(media.release_date)
+        : mediaReleaseYear(media.first_air_date),
+    backdropPath: media.backdrop_path,
+    mediaType: "title" in media ? "movies" : "series",
+  };
 }
 </script>
 
