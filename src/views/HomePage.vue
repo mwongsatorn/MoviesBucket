@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
 import { getPopularMedia, getTrendingMedia } from "@/composables/tmdb";
 import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
+import MediaDisplay from "@/components/MediaDisplay.vue";
 import MediaCard from "@/components/MediaCard.vue";
 import MediaCarousel from "@/components/MediaCarousel.vue";
 
@@ -16,18 +16,8 @@ const { data: trendingMedia } = trendingMediaResult;
 const { data: popularMovies } = popularMoviesResult;
 const { data: popularSeries } = popularSeriesResult;
 
-function mediaTitle(media: ShortMovieDetails | ShortSerieDetails) {
-  return "title" in media ? media.title : media.name;
-}
-
-function mediaReleaseYear(media: ShortMovieDetails | ShortSerieDetails) {
-  return "release_date" in media
-    ? media.release_date.split("-", 1)[0]
-    : media.first_air_date.split("-", 1)[0];
-}
-
-function mediaEndpointType(media: ShortMovieDetails | ShortSerieDetails) {
-  return media.media_type === "movie" ? "movies" : "series";
+function mediaReleaseYear(date: string) {
+  return date.split("-", 1)[0];
 }
 
 function mediaCardProps(media: ShortMovieDetails | ShortSerieDetails) {
@@ -49,6 +39,26 @@ function mediaCardProps(media: ShortMovieDetails | ShortSerieDetails) {
         media_type: "series",
       };
 }
+
+function mediaDisplayProps(media: ShortMovieDetails | ShortSerieDetails) {
+  return "title" in media
+    ? {
+        id: media.id,
+        title: media.title,
+        overview: media.overview,
+        releaseYear: mediaReleaseYear(media.release_date),
+        backdropPath: media.backdrop_path,
+        mediaType: "movies",
+      }
+    : {
+        id: media.id,
+        title: media.name,
+        overview: media.overview,
+        releaseYear: mediaReleaseYear(media.first_air_date),
+        backdropPath: media.backdrop_path,
+        mediaType: "movies",
+      };
+}
 </script>
 
 <template>
@@ -57,37 +67,12 @@ function mediaCardProps(media: ShortMovieDetails | ShortSerieDetails) {
       id="trending-media"
       class="main-scrollbar flex snap-x snap-mandatory overflow-auto"
     >
-      <div
+      <MediaDisplay
         v-for="media in trendingMedia?.results.slice(0, 7)"
+        v-bind="mediaDisplayProps(media)"
         :key="media.id"
-        class="relative h-[520px] w-full shrink-0 snap-start bg-black"
       >
-        <img
-          class="absolute right-0 top-0 h-[50%] w-full object-cover sm:h-full sm:w-[50%]"
-          :src="`https://image.tmdb.org/t/p/w1280/${media.backdrop_path}`"
-          alt=""
-        />
-        <div
-          class="relative mx-auto h-full max-w-7xl bg-gradient-to-t from-black via-black to-transparent sm:bg-gradient-to-r"
-        >
-          <div
-            class="flex h-full w-full flex-col justify-end space-y-8 px-4 pb-12 text-white sm:w-[50%] sm:justify-center"
-          >
-            <div class="line-clamp-1 text-2xl font-bold">
-              {{ mediaTitle(media) }} ({{ mediaReleaseYear(media) }})
-            </div>
-            <div class="line-clamp-3">
-              {{ media.overview }}
-            </div>
-            <RouterLink
-              :to="`${mediaEndpointType(media)}/${media.id}`"
-              class="w-fit rounded-lg bg-rose-800 px-4 py-2 text-sm hover:bg-amber-500"
-            >
-              More details
-            </RouterLink>
-          </div>
-        </div>
-      </div>
+      </MediaDisplay>
     </section>
     <MediaCarousel section-name="popular-movies" header-title="Popular Movies">
       <MediaCard
