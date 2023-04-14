@@ -18,17 +18,16 @@ const { data: mediaDetails } = await getMediaDetails(
   mediaType
 );
 
-const mediaRecommendationList = computed(() => {
-  return mediaDetails.value?.recommendations?.results.slice(0, 7);
+const mediaRecommendationsList = computed(() => {
+  return mediaDetails.value!.recommendations.results.slice(0, 7);
 });
 
 const mediaRuntime = computed(() => {
-  if (!mediaDetails.value) return null;
-  if (!("runtime" in mediaDetails.value)) return null;
+  if (!("runtime" in mediaDetails.value!)) return null;
   if (mediaDetails.value.runtime === null) return null;
   const hrs = Math.floor(mediaDetails.value.runtime / 60).toString();
   const mins = (mediaDetails.value.runtime % 60).toString();
-  return `${hrs}hr${mins}min`;
+  return `${hrs} hr ${mins} min`;
 });
 
 const mediaReleaseDate = computed(() => {
@@ -55,31 +54,27 @@ const moneyFormat = new Intl.NumberFormat("en-us", {
 });
 
 const mediaBudget = computed(() => {
-  if (!mediaDetails.value) return null;
-  return "budget" in mediaDetails.value
+  return "budget" in mediaDetails.value!
     ? moneyFormat.format(mediaDetails.value.budget)
     : null;
 });
 
 const mediaRevenue = computed(() => {
-  if (!mediaDetails.value) return null;
-  return "revenue" in mediaDetails.value
+  return "revenue" in mediaDetails.value!
     ? moneyFormat.format(mediaDetails.value.revenue)
     : null;
 });
 
 const mediaKeywords = computed(() => {
-  if (!mediaDetails.value) return null;
-  return "keywords" in mediaDetails.value.keywords
-    ? mediaDetails.value.keywords.keywords
-    : mediaDetails.value.keywords.results;
+  return "keywords" in mediaDetails.value!.keywords
+    ? mediaDetails.value!.keywords.keywords
+    : mediaDetails.value!.keywords.results;
 });
 
 const mediaCredits = computed(() => {
-  if (!mediaDetails.value) return null;
-  return "aggregate_credits" in mediaDetails.value
-    ? mediaDetails.value.aggregate_credits
-    : mediaDetails.value.credits;
+  return "aggregate_credits" in mediaDetails.value!
+    ? mediaDetails.value!.aggregate_credits
+    : mediaDetails.value!.credits;
 });
 
 function mediaCardProps(media: ShortMovieDetails | ShortSerieDetails) {
@@ -168,7 +163,7 @@ provide("images", mediaDetails.value?.images);
           header-title="Recommendations"
         >
           <MediaCard
-            v-for="media in mediaRecommendationList"
+            v-for="media in mediaRecommendationsList"
             v-bind="mediaCardProps(media)"
             :key="media.id"
           />
