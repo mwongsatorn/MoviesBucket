@@ -60,14 +60,20 @@ function mediaDisplayProps(media: ShortMovieDetails | ShortSerieDetails) {
       >
       </MediaDisplay>
     </section>
-    <MediaCarousel section-name="popular-movies" header-title="Popular Movies">
+    <MediaCarousel
+      section-name="trending-movies"
+      header-title="Trending Movies"
+    >
       <MediaCard
         v-for="movie in trendingMovies?.results"
         v-bind="mediaCardProps(movie)"
         :key="movie.id"
       />
     </MediaCarousel>
-    <MediaCarousel section-name="popular-series" header-title="Popular Series">
+    <MediaCarousel
+      section-name="trending-series"
+      header-title="Trending Series"
+    >
       <MediaCard
         v-for="serie in trendingSeries?.results"
         v-bind="mediaCardProps(serie)"
