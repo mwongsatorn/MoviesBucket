@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { getPopularMedia, getTrendingMedia } from "@/composables/tmdb";
+import { getTrendingMedia } from "@/composables/tmdb";
 import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
 import MediaDisplay from "@/components/MediaDisplay.vue";
 import MediaCard from "@/components/MediaCard.vue";
 import MediaCarousel from "@/components/MediaCarousel.vue";
 
-const [trendingMediaResult, popularMoviesResult, popularSeriesResult] =
+const [trendingMediaResult, trendingMoviesResult, trendingSeriesResult] =
   await Promise.all([
     getTrendingMedia("all", "week"),
-    getPopularMedia("movie"),
-    getPopularMedia("tv"),
+    getTrendingMedia("movie", "week"),
+    getTrendingMedia("tv", "week"),
   ]);
 
 const { data: trendingMedia } = trendingMediaResult;
-const { data: popularMovies } = popularMoviesResult;
-const { data: popularSeries } = popularSeriesResult;
+const { data: trendingMovies } = trendingMoviesResult;
+const { data: trendingSeries } = trendingSeriesResult;
 
 function mediaReleaseYear(date: string) {
   return date.split("-", 1)[0];
@@ -62,14 +62,14 @@ function mediaDisplayProps(media: ShortMovieDetails | ShortSerieDetails) {
     </section>
     <MediaCarousel section-name="popular-movies" header-title="Popular Movies">
       <MediaCard
-        v-for="movie in popularMovies?.results"
+        v-for="movie in trendingMovies?.results"
         v-bind="mediaCardProps(movie)"
         :key="movie.id"
       />
     </MediaCarousel>
     <MediaCarousel section-name="popular-series" header-title="Popular Series">
       <MediaCard
-        v-for="serie in popularSeries?.results"
+        v-for="serie in trendingSeries?.results"
         v-bind="mediaCardProps(serie)"
         :key="serie.id"
       />
