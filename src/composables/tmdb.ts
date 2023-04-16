@@ -36,7 +36,10 @@ function createUrl(endpoint: string, params: Record<string, any>): URL {
 export function getPopularMedia<MediaType extends keyof PopularMediaDataMap>(
   media: MediaType
 ) {
-  const url = createUrl(`${media}/popular`, { api_key: TMDB_API_KEY });
+  const url = createUrl(`${media}/popular`, {
+    api_key: TMDB_API_KEY,
+    language: "en",
+  });
   return useFetch<PopularMediaDataMap[MediaType]>(url);
 }
 
@@ -46,6 +49,7 @@ export function getTrendingMedia<MediaType extends keyof TrendingMediaDataMap>(
 ) {
   const url = createUrl(`trending/${media}/${time_window}`, {
     api_key: TMDB_API_KEY,
+    language: "en",
   });
   return useFetch<TrendingMediaDataMap[MediaType]>(url);
 }
@@ -56,6 +60,7 @@ export function getMediaDetails<MediaType extends keyof MediaDetailDataMap>(
 ) {
   const url = createUrl(`${media}/${id}`, {
     api_key: TMDB_API_KEY,
+    language: "en",
     append_to_response:
       "videos,credits,aggregate_credits,images,external_ids,recommendations,keywords",
   });
