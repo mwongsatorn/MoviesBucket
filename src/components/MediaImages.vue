@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, inject, nextTick } from "vue";
-import { vLazy } from "@/directives/lazy";
 import type { Image } from "@/types";
+import MediaImageCard from "./MediaImageCard.vue";
 import TransitionFade from "./TransitionFade.vue";
-import IconExpand from "./Icons/IconExpand.vue";
 import IconChevronLeft from "./Icons/IconChevronLeft.vue";
 import IconChevronRight from "./Icons/IconChevronRight.vue";
 
@@ -51,47 +50,25 @@ function slide(dir: number) {
       Backdrops ({{ images?.backdrops.length }})
     </h1>
     <div class="flex flex-wrap gap-2 py-6 @container">
-      <div
+      <MediaImageCard
         @click="expandImage('backdrops', index)"
-        class="group relative w-full cursor-pointer bg-gray-100 @sm:w-[calc(50%-8px)] @xl:w-[calc(33.33%-8px)] @4xl:w-[calc(25%-8px)]"
         v-for="(image, index) in images?.backdrops"
         :key="index"
-      >
-        <img
-          v-lazy
-          class="h-full w-full object-cover object-center opacity-0 transition duration-500"
-          :data-src="`https://image.tmdb.org/t/p/w300/${image.file_path}`"
-          alt=""
-        />
-        <div
-          class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/50 text-white opacity-0 group-hover:opacity-100"
-        >
-          <IconExpand class="h-8 w-8"></IconExpand>
-        </div>
-      </div>
+        :file-path="image.file_path"
+        type="backdrops"
+      />
     </div>
   </section>
   <section class="my-8 px-4" id="posters">
     <h1 class="text-2xl font-bold">Posters ({{ images?.posters.length }})</h1>
     <div class="flex flex-wrap gap-2 py-6 @container">
-      <div
+      <MediaImageCard
         @click="expandImage('posters', index)"
-        class="group relative w-[calc(50%-8px)] cursor-pointer bg-gray-100 @sm:w-[calc(33.33%-8px)] @xl:w-[calc(25%-8px)] @4xl:w-[calc(20%-8px)]"
         v-for="(image, index) in images?.posters"
         :key="index"
-      >
-        <img
-          v-lazy
-          class="h-full w-full object-cover object-center opacity-0 transition duration-500"
-          :data-src="`https://image.tmdb.org/t/p/w185/${image.file_path}`"
-          alt=""
-        />
-        <div
-          class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/50 text-white opacity-0 group-hover:opacity-100"
-        >
-          <IconExpand class="h-8 w-8"></IconExpand>
-        </div>
-      </div>
+        :file-path="image.file_path"
+        type="posters"
+      />
     </div>
   </section>
   <Teleport to="body">
