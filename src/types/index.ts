@@ -65,7 +65,7 @@ export interface MovieDetails extends ShortMovieDetails {
     backdrops: Image[];
     posters: Image[];
   };
-  vidoes: {
+  videos: {
     results: Video[];
   };
   credits: {
@@ -186,7 +186,7 @@ export interface SerieDetails extends ShortSerieDetails {
     backdrops: Image[];
     posters: Image[];
   };
-  vidoes: {
+  videos: {
     results: Video[];
   };
   credits: {
