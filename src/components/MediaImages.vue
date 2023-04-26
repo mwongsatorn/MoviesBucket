@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, inject } from "vue";
 import MediaImageCard from "./MediaImageCard.vue";
-import MediaImageSlider from "./MediaImageSlider.vue";
+import MediaSliderItem from "./MediaSliderItem.vue";
 import type { Image } from "@/types";
 
 interface Inject {
@@ -12,22 +12,23 @@ interface Inject {
 const images = inject<Inject>("images");
 
 const showSlider = ref(false);
-const sliderImageType = ref<"posters" | "backdrops">("posters");
-const sliderInitialIndex = ref(0);
-const sliderImageList = computed(() => {
-  return sliderImageType.value === "posters"
-    ? images!.posters
-    : images!.backdrops;
+const imageType = ref<"posters" | "backdrops">("posters");
+const initialIndex = ref(0);
+const imageAspectRatio = ref(0);
+const imageList = computed(() => {
+  return imageType.value === "posters" ? images!.posters : images!.backdrops;
 });
 
-function expandImage(type: "posters" | "backdrops", index: number) {
-  sliderImageType.value = type;
-  sliderInitialIndex.value = index;
+function openSlider(type: "posters" | "backdrops", index: number) {
+  imageType.value = type;
+  initialIndex.value = index;
+  if (type === "posters") imageAspectRatio.value = 2 / 3;
+  if (type === "backdrops") imageAspectRatio.value = 16 / 9;
   document.body.classList.toggle("overflow-hidden");
   showSlider.value = true;
 }
 
-function closeImage() {
+function closeSlider() {
   showSlider.value = false;
   document.body.classList.toggle("overflow-hidden");
 }
@@ -40,7 +41,7 @@ function closeImage() {
     </h1>
     <div class="flex flex-wrap gap-2 py-6 @container">
       <MediaImageCard
-        @click="expandImage('backdrops', index)"
+        @click="openSlider('backdrops', index)"
         v-for="(image, index) in images?.backdrops"
         :key="index"
         :file-path="image.file_path"
@@ -52,7 +53,7 @@ function closeImage() {
     <h1 class="text-2xl font-bold">Posters ({{ images?.posters.length }})</h1>
     <div class="flex flex-wrap gap-2 py-6 @container">
       <MediaImageCard
-        @click="expandImage('posters', index)"
+        @click="openSlider('posters', index)"
         v-for="(image, index) in images?.posters"
         :key="index"
         :file-path="image.file_path"
@@ -61,11 +62,12 @@ function closeImage() {
     </div>
   </section>
   <Teleport to="body">
-    <MediaImageSlider
+    <MediaSliderItem
       v-if="showSlider"
-      :initial-index="sliderInitialIndex"
-      :slider-image-list="sliderImageList"
-      @close-slider="closeImage()"
+      :initial-index="initialIndex"
+      :slider-item-list="imageList"
+      :item-aspect-ratio="imageAspectRatio"
+      @close-slider="closeSlider()"
     />
   </Teleport>
 </template>
