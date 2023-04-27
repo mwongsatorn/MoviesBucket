@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import MediaCredits from "@/components/MediaCredits.vue";
+import MediaVideos from "./MediaVideos.vue";
 import MediaImages from "./MediaImages.vue";
 
 const route = useRoute();
@@ -10,6 +11,7 @@ const mediaType = route.name === "MovieDetails" ? "movie" : "serie";
 const activeTab = ref<string>("Credits");
 const sectionTabs: Record<string, any> = {
   Credits: MediaCredits,
+  Videos: MediaVideos,
   Images: MediaImages,
 };
 </script>

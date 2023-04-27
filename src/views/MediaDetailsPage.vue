@@ -116,6 +116,7 @@ function mediaMoreDetailsProps() {
 
 provide("credits", mediaCredits);
 provide("images", mediaDetails.value?.images);
+provide("videos", mediaDetails.value?.videos.results);
 </script>
 
 <template>
