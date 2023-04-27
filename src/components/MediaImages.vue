@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, inject } from "vue";
 import MediaImageCard from "./MediaImageCard.vue";
-import MediaSliderItem from "./MediaSliderItem.vue";
+import MediaItemSlider from "./MediaItemSlider.vue";
 import type { Image } from "@/types";
 
 interface Inject {
@@ -62,7 +62,7 @@ function closeSlider() {
     </div>
   </section>
   <Teleport to="body">
-    <MediaSliderItem
+    <MediaItemSlider
       v-if="showSlider"
       :initial-index="initialIndex"
       :slider-item-list="imageList"
