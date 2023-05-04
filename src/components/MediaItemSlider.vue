@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, onUnmounted } from "vue";
-import TransitionFade from "./TransitionFade.vue";
+import { vLazy } from "@/directives/lazy";
 import IconChevronLeft from "./Icons/IconChevronLeft.vue";
 import IconChevronRight from "./Icons/IconChevronRight.vue";
 import type { Image, Video } from "@/types";
@@ -89,20 +89,19 @@ onUnmounted(() => {
       class="relative flex h-full min-h-[480px] w-full items-center justify-center"
     >
       <div class="border-2 border-white bg-gray-950">
-        <TransitionFade>
-          <iframe
-            v-if="'key' in item"
-            class="h-full w-full"
-            :src="`https://www.youtube.com/embed/${item.key}`"
-          />
-          <img
-            v-else
-            :key="index"
-            class="h-full w-full"
-            :src="`https://image.tmdb.org/t/p/original/${item.file_path}`"
-            alt=""
-          />
-        </TransitionFade>
+        <iframe
+          v-if="'key' in item"
+          class="h-full w-full"
+          :src="`https://www.youtube.com/embed/${item.key}`"
+        />
+        <img
+          v-else
+          v-lazy
+          :key="index"
+          class="h-full w-full opacity-0 duration-500"
+          :data-src="`https://image.tmdb.org/t/p/original/${item.file_path}`"
+          alt=""
+        />
       </div>
 
       <div
