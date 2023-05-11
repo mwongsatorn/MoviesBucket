@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
+import { vLazy } from "@/directives/lazy";
 
 interface Props {
   id: number;
@@ -16,8 +17,9 @@ const props = defineProps<Props>();
 <template>
   <div class="relative h-[520px] w-full shrink-0 snap-start bg-black">
     <img
-      class="absolute right-0 top-0 h-[50%] w-full object-cover sm:h-full sm:w-[50%]"
-      :src="`https://image.tmdb.org/t/p/w1280/${props.backdropPath}`"
+      v-lazy
+      class="absolute right-0 top-0 h-[50%] w-full object-cover opacity-0 duration-500 sm:h-full sm:w-[50%]"
+      :data-src="`https://image.tmdb.org/t/p/w1280/${props.backdropPath}`"
       alt=""
     />
     <div
