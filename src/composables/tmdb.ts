@@ -7,18 +7,16 @@ import type {
   SerieDetails,
 } from "@/types";
 
-interface PopularMediaDataMap {
+interface ShortDetailsDataMap {
   movie: PageResult<ShortMovieDetails>;
   tv: PageResult<ShortSerieDetails>;
 }
 
-interface TrendingMediaDataMap {
-  movie: PageResult<ShortMovieDetails>;
-  tv: PageResult<ShortSerieDetails>;
+interface ShortDetailsWithAll extends ShortDetailsDataMap {
   all: PageResult<ShortMovieDetails> | PageResult<ShortSerieDetails>;
 }
 
-interface MediaDetailDataMap {
+interface DetailsDataMap {
   movie: MovieDetails;
   tv: SerieDetails;
 }
@@ -33,17 +31,17 @@ function createUrl(endpoint: string, params: Record<string, any>): URL {
   return url;
 }
 
-export function getPopularMedia<MediaType extends keyof PopularMediaDataMap>(
+export function getPopularMedia<MediaType extends keyof ShortDetailsDataMap>(
   media: MediaType
 ) {
   const url = createUrl(`${media}/popular`, {
     api_key: TMDB_API_KEY,
     language: "en",
   });
-  return useFetch<PopularMediaDataMap[MediaType]>(url);
+  return useFetch<ShortDetailsDataMap[MediaType]>(url);
 }
 
-export function getTrendingMedia<MediaType extends keyof TrendingMediaDataMap>(
+export function getTrendingMedia<MediaType extends keyof ShortDetailsWithAll>(
   media: MediaType,
   time_window: "day" | "week"
 ) {
@@ -51,10 +49,10 @@ export function getTrendingMedia<MediaType extends keyof TrendingMediaDataMap>(
     api_key: TMDB_API_KEY,
     language: "en",
   });
-  return useFetch<TrendingMediaDataMap[MediaType]>(url);
+  return useFetch<ShortDetailsWithAll[MediaType]>(url);
 }
 
-export function getMediaDetails<MediaType extends keyof MediaDetailDataMap>(
+export function getMediaDetails<MediaType extends keyof DetailsDataMap>(
   id: string,
   media: MediaType
 ) {
@@ -64,5 +62,5 @@ export function getMediaDetails<MediaType extends keyof MediaDetailDataMap>(
     append_to_response:
       "videos,credits,aggregate_credits,images,external_ids,recommendations,keywords",
   });
-  return useFetch<MediaDetailDataMap[MediaType]>(url);
+  return useFetch<DetailsDataMap[MediaType]>(url);
 }
