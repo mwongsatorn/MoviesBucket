@@ -41,6 +41,16 @@ export function getPopularMedia<MediaType extends keyof ShortDetailsDataMap>(
   return useFetch<ShortDetailsDataMap[MediaType]>(url);
 }
 
+export function getTopRatedMedia<MediaType extends keyof ShortDetailsDataMap>(
+  media: MediaType
+) {
+  const url = createUrl(`${media}/top_rated`, {
+    api_key: TMDB_API_KEY,
+    language: "en",
+  });
+  return useFetch<ShortDetailsDataMap[MediaType]>(url);
+}
+
 export function getTrendingMedia<MediaType extends keyof ShortDetailsWithAll>(
   media: MediaType,
   time_window: "day" | "week"
@@ -50,6 +60,14 @@ export function getTrendingMedia<MediaType extends keyof ShortDetailsWithAll>(
     language: "en",
   });
   return useFetch<ShortDetailsWithAll[MediaType]>(url);
+}
+
+export function getUpcomingMovies() {
+  const url = createUrl("movie/upcoming", {
+    api_key: TMDB_API_KEY,
+    language: "en",
+  });
+  return useFetch<PageResult<ShortMovieDetails>>(url);
 }
 
 export function getMediaDetails<MediaType extends keyof DetailsDataMap>(
