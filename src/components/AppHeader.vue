@@ -8,7 +8,13 @@ const isScrolled = ref(false);
 const route = useRoute();
 
 const isSpecificPages = computed(() => {
-  const specificPages = ["Home", "Movies", "MovieDetails", "SerieDetails"];
+  const specificPages = [
+    "Home",
+    "Movies",
+    "Series",
+    "MovieDetails",
+    "SerieDetails",
+  ];
   return specificPages.includes(route.name as string);
 });
 
