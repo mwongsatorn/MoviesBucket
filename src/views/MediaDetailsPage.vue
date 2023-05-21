@@ -3,11 +3,9 @@ import { computed, provide } from "vue";
 import { useRoute } from "vue-router";
 import { getMediaDetails } from "../composables/tmdb";
 import MediaOverview from "@/components/MediaOverview.vue";
-import MediaCard from "@/components/MediaCard.vue";
 import MediaDetails from "@/components/MediaDetails.vue";
 import MediaCarousel from "@/components/MediaCarousel.vue";
 import MediaMoreDetails from "@/components/MediaMoreDetails.vue";
-import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
 
 const route = useRoute();
 
@@ -90,18 +88,6 @@ function mediaOverviewProps() {
   };
 }
 
-function mediaCardProps(media: ShortMovieDetails | ShortSerieDetails) {
-  return {
-    id: media.id,
-    title: "title" in media ? media.title : media.name,
-    voteAverage: media.vote_average,
-    releaseDate:
-      "release_date" in media ? media.release_date : media.first_air_date,
-    posterPath: media.poster_path,
-    mediaType: "title" in media ? "movies" : "series",
-  };
-}
-
 function mediaMoreDetailsProps() {
   return {
     keywords: mediaKeywords.value,
@@ -128,13 +114,8 @@ provide("videos", mediaDetails.value?.videos.results);
         <MediaCarousel
           section-name="recommendations"
           header-title="Recommendations"
-        >
-          <MediaCard
-            v-for="media in mediaRecommendationsList"
-            v-bind="mediaCardProps(media)"
-            :key="media.id"
-          />
-        </MediaCarousel>
+          :media="mediaRecommendationsList"
+        />
       </div>
       <MediaMoreDetails v-bind="mediaMoreDetailsProps()" />
     </div>

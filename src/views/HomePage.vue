@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { getTrendingMedia } from "@/composables/tmdb";
-import { mediaCardProps, mediaDisplayProps } from "@/utils/props";
+import { mediaDisplayProps } from "@/utils/props";
 import MediaDisplay from "@/components/MediaDisplay.vue";
-import MediaCard from "@/components/MediaCard.vue";
 import MediaCarousel from "@/components/MediaCarousel.vue";
 
 const [
@@ -32,22 +31,12 @@ const [
     <MediaCarousel
       section-name="trending-movies"
       header-title="Trending Movies"
-    >
-      <MediaCard
-        v-for="movie in trendingMovies?.results"
-        v-bind="mediaCardProps(movie)"
-        :key="movie.id"
-      />
-    </MediaCarousel>
+      :media="trendingMovies!.results"
+    />
     <MediaCarousel
       section-name="trending-series"
       header-title="Trending Series"
-    >
-      <MediaCard
-        v-for="serie in trendingSeries?.results"
-        v-bind="mediaCardProps(serie)"
-        :key="serie.id"
-      />
-    </MediaCarousel>
+      :media="trendingSeries!.results"
+    />
   </main>
 </template>

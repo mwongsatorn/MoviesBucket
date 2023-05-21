@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import MediaDisplay from "@/components/MediaDisplay.vue";
 import MediaCarousel from "@/components/MediaCarousel.vue";
-import MediaCard from "@/components/MediaCard.vue";
 import {
   getTrendingMedia,
   getPopularMedia,
   getTopRatedMedia,
 } from "@/composables/tmdb";
-import { mediaDisplayProps, mediaCardProps } from "@/utils/props";
+import { mediaDisplayProps } from "@/utils/props";
 
 const [
   { data: trendingSeries },
@@ -36,19 +35,12 @@ const [
     <MediaCarousel
       section-name="top-rated-series"
       header-title="Top Rated Series"
-    >
-      <MediaCard
-        v-for="movie in topRatedSeries?.results"
-        v-bind="mediaCardProps(movie)"
-        :key="movie.id"
-      />
-    </MediaCarousel>
-    <MediaCarousel section-name="popular-series" header-title="Popular Series">
-      <MediaCard
-        v-for="movie in popularSeries?.results"
-        v-bind="mediaCardProps(movie)"
-        :key="movie.id"
-      />
-    </MediaCarousel>
+      :media="topRatedSeries!.results"
+    />
+    <MediaCarousel
+      section-name="popular-series"
+      header-title="Popular Series"
+      :media="popularSeries!.results"
+    />
   </main>
 </template>
