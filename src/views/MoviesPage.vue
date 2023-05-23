@@ -7,7 +7,6 @@ import {
   getTopRatedMedia,
   getUpcomingMovies,
 } from "@/composables/tmdb";
-import { mediaDisplayProps } from "@/utils/props";
 
 const [
   { data: trendingMovies },
@@ -24,17 +23,10 @@ const [
 
 <template>
   <main>
-    <section
-      id="trending-media"
-      class="main-scrollbar flex snap-x snap-mandatory overflow-auto"
-    >
-      <MediaDisplay
-        v-for="media in trendingMovies?.results.slice(0, 10)"
-        v-bind="mediaDisplayProps(media)"
-        :key="media.id"
-      >
-      </MediaDisplay>
-    </section>
+    <MediaDisplay
+      section-name="trending-movies"
+      :items="trendingMovies!.results"
+    />
     <MediaCarousel
       section-name="top-rated-movies"
       header-title="Top Rated Movies"
