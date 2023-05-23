@@ -1,46 +1,25 @@
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
-import { vLazy } from "@/directives/lazy";
+import MediaDisplayItem from "./MediaDisplayItem.vue";
+import { mediaDisplayProps } from "@/utils/props";
+import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
 
 interface Props {
-  id: number;
-  title: string;
-  overview: string | null;
-  releaseYear: string;
-  backdropPath: string | null;
-  mediaType: string;
+  sectionName: string;
+  items: ShortMovieDetails[] | ShortSerieDetails[];
 }
 
 const props = defineProps<Props>();
 </script>
 
 <template>
-  <div class="relative h-[520px] w-full shrink-0 snap-start bg-black">
-    <img
-      v-lazy
-      class="absolute right-0 top-0 h-[50%] w-full object-cover opacity-0 duration-500 sm:h-full sm:w-[50%]"
-      :data-src="`https://image.tmdb.org/t/p/w1280/${props.backdropPath}`"
-      alt=""
+  <section
+    :id="props.sectionName"
+    class="main-scrollbar flex snap-x snap-mandatory overflow-auto"
+  >
+    <MediaDisplayItem
+      v-for="item in items"
+      :key="item.id"
+      v-bind="mediaDisplayProps(item)"
     />
-    <div
-      class="relative mx-auto h-full max-w-7xl bg-gradient-to-t from-black via-black to-transparent sm:bg-gradient-to-r"
-    >
-      <div
-        class="flex h-full w-full flex-col justify-end space-y-8 px-4 pb-12 text-white sm:w-[50%] sm:justify-center"
-      >
-        <div class="line-clamp-1 text-2xl font-bold">
-          {{ props.title }} ({{ props.releaseYear }})
-        </div>
-        <div class="line-clamp-3">
-          {{ props.overview }}
-        </div>
-        <RouterLink
-          :to="`${props.mediaType}/${props.id}`"
-          class="w-fit rounded-lg bg-rose-800 px-4 py-2 text-sm hover:bg-amber-500"
-        >
-          More details
-        </RouterLink>
-      </div>
-    </div>
-  </div>
+  </section>
 </template>
