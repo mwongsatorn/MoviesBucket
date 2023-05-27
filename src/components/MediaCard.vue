@@ -17,18 +17,18 @@ const props = defineProps<Props>();
 <template>
   <RouterLink
     :to="`/${props.mediaType}/${props.id}`"
-    class="relative shrink-0 bg-gray-200 shadow-black transition-transform duration-500 hover:scale-105"
+    class="relative aspect-[2/3] w-[45%] shrink-0 overflow-hidden bg-gray-200 shadow-black @md/scroll:w-[30%] @2xl/scroll:w-[22.5%] @5xl/scroll:w-[18%]"
   >
     <img
       v-lazy
       v-if="posterPath"
-      class="aspect-[2/3] w-[250px] opacity-0 transition duration-500"
+      class="h-full w-full opacity-0 transition duration-500 hover:scale-110"
       :data-src="`https://image.tmdb.org/t/p/w500/${posterPath}`"
       alt=""
     />
     <div
       v-else
-      class="flex aspect-[2/3] w-[250px] items-center justify-center bg-gray-400"
+      class="flex h-full w-full items-center justify-center bg-gray-400"
     >
       <IconMediaPlaceholder class="h-20 w-20 font-bold text-white" />
     </div>
@@ -38,8 +38,8 @@ const props = defineProps<Props>();
       {{ props.voteAverage }} / 10
     </div>
     <div
-      class="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-black/70"
-    ></div>
+      class="pointer-events-none absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-black/70"
+    />
     <div class="absolute bottom-4 w-full space-y-2 px-4 text-white">
       <div class="text-sm font-bold">{{ props.title }}</div>
       <div class="flex justify-between text-xs italic">
