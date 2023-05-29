@@ -73,14 +73,14 @@ onUnmounted(() => {
       </div>
       <button
         @click="scrollHorizontally(-1)"
-        class="absolute left-0 top-4 flex h-[calc(100%-2.5rem)] w-[calc(10%-1rem)] items-center justify-center bg-black text-white opacity-40 duration-300 duration-300 hover:opacity-80 @md/scroll:w-[calc(10%-1.5rem)] @2xl/scroll:w-[calc(10%-2rem)] @5xl/scroll:w-[calc(10%-2.5rem)]"
+        class="absolute left-0 top-4 flex h-[calc(100%-2.5rem)] w-[calc(10%-1rem)] items-center justify-center bg-gradient-to-r from-black to-transparent text-white opacity-40 duration-300 hover:opacity-80 @md/scroll:w-[calc(10%-1.5rem)] @2xl/scroll:w-[calc(10%-2rem)] @5xl/scroll:w-[calc(10%-2.5rem)]"
         :class="[scrollPos === 'START' ? 'hidden' : '']"
       >
         <IconChevronLeft class="h-6 w-6" />
       </button>
       <button
         @click="scrollHorizontally(1)"
-        class="absolute right-0 top-4 flex h-[calc(100%-2.5rem)] w-[calc(10%-1rem)] items-center justify-center bg-black text-white opacity-40 duration-300 hover:opacity-80 @md/scroll:w-[calc(10%-1.5rem)] @2xl/scroll:w-[calc(10%-2rem)] @5xl/scroll:w-[calc(10%-2.5rem)]"
+        class="absolute right-0 top-4 flex h-[calc(100%-2.5rem)] w-[calc(10%-1rem)] items-center justify-center bg-gradient-to-l from-black to-transparent text-white opacity-40 duration-300 hover:opacity-80 @md/scroll:w-[calc(10%-1.5rem)] @2xl/scroll:w-[calc(10%-2rem)] @5xl/scroll:w-[calc(10%-2.5rem)]"
         :class="[scrollPos === 'END' ? 'hidden' : '']"
       >
         <IconChevronRight class="h-6 w-6" />
