@@ -17,7 +17,7 @@ const props = defineProps<Props>();
 <template>
   <RouterLink
     :to="`/${props.mediaType}/${props.id}`"
-    class="relative aspect-[2/3] w-[45%] shrink-0 overflow-hidden bg-gray-200 shadow-black @md/scroll:w-[30%] @2xl/scroll:w-[22.5%] @5xl/scroll:w-[18%]"
+    class="relative aspect-[2/3] w-[45%] shrink-0 overflow-hidden border-2 bg-gray-200 shadow-black @md/scroll:w-[30%] @2xl/scroll:w-[22.5%] @5xl/scroll:w-[18%]"
   >
     <img
       v-lazy
@@ -32,19 +32,16 @@ const props = defineProps<Props>();
     >
       <IconMediaPlaceholder class="h-20 w-20 font-bold text-white" />
     </div>
-    <div
-      class="absolute left-2 top-2 border-2 bg-red-800 px-2 py-1 text-xs font-bold text-white"
-    >
-      {{ props.voteAverage }} / 10
-    </div>
+
     <div
       class="pointer-events-none absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-black/70"
     />
     <div class="absolute bottom-4 w-full space-y-2 px-4 text-white">
-      <div class="text-sm font-bold">{{ props.title }}</div>
-      <div class="flex justify-between text-xs italic">
+      <p class="line-clamp-1 text-sm font-bold">{{ props.title }}</p>
+      <p class="flex justify-between text-xs italic">
         <span>{{ props.releaseDate }}</span>
-      </div>
+        <span>{{ props.voteAverage }} / 10</span>
+      </p>
     </div>
   </RouterLink>
 </template>
