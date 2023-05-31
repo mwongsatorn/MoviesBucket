@@ -58,7 +58,9 @@ function personCrewProps(
           View full credits
         </button>
       </div>
-      <div class="main-scrollbar flex space-x-2 overflow-auto px-1 py-6">
+      <div
+        class="main-scrollbar flex space-x-2 overflow-auto px-1 py-6 @container/scroll"
+      >
         <PersonCard
           v-for="person in credits!.cast.slice(0, 10)"
           :key="person.id"
