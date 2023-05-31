@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
-import { mediaCardProps } from "@/utils/props";
-import MediaCard from "./MediaCard.vue";
 import IconChevronLeft from "./Icons/IconChevronLeft.vue";
 import IconChevronRight from "./Icons/IconChevronRight.vue";
 
 interface Props {
   sectionName: string;
   headerTitle: string;
-  media: ShortMovieDetails[] | ShortSerieDetails[];
 }
 
 type Position = "START" | "END" | "NEITHER";
@@ -64,12 +60,7 @@ onUnmounted(() => {
         ref="scroll"
         class="main-scrollbar flex snap-x snap-mandatory gap-x-2 overflow-x-auto scroll-smooth py-4"
       >
-        <MediaCard
-          class="snap-start"
-          v-for="item in media"
-          v-bind="mediaCardProps(item)"
-          :key="item.id"
-        />
+        <slot></slot>
       </div>
       <button
         @click="scrollHorizontally(-1)"
