@@ -36,9 +36,11 @@ const props = defineProps<Props>();
     <div
       class="pointer-events-none absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-black/70"
     />
-    <div class="absolute bottom-4 w-full space-y-2 px-4 text-white">
-      <p class="line-clamp-1 text-sm font-bold">{{ props.title }}</p>
-      <p class="flex justify-between text-xs italic">
+    <div
+      class="absolute bottom-4 hidden w-full space-y-2 px-4 text-white @2xl/scroll:block"
+    >
+      <p class="line-clamp-1 font-bold">{{ props.title }}</p>
+      <p class="flex justify-between text-xs">
         <span>{{ props.releaseDate }}</span>
         <span>{{ props.voteAverage }} / 10</span>
       </p>
