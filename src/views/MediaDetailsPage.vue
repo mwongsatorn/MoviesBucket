@@ -4,8 +4,10 @@ import { useRoute } from "vue-router";
 import { getMediaDetails } from "../composables/tmdb";
 import MediaOverview from "@/components/MediaOverview.vue";
 import MediaDetails from "@/components/MediaDetails.vue";
-import MediaCarousel from "@/components/MediaCarousel.vue";
+import CardCarousel from "@/components/CardCarousel.vue";
+import MediaCard from "@/components/MediaCard.vue";
 import MediaMoreDetails from "@/components/MediaMoreDetails.vue";
+import { mediaCardProps } from "@/utils/props";
 
 const route = useRoute();
 
@@ -111,11 +113,17 @@ provide("videos", mediaDetails.value?.videos.results);
     <div class="mx-auto grid max-w-7xl md:grid-cols-[1fr_240px]">
       <div class="overflow-hidden">
         <MediaDetails />
-        <MediaCarousel
+        <CardCarousel
           section-name="recommendations"
           header-title="Recommendations"
-          :media="mediaRecommendationsList"
-        />
+        >
+          <MediaCard
+            class="snap-start"
+            v-for="media in mediaRecommendationsList"
+            :key="media.id"
+            v-bind="mediaCardProps(media)"
+          />
+        </CardCarousel>
       </div>
       <MediaMoreDetails v-bind="mediaMoreDetailsProps()" />
     </div>

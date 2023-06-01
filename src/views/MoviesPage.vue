@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import MediaDisplay from "@/components/MediaDisplay.vue";
-import MediaCarousel from "@/components/MediaCarousel.vue";
+import CardCarousel from "@/components/CardCarousel.vue";
+import MediaCard from "@/components/MediaCard.vue";
+import { mediaCardProps } from "@/utils/props";
 import {
   getTrendingMedia,
   getPopularMedia,
@@ -27,21 +29,31 @@ const [
       section-name="trending-movies"
       :items="trendingMovies!.results"
     />
-    <MediaCarousel
+    <CardCarousel
       section-name="top-rated-movies"
       header-title="Top Rated Movies"
-      :media="topRatedMovies!.results"
-    />
-    <MediaCarousel
-      section-name="upcoming-movies"
-      header-title="Upcoming Movies"
-      :media="upComingMovies!.results"
-    />
-    <MediaCarousel
-      section-name="popular-movies"
-      header-title="Popular Movies"
-      :media="popularMovies!.results"
     >
-    </MediaCarousel>
+      <MediaCard
+        class="snap-start"
+        v-for="movie in topRatedMovies?.results"
+        :key="movie.id"
+        v-bind="mediaCardProps(movie)"
+      />
+    </CardCarousel>
+    <CardCarousel section-name="upcoming-movies" header-title="Upcoming Movies">
+      <MediaCard
+        class="snap-start"
+        v-for="movie in upComingMovies?.results"
+        :key="movie.id"
+        v-bind="mediaCardProps(movie)"
+      />
+    </CardCarousel>
+    <CardCarousel section-name="popular-movies" header-title="Popular Movies">
+      <MediaCard
+        v-for="movie in popularMovies?.results"
+        :key="movie.id"
+        v-bind="mediaCardProps(movie)"
+      />
+    </CardCarousel>
   </main>
 </template>
