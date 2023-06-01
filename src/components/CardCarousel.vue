@@ -58,7 +58,7 @@ onUnmounted(() => {
     <div class="relative @container/scroll">
       <div
         ref="scroll"
-        class="main-scrollbar flex snap-x snap-mandatory gap-x-2 overflow-x-auto scroll-smooth py-4"
+        class="main-scrollbar flex snap-x snap-mandatory gap-x-2 overflow-x-auto scroll-smooth py-4 childs:w-[45%] @md/scroll:childs:w-[30%] @2xl/scroll:childs:w-[22.5%] @5xl/scroll:childs:w-[18%]"
       >
         <slot></slot>
       </div>

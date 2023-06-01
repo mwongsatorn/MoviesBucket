@@ -17,7 +17,7 @@ const props = defineProps<Props>();
 <template>
   <RouterLink
     :to="`/${props.mediaType}/${props.id}`"
-    class="relative aspect-[2/3] w-[45%] shrink-0 overflow-hidden border-2 bg-gray-200 shadow-black @md/scroll:w-[30%] @2xl/scroll:w-[22.5%] @5xl/scroll:w-[18%]"
+    class="relative aspect-[2/3] shrink-0 overflow-hidden border-2 bg-gray-200"
   >
     <img
       v-lazy
