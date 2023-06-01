@@ -20,7 +20,7 @@ const props = defineProps<Props>();
     <img
       v-lazy
       v-if="props.profilePath"
-      class="w-full opacity-0 transition duration-500"
+      class="aspect-[2/3] w-full opacity-0 transition duration-500"
       alt=""
       :data-src="`https://image.tmdb.org/t/p/w185/${props.profilePath}`"
     />
