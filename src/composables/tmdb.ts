@@ -32,40 +32,47 @@ function createUrl(endpoint: string, params: Record<string, any>): URL {
 }
 
 export function getPopularMedia<MediaType extends keyof ShortDetailsDataMap>(
-  media: MediaType
+  media: MediaType,
+  page: number = 1
 ) {
   const url = createUrl(`${media}/popular`, {
     api_key: TMDB_API_KEY,
     language: "en",
+    page,
   });
   return useFetch<ShortDetailsDataMap[MediaType]>(url);
 }
 
 export function getTopRatedMedia<MediaType extends keyof ShortDetailsDataMap>(
-  media: MediaType
+  media: MediaType,
+  page: number = 1
 ) {
   const url = createUrl(`${media}/top_rated`, {
     api_key: TMDB_API_KEY,
     language: "en",
+    page,
   });
   return useFetch<ShortDetailsDataMap[MediaType]>(url);
 }
 
 export function getTrendingMedia<MediaType extends keyof ShortDetailsWithAll>(
   media: MediaType,
-  time_window: "day" | "week"
+  time_window: "day" | "week",
+  page: number = 1
 ) {
   const url = createUrl(`trending/${media}/${time_window}`, {
     api_key: TMDB_API_KEY,
     language: "en",
+    page,
   });
   return useFetch<ShortDetailsWithAll[MediaType]>(url);
 }
 
-export function getUpcomingMovies() {
+export function getUpcomingMovies(page: number = 1) {
   const url = createUrl("movie/upcoming", {
     api_key: TMDB_API_KEY,
     language: "en",
+    page,
   });
   return useFetch<PageResult<ShortMovieDetails>>(url);
 }
