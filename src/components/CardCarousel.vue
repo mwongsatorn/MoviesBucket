@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
+import { RouterLink } from "vue-router";
 import IconChevronLeft from "./Icons/IconChevronLeft.vue";
 import IconChevronRight from "./Icons/IconChevronRight.vue";
 
 interface Props {
   sectionName: string;
   headerTitle: string;
+  to?: string;
 }
 
 type Position = "START" | "END" | "NEITHER";
@@ -54,13 +56,19 @@ onUnmounted(() => {
 
 <template>
   <section :id="props.sectionName" class="relative mx-auto my-8 max-w-7xl px-4">
-    <h1 class="text-2xl font-bold">{{ props.headerTitle }}</h1>
+    <div class="flex flex-wrap justify-between gap-x-4 gap-y-2">
+      <h1 class="text-2xl font-bold">{{ props.headerTitle }}</h1>
+      <RouterLink class="text-sm text-rose-800" v-if="props.to" :to="props.to">
+        View more
+      </RouterLink>
+      <slot name="button"></slot>
+    </div>
     <div class="relative @container/scroll">
       <div
         ref="scroll"
         class="main-scrollbar flex snap-x snap-mandatory gap-x-2 overflow-x-auto scroll-smooth py-4 childs:w-[45%] @md/scroll:childs:w-[30%] @2xl/scroll:childs:w-[22.5%] @5xl/scroll:childs:w-[18%]"
       >
-        <slot></slot>
+        <slot name="cards"></slot>
       </div>
       <button
         @click="scrollHorizontally(-1)"
