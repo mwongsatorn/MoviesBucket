@@ -5,8 +5,8 @@ import IconChevronLeft from "./Icons/IconChevronLeft.vue";
 import IconChevronRight from "./Icons/IconChevronRight.vue";
 
 interface Props {
-  sectionName: string;
-  headerTitle: string;
+  name: string;
+  title: string;
   to?: string;
 }
 
@@ -55,9 +55,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section :id="props.sectionName" class="relative mx-auto my-8 max-w-7xl px-4">
+  <section :id="props.name" class="relative mx-auto my-8 max-w-7xl px-4">
     <div class="flex flex-wrap justify-between gap-x-4 gap-y-2">
-      <h1 class="text-2xl font-bold">{{ props.headerTitle }}</h1>
+      <h1 class="text-2xl font-bold">{{ props.title }}</h1>
       <RouterLink class="text-sm text-rose-800" v-if="props.to" :to="props.to">
         View more
       </RouterLink>
