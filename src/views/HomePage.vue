@@ -19,21 +19,33 @@ const [
 <template>
   <main>
     <MediaDisplay section-name="trending-all" :items="trendingMedia!.results" />
-    <CardCarousel section-name="trending-movies" header-title="Trending Movies">
-      <MediaCard
-        class="snap-start"
-        v-for="movie in trendingMovies?.results"
-        :key="movie.id"
-        v-bind="mediaCardProps(movie)"
-      />
+    <CardCarousel
+      name="trending-movies"
+      title="Trending movies"
+      to="/movies/categories/trending"
+    >
+      <template #cards>
+        <MediaCard
+          class="snap-start"
+          v-for="movie in trendingMovies?.results"
+          :key="movie.id"
+          v-bind="mediaCardProps(movie)"
+        />
+      </template>
     </CardCarousel>
-    <CardCarousel section-name="trending-series" header-title="Trending Series">
-      <MediaCard
-        class="snap-start"
-        v-for="serie in trendingSeries?.results"
-        :key="serie.id"
-        v-bind="mediaCardProps(serie)"
-      />
+    <CardCarousel
+      name="trending-series"
+      title="Trending Series"
+      to="/series/categories/trending"
+    >
+      <template #cards>
+        <MediaCard
+          class="snap-start"
+          v-for="serie in trendingSeries?.results"
+          :key="serie.id"
+          v-bind="mediaCardProps(serie)"
+        />
+      </template>
     </CardCarousel>
   </main>
 </template>

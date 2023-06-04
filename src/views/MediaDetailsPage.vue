@@ -113,16 +113,15 @@ provide("videos", mediaDetails.value?.videos.results);
     <div class="mx-auto grid max-w-7xl md:grid-cols-[1fr_240px]">
       <div class="overflow-hidden">
         <MediaDetails />
-        <CardCarousel
-          section-name="recommendations"
-          header-title="Recommendations"
-        >
-          <MediaCard
-            class="snap-start"
-            v-for="media in mediaRecommendationsList"
-            :key="media.id"
-            v-bind="mediaCardProps(media)"
-          />
+        <CardCarousel name="recommendations" title="Recommendations">
+          <template #cards>
+            <MediaCard
+              class="snap-start"
+              v-for="media in mediaRecommendationsList"
+              :key="media.id"
+              v-bind="mediaCardProps(media)"
+            />
+          </template>
         </CardCarousel>
       </div>
       <MediaMoreDetails v-bind="mediaMoreDetailsProps()" />

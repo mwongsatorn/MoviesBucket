@@ -27,23 +27,32 @@ const [
       :items="trendingSeries!.results"
     />
     <CardCarousel
-      section-name="top-rated-series"
-      header-title="Top Rated Series"
+      name="top-rated-series"
+      title="Top Rated Series"
+      to="/series/categories/top-rated"
     >
-      <MediaCard
-        class="snap-start"
-        v-for="serie in topRatedSeries?.results"
-        :key="serie.id"
-        v-bind="mediaCardProps(serie)"
-      />
+      <template #cards>
+        <MediaCard
+          class="snap-start"
+          v-for="serie in topRatedSeries?.results"
+          :key="serie.id"
+          v-bind="mediaCardProps(serie)"
+        />
+      </template>
     </CardCarousel>
-    <CardCarousel section-name="popular-series" header-title="Popular Series">
-      <MediaCard
-        class="snap-start"
-        v-for="serie in popularSeries?.results"
-        :key="serie.id"
-        v-bind="mediaCardProps(serie)"
-      />
+    <CardCarousel
+      name="popular-series"
+      title="Popular Series"
+      to="/series/categories/popular"
+    >
+      <template #cards>
+        <MediaCard
+          class="snap-start"
+          v-for="serie in popularSeries?.results"
+          :key="serie.id"
+          v-bind="mediaCardProps(serie)"
+        />
+      </template>
     </CardCarousel>
   </main>
 </template>

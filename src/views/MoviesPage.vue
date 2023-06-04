@@ -30,30 +30,45 @@ const [
       :items="trendingMovies!.results"
     />
     <CardCarousel
-      section-name="top-rated-movies"
-      header-title="Top Rated Movies"
+      name="top-rated-movies"
+      title="Top-rated movies"
+      to="/movies/categories/top-rated"
     >
-      <MediaCard
-        class="snap-start"
-        v-for="movie in topRatedMovies?.results"
-        :key="movie.id"
-        v-bind="mediaCardProps(movie)"
-      />
+      <template #cards>
+        <MediaCard
+          class="snap-start"
+          v-for="movie in topRatedMovies?.results"
+          :key="movie.id"
+          v-bind="mediaCardProps(movie)"
+        />
+      </template>
     </CardCarousel>
-    <CardCarousel section-name="upcoming-movies" header-title="Upcoming Movies">
-      <MediaCard
-        class="snap-start"
-        v-for="movie in upComingMovies?.results"
-        :key="movie.id"
-        v-bind="mediaCardProps(movie)"
-      />
+    <CardCarousel
+      name="upcoming-movies"
+      title="Upcoming movies"
+      to="/movies/categories/upcoming"
+    >
+      <template #cards>
+        <MediaCard
+          class="snap-start"
+          v-for="movie in upComingMovies?.results"
+          :key="movie.id"
+          v-bind="mediaCardProps(movie)"
+        />
+      </template>
     </CardCarousel>
-    <CardCarousel section-name="popular-movies" header-title="Popular Movies">
-      <MediaCard
-        v-for="movie in popularMovies?.results"
-        :key="movie.id"
-        v-bind="mediaCardProps(movie)"
-      />
+    <CardCarousel
+      name="popular-movies"
+      title="Popular Movies"
+      to="/movies/categories/popular"
+    >
+      <template #cards>
+        <MediaCard
+          v-for="movie in popularMovies?.results"
+          :key="movie.id"
+          v-bind="mediaCardProps(movie)"
+        />
+      </template>
     </CardCarousel>
   </main>
 </template>
