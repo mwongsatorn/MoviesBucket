@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, watchEffect } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 import SearchBar from "./SearchBar.vue";
 
@@ -7,15 +7,23 @@ const isSearchbarExpaned = ref(false);
 const isScrolled = ref(false);
 const route = useRoute();
 
-const isSpecificPages = computed(() => {
-  const specificPages = [
-    "Home",
-    "Movies",
-    "Series",
-    "MovieDetails",
-    "SerieDetails",
-  ];
-  return specificPages.includes(route.name as string);
+const isSpecificPages = ref<boolean>(false);
+const specificPages = [
+  "Home",
+  "Movies",
+  "Series",
+  "MovieDetails",
+  "SerieDetails",
+];
+
+watchEffect(() => {
+  if (specificPages.includes(route.name as string)) {
+    setTimeout(() => {
+      isSpecificPages.value = true;
+    }, 300);
+  } else {
+    isSpecificPages.value = false;
+  }
 });
 
 function handleScroll() {
@@ -25,6 +33,9 @@ function handleScroll() {
 
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
+  if (specificPages.includes(route.name as string))
+    isSpecificPages.value = true;
+  else isSpecificPages.value = false;
 });
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
