@@ -15,7 +15,7 @@ const props = defineProps<Props>();
 <template>
   <RouterLink
     :to="`/people/${props.id}`"
-    class="relative w-[30%] shrink-0 space-y-1 overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 @md/scroll:w-[22.5%] @2xl/scroll:w-[18%] @5xl/scroll:w-[15%]"
+    class="relative w-full shrink-0 space-y-1 overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
   >
     <img
       v-lazy
