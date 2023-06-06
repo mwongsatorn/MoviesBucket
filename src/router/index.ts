@@ -13,14 +13,14 @@ const router = createRouter({
       component: HomePage,
     },
     {
-      path: "/movies/:id",
-      name: "MovieDetails",
-      component: () => import("../views/MediaDetailsPage.vue"),
-    },
-    {
       path: "/movies",
       name: "Movies",
       component: () => import("../views/MoviesPage.vue"),
+    },
+    {
+      path: "/movies/:id",
+      name: "MovieDetails",
+      component: () => import("../views/MediaDetailsPage.vue"),
     },
     {
       path: "/series",
@@ -31,6 +31,18 @@ const router = createRouter({
       path: "/series/:id",
       name: "SerieDetails",
       component: () => import("../views/MediaDetailsPage.vue"),
+    },
+    {
+      path: "/movies/categories/:category(trending|top-rated|popular|upcoming)",
+      name: "MovieCategory",
+      component: () => import("../views/MediaCategoryPage.vue"),
+      props: true,
+    },
+    {
+      path: "/series/categories/:category(trending|top-rated|popular)",
+      name: "SerieCategory",
+      component: () => import("../views/MediaCategoryPage.vue"),
+      props: true,
     },
   ],
 });
