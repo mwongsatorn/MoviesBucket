@@ -39,16 +39,14 @@ async function fetch(page: number) {
 
 <template>
   <main>
-    <div class="relative mx-auto my-8 max-w-7xl px-4">
+    <section
+      id="media-category"
+      class="relative mx-auto my-8 max-w-7xl px-4 @container"
+    >
       <h1 class="text-xl font-bold sm:text-2xl">
         {{ title }}
       </h1>
-      <CardGrid
-        section-name="test"
-        :fetch="fetch"
-        card-type="media"
-        :cards="cards"
-      />
-    </div>
+      <CardGrid :fetch="fetch" card-type="media" :cards="cards" />
+    </section>
   </main>
 </template>
