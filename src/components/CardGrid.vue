@@ -7,7 +7,6 @@ import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
 type Card = ShortMovieDetails | ShortSerieDetails;
 
 interface Props {
-  sectionName: string;
   cards: Card[];
   cardType: "media" | "search";
   fetch: (page: number) => Promise<void>;
@@ -43,16 +42,14 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <section class="@container/scroll" :id="props.sectionName">
-    <div
-      ref="cardsContainer"
-      class="grid grid-cols-2 gap-1 py-4 @md/scroll:grid-cols-3 @2xl/scroll:grid-cols-4 @5xl/scroll:grid-cols-5"
-    >
-      <MediaCard
-        v-for="card in cards"
-        :key="card.id"
-        v-bind="mediaCardProps(card)"
-      />
-    </div>
-  </section>
+  <div
+    ref="cardsContainer"
+    class="grid grid-cols-2 gap-1 py-4 @md:grid-cols-3 @2xl:grid-cols-4 @5xl:grid-cols-5"
+  >
+    <MediaCard
+      v-for="card in cards"
+      :key="card.id"
+      v-bind="mediaCardProps(card)"
+    />
+  </div>
 </template>
