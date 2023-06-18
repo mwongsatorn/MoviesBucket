@@ -67,23 +67,23 @@ onUnmounted(() => {
       </RouterLink>
       <slot name="button"></slot>
     </div>
-    <div class="relative @container/scroll">
+    <div class="relative @container">
       <div
         ref="scroll"
-        class="main-scrollbar flex snap-x snap-mandatory gap-x-2 overflow-x-auto scroll-smooth py-4 childs:w-[45%] @md/scroll:childs:w-[30%] @2xl/scroll:childs:w-[22.5%] @5xl/scroll:childs:w-[18%]"
+        class="main-scrollbar flex snap-x snap-mandatory gap-x-2 overflow-x-auto scroll-smooth py-4 childs:w-[45%] @md:childs:w-[30%] @2xl:childs:w-[22.5%] @5xl:childs:w-[18%]"
       >
         <slot name="cards"></slot>
       </div>
       <button
         @click="scrollHorizontally(-1)"
-        class="absolute left-0 top-4 flex h-[calc(100%-2.5rem)] w-[calc(10%-1rem)] items-center justify-center bg-gradient-to-r from-black to-transparent text-white opacity-40 duration-300 hover:opacity-80 @md/scroll:w-[calc(10%-1.5rem)] @2xl/scroll:w-[calc(10%-2rem)] @5xl/scroll:w-[calc(10%-2.5rem)]"
+        class="absolute left-0 top-4 flex h-[calc(100%-2.5rem)] w-[calc(10%-1rem)] items-center justify-center bg-gradient-to-r from-black to-transparent text-white opacity-40 duration-300 hover:opacity-80 @md:w-[calc(10%-1.5rem)] @2xl:w-[calc(10%-2rem)] @5xl:w-[calc(10%-2.5rem)]"
         :class="[scrollPos === 'START' ? 'hidden' : '']"
       >
         <IconChevronLeft class="h-6 w-6" />
       </button>
       <button
         @click="scrollHorizontally(1)"
-        class="absolute right-0 top-4 flex h-[calc(100%-2.5rem)] w-[calc(10%-1rem)] items-center justify-center bg-gradient-to-l from-black to-transparent text-white opacity-40 duration-300 hover:opacity-80 @md/scroll:w-[calc(10%-1.5rem)] @2xl/scroll:w-[calc(10%-2rem)] @5xl/scroll:w-[calc(10%-2.5rem)]"
+        class="absolute right-0 top-4 flex h-[calc(100%-2.5rem)] w-[calc(10%-1rem)] items-center justify-center bg-gradient-to-l from-black to-transparent text-white opacity-40 duration-300 hover:opacity-80 @md:w-[calc(10%-1.5rem)] @2xl:w-[calc(10%-2rem)] @5xl:w-[calc(10%-2.5rem)]"
         :class="[scrollPos === 'END' ? 'hidden' : '']"
       >
         <IconChevronRight class="h-6 w-6" />
