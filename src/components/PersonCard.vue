@@ -15,15 +15,16 @@ const props = defineProps<Props>();
 <template>
   <RouterLink
     :to="`/people/${props.id}`"
-    class="relative w-full shrink-0 space-y-1 overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
+    class="relative w-full shrink-0 space-y-1 overflow-hidden rounded-lg shadow-lg"
   >
-    <img
-      v-lazy
-      v-if="props.profilePath"
-      class="aspect-[2/3] w-full opacity-0 transition duration-500"
-      alt=""
-      :data-src="`https://image.tmdb.org/t/p/w185/${props.profilePath}`"
-    />
+    <div class="overflow-hidden" v-if="props.profilePath">
+      <img
+        v-lazy
+        class="aspect-[2/3] w-full opacity-0 transition duration-500 hover:scale-105"
+        alt=""
+        :data-src="`https://image.tmdb.org/t/p/w185/${props.profilePath}`"
+      />
+    </div>
     <div
       v-else
       class="flex aspect-[2/3] w-full items-center justify-center bg-gray-400"
