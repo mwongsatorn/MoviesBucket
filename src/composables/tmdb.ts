@@ -89,3 +89,29 @@ export function getMediaDetails<MediaType extends keyof DetailsDataMap>(
   });
   return useFetch<DetailsDataMap[MediaType]>(url);
 }
+
+export function getMediaByKeywordId<
+  MediaType extends keyof ShortDetailsDataMap
+>(media: MediaType, id: string, page: number) {
+  const url = createUrl(`discover/${media}`, {
+    api_key: TMDB_API_KEY,
+    language: "en",
+    with_keywords: id,
+    page,
+  });
+  return useFetch<ShortDetailsDataMap[MediaType]>(url);
+}
+
+export function getMediaByGenreId<MediaType extends keyof ShortDetailsDataMap>(
+  media: MediaType,
+  id: string,
+  page: number
+) {
+  const url = createUrl(`discover/${media}`, {
+    api_key: TMDB_API_KEY,
+    language: "en",
+    with_genres: id,
+    page,
+  });
+  return useFetch<ShortDetailsDataMap[MediaType]>(url);
+}
