@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useRoute } from "vue-router";
 import IconLink from "@/components/Icons/IconLink.vue";
 import IconImdb from "@/components/Icons/IconImdb.vue";
 import IconFacebook from "@/components/Icons/IconFacebook.vue";
@@ -25,6 +26,9 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
+const route = useRoute();
+const media = route.name === "MovieDetails" ? "movies" : "series";
 
 const hasExternalIds = computed(() => {
   if (!props.externalIds) return null;
@@ -140,7 +144,7 @@ const hasKeywords = computed(() => {
           class="rounded-lg bg-rose-800 px-2 py-1 text-sm text-white hover:bg-amber-500"
           v-for="keyword in props.keywords"
           :key="keyword.id"
-          :to="`/keywords/${keyword.id}`"
+          :to="`/${media}/keywords/${keyword.id}-${keyword.name}`"
         >
           {{ keyword.name }}
         </RouterLink>
