@@ -123,3 +123,11 @@ export function getMediaByGenreId<MediaType extends keyof ShortDetailsDataMap>(
   });
   return useFetch<ShortDetailsDataMap[MediaType]>(url);
 }
+
+export function getMediaGenreList(media: string) {
+  const url = createUrl(`genre/${media}/list`, {
+    api_key: TMDB_API_KEY,
+    language: "en",
+  });
+  return useFetch<{ genres: [{ id: string; name: string }] }>(url);
+}
