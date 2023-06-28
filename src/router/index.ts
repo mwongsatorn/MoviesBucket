@@ -50,6 +50,12 @@ const router = createRouter({
       component: () => import("../views/MediaByKeywordPage.vue"),
       props: true,
     },
+    {
+      path: "/:media(movies|series)/genres/:id",
+      name: "MediaByGenre",
+      component: () => import("../views/MediaByGenrePage.vue"),
+      props: true,
+    },
   ],
 });
 
