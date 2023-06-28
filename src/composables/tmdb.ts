@@ -102,6 +102,14 @@ export function getMediaByKeywordId<
   return useFetch<ShortDetailsDataMap[MediaType]>(url);
 }
 
+export function getKeywordDetails(id: string) {
+  const url = createUrl(`keyword/${id}`, {
+    api_key: TMDB_API_KEY,
+    language: "en",
+  });
+  return useFetch<{ id: string; name: string }>(url);
+}
+
 export function getMediaByGenreId<MediaType extends keyof ShortDetailsDataMap>(
   media: MediaType,
   id: string,
