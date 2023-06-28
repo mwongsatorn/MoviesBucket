@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRoute } from "vue-router";
 interface Props {
   backdropPath: string | null;
   posterPath: string | null;
@@ -18,6 +19,9 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
+const route = useRoute();
+const media = route.name === "MovieDetails" ? "movies" : "series";
 </script>
 
 <template>
@@ -53,7 +57,7 @@ const props = defineProps<Props>();
               class="rounded-lg bg-rose-800 px-2 py-1 hover:bg-amber-500"
               v-for="genre in props.genres"
               :key="genre.id"
-              :to="`/genres/${genre.id}`"
+              :to="`/${media}/genres/${genre.id}`"
             >
               {{ genre.name }}
             </RouterLink>
