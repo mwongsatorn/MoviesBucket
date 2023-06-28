@@ -144,7 +144,7 @@ const hasKeywords = computed(() => {
           class="rounded-lg bg-rose-800 px-2 py-1 text-sm text-white hover:bg-amber-500"
           v-for="keyword in props.keywords"
           :key="keyword.id"
-          :to="`/${media}/keywords/${keyword.id}-${keyword.name}`"
+          :to="`/${media}/keywords/${keyword.id}`"
         >
           {{ keyword.name }}
         </RouterLink>

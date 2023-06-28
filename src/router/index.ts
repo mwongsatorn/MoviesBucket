@@ -45,7 +45,7 @@ const router = createRouter({
       props: true,
     },
     {
-      path: "/:media(movies|series)/keywords/:id-:name",
+      path: "/:media(movies|series)/keywords/:id",
       name: "MediaByKeyword",
       component: () => import("../views/MediaByKeywordPage.vue"),
       props: true,
