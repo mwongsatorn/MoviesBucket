@@ -33,15 +33,9 @@ const router = createRouter({
       component: () => import("../views/MediaDetailsPage.vue"),
     },
     {
-      path: "/movies/categories/:category(trending|top-rated|popular|upcoming)",
-      name: "MovieCategory",
-      component: () => import("../views/MediaCategoryPage.vue"),
-      props: true,
-    },
-    {
-      path: "/series/categories/:category(trending|top-rated|popular)",
-      name: "SerieCategory",
-      component: () => import("../views/MediaCategoryPage.vue"),
+      path: "/:media(movies|series)/categories/:category(trending|top-rated|popular|upcoming)",
+      name: "MediaByCategory",
+      component: () => import("../views/MediaByCategoryPage.vue"),
       props: true,
     },
     {
