@@ -18,19 +18,15 @@ const router = createRouter({
       component: () => import("../views/MoviesPage.vue"),
     },
     {
-      path: "/movies/:id",
-      name: "MovieDetails",
-      component: () => import("../views/MediaDetailsPage.vue"),
-    },
-    {
       path: "/series",
       name: "Series",
       component: () => import("../views/SeriesPage.vue"),
     },
     {
-      path: "/series/:id",
-      name: "SerieDetails",
+      path: "/:media(movies|series)/:id",
+      name: "MediaDetails",
       component: () => import("../views/MediaDetailsPage.vue"),
+      props: true,
     },
     {
       path: "/:media(movies|series)/categories/:category(trending|top-rated|popular|upcoming)",

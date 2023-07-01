@@ -9,14 +9,15 @@ import MediaCard from "@/components/MediaCard.vue";
 import MediaMoreDetails from "@/components/MediaMoreDetails.vue";
 import { mediaCardProps } from "@/utils/props";
 
-const route = useRoute();
+type Media = "movies" | "series";
+const props = defineProps<{
+  media: Media;
+  id: string;
+}>();
 
-const mediaType = route.name === "MovieDetails" ? "movie" : "tv";
+const type = props.media === "movies" ? "movie" : "tv";
 
-const { data: mediaDetails } = await getMediaDetails(
-  route.params.id as string,
-  mediaType
-);
+const { data: mediaDetails } = await getMediaDetails(props.media, type);
 
 const mediaRecommendationsList = computed(() => {
   return mediaDetails.value!.recommendations.results.slice(0, 7);
