@@ -7,6 +7,8 @@ import {
   getUpcomingMovies,
 } from "@/composables/tmdb";
 import CardGrid from "@/components/CardGrid.vue";
+import MediaCard from "@/components/MediaCard.vue";
+import { mediaCardProps } from "@/utils/props";
 import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
 
 type Media = "movies" | "series";
@@ -25,10 +27,12 @@ async function getCardlist(page: number) {
   throw "never";
 }
 const cards = ref<(ShortMovieDetails | ShortSerieDetails)[]>([]);
+let page = 0;
 
 const title = `${props.category} ${props.media}`;
 
-async function fetch(page: number) {
+async function fetch() {
+  page++;
   const { data } = await getCardlist(page);
   cards.value.push(...data.value!.results);
 }
@@ -43,7 +47,15 @@ async function fetch(page: number) {
       <h1 class="text-xl font-bold capitalize sm:text-2xl">
         {{ title }}
       </h1>
-      <CardGrid :fetch="fetch" card-type="media" :cards="cards" />
+      <CardGrid :fetch="fetch">
+        <template #cards>
+          <MediaCard
+            v-for="card in cards"
+            v-bind="mediaCardProps(card)"
+            :key="card.id"
+          />
+        </template>
+      </CardGrid>
     </section>
   </main>
 </template>
