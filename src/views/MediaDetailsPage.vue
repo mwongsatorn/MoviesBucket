@@ -7,9 +7,8 @@ import CardCarousel from "@/components/CardCarousel.vue";
 import MediaCard from "@/components/MediaCard.vue";
 import MediaMoreDetails from "@/components/MediaMoreDetails.vue";
 
-type Media = "movies" | "series";
 const props = defineProps<{
-  media: Media;
+  media: "movies" | "series";
   id: string;
 }>();
 
@@ -19,30 +18,6 @@ const { data: mediaDetails } = await getMediaDetails(props.id, type);
 
 const mediaRecommendationsList = computed(() => {
   return mediaDetails.value!.recommendations.results.slice(0, 7);
-});
-
-const mediaRuntime = computed(() => {
-  if (!("runtime" in mediaDetails.value!)) return null;
-  if (mediaDetails.value.runtime === null) return null;
-  const hrs = Math.floor(mediaDetails.value.runtime / 60).toString();
-  const mins = (mediaDetails.value.runtime % 60).toString();
-  return `${hrs} hr ${mins} min`;
-});
-
-const mediaReleaseDate = computed(() => {
-  return "release_date" in mediaDetails.value!
-    ? mediaDetails.value!.release_date
-    : mediaDetails.value!.first_air_date;
-});
-
-const mediaReleaseYear = computed(() => {
-  return mediaReleaseDate.value!.split("-")[0];
-});
-
-const mediaTitle = computed(() => {
-  return "title" in mediaDetails.value!
-    ? mediaDetails.value!.title
-    : mediaDetails.value!.name;
 });
 
 const moneyFormat = new Intl.NumberFormat("en-us", {
@@ -74,21 +49,6 @@ const mediaCredits = computed(() => {
     : mediaDetails.value!.credits;
 });
 
-function mediaOverviewProps() {
-  return {
-    backdropPath: mediaDetails.value!.backdrop_path,
-    posterPath: mediaDetails.value!.poster_path,
-    title: mediaTitle.value,
-    releaseYear: mediaReleaseYear.value,
-    voteAverage: mediaDetails.value!.vote_average,
-    releaseDate: mediaReleaseDate.value,
-    runtime: mediaRuntime.value,
-    genres: mediaDetails.value!.genres,
-    tagline: mediaDetails.value!.tagline,
-    overview: mediaDetails.value!.overview,
-  };
-}
-
 function mediaMoreDetailsProps() {
   return {
     keywords: mediaKeywords.value,
@@ -108,7 +68,7 @@ provide("videos", mediaDetails.value?.videos.results);
 
 <template>
   <main>
-    <MediaOverview v-bind="mediaOverviewProps()"></MediaOverview>
+    <MediaOverview :media="mediaDetails!" :type="props.media"></MediaOverview>
     <div class="mx-auto grid max-w-7xl md:grid-cols-[1fr_240px]">
       <div class="overflow-hidden">
         <MediaDetails />
