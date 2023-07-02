@@ -13,14 +13,10 @@ const router = createRouter({
       component: HomePage,
     },
     {
-      path: "/movies",
-      name: "Movies",
-      component: () => import("../views/MoviesPage.vue"),
-    },
-    {
-      path: "/series",
-      name: "Series",
-      component: () => import("../views/SeriesPage.vue"),
+      path: "/:media(movies|series)",
+      name: "MediaList",
+      component: () => import("../views/MediaListPage.vue"),
+      props: true,
     },
     {
       path: "/:media(movies|series)/:id",
