@@ -3,7 +3,6 @@ import { getTrendingMedia } from "@/composables/tmdb";
 import MediaDisplay from "@/components/MediaDisplay.vue";
 import CardCarousel from "@/components/CardCarousel.vue";
 import MediaCard from "@/components/MediaCard.vue";
-import { mediaCardProps } from "@/utils/props";
 
 const [
   { data: trendingMedia },
@@ -29,7 +28,8 @@ const [
           class="snap-start"
           v-for="movie in trendingMovies?.results"
           :key="movie.id"
-          v-bind="mediaCardProps(movie)"
+          :media="movie"
+          type="movies"
         />
       </template>
     </CardCarousel>
@@ -43,7 +43,8 @@ const [
           class="snap-start"
           v-for="serie in trendingSeries?.results"
           :key="serie.id"
-          v-bind="mediaCardProps(serie)"
+          :media="serie"
+          type="series"
         />
       </template>
     </CardCarousel>

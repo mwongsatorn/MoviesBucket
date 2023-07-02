@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { getMediaByGenreId, getMediaGenreList } from "@/composables/tmdb";
 import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
 import CardGrid from "@/components/CardGrid.vue";
 import MediaCard from "@/components/MediaCard.vue";
-import { mediaCardProps } from "@/utils/props";
-import { computed } from "vue";
 
 type Media = "movies" | "series";
 const props = defineProps<{
@@ -42,8 +40,9 @@ async function fetch() {
         <template #cards>
           <MediaCard
             v-for="card in cards"
-            v-bind="mediaCardProps(card)"
             :key="card.id"
+            :media="card"
+            :type="props.media"
           />
         </template>
       </CardGrid>

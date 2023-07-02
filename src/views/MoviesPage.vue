@@ -2,7 +2,6 @@
 import MediaDisplay from "@/components/MediaDisplay.vue";
 import CardCarousel from "@/components/CardCarousel.vue";
 import MediaCard from "@/components/MediaCard.vue";
-import { mediaCardProps } from "@/utils/props";
 import {
   getTrendingMedia,
   getPopularMedia,
@@ -39,7 +38,8 @@ const [
           class="snap-start"
           v-for="movie in topRatedMovies?.results"
           :key="movie.id"
-          v-bind="mediaCardProps(movie)"
+          :media="movie"
+          type="movies"
         />
       </template>
     </CardCarousel>
@@ -53,7 +53,8 @@ const [
           class="snap-start"
           v-for="movie in upComingMovies?.results"
           :key="movie.id"
-          v-bind="mediaCardProps(movie)"
+          :media="movie"
+          type="movies"
         />
       </template>
     </CardCarousel>
@@ -66,7 +67,8 @@ const [
         <MediaCard
           v-for="movie in popularMovies?.results"
           :key="movie.id"
-          v-bind="mediaCardProps(movie)"
+          :media="movie"
+          type="movies"
         />
       </template>
     </CardCarousel>

@@ -8,7 +8,6 @@ import {
 } from "@/composables/tmdb";
 import CardGrid from "@/components/CardGrid.vue";
 import MediaCard from "@/components/MediaCard.vue";
-import { mediaCardProps } from "@/utils/props";
 import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
 
 type Media = "movies" | "series";
@@ -51,8 +50,9 @@ async function fetch() {
         <template #cards>
           <MediaCard
             v-for="card in cards"
-            v-bind="mediaCardProps(card)"
             :key="card.id"
+            :media="card"
+            :type="props.media"
           />
         </template>
       </CardGrid>

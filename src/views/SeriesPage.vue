@@ -7,7 +7,6 @@ import {
   getPopularMedia,
   getTopRatedMedia,
 } from "@/composables/tmdb";
-import { mediaCardProps } from "@/utils/props";
 
 const [
   { data: trendingSeries },
@@ -36,7 +35,8 @@ const [
           class="snap-start"
           v-for="serie in topRatedSeries?.results"
           :key="serie.id"
-          v-bind="mediaCardProps(serie)"
+          :media="serie"
+          type="series"
         />
       </template>
     </CardCarousel>
@@ -50,7 +50,8 @@ const [
           class="snap-start"
           v-for="serie in popularSeries?.results"
           :key="serie.id"
-          v-bind="mediaCardProps(serie)"
+          :media="serie"
+          type="series"
         />
       </template>
     </CardCarousel>

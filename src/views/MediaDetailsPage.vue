@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { computed, provide } from "vue";
-import { useRoute } from "vue-router";
 import { getMediaDetails } from "../composables/tmdb";
 import MediaOverview from "@/components/MediaOverview.vue";
 import MediaDetails from "@/components/MediaDetails.vue";
 import CardCarousel from "@/components/CardCarousel.vue";
 import MediaCard from "@/components/MediaCard.vue";
 import MediaMoreDetails from "@/components/MediaMoreDetails.vue";
-import { mediaCardProps } from "@/utils/props";
 
 type Media = "movies" | "series";
 const props = defineProps<{
@@ -17,7 +15,7 @@ const props = defineProps<{
 
 const type = props.media === "movies" ? "movie" : "tv";
 
-const { data: mediaDetails } = await getMediaDetails(props.media, type);
+const { data: mediaDetails } = await getMediaDetails(props.id, type);
 
 const mediaRecommendationsList = computed(() => {
   return mediaDetails.value!.recommendations.results.slice(0, 7);
@@ -120,7 +118,8 @@ provide("videos", mediaDetails.value?.videos.results);
               class="snap-start"
               v-for="media in mediaRecommendationsList"
               :key="media.id"
-              v-bind="mediaCardProps(media)"
+              :media="media"
+              :type="props.media"
             />
           </template>
         </CardCarousel>
