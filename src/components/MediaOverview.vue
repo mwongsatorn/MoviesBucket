@@ -1,27 +1,19 @@
 <script setup lang="ts">
-import { useRoute } from "vue-router";
+import type { MovieDetails, SerieDetails } from "@/types";
 interface Props {
-  backdropPath: string | null;
-  posterPath: string | null;
-  title: string;
-  releaseYear: string;
-  voteAverage: number;
-  releaseDate: string;
-  runtime: string | null;
-  genres: [
-    {
-      id: number;
-      name: string;
-    }
-  ];
-  tagline: string | null;
-  overview: string;
+  media: MovieDetails | SerieDetails;
+  type: "movies" | "series";
 }
 
 const props = defineProps<Props>();
 
-const route = useRoute();
-const media = route.name === "MovieDetails" ? "movies" : "series";
+function runtime() {
+  if (!("runtime" in props.media)) return null;
+  if (props.media.runtime === null) return null;
+  const hrs = Math.floor(props.media.runtime / 60).toString();
+  const mins = (props.media.runtime % 60).toString();
+  return `${hrs} hr ${mins} min`;
+}
 </script>
 
 <template>
@@ -29,7 +21,7 @@ const media = route.name === "MovieDetails" ? "movies" : "series";
     id="overview"
     class="relative bg-cover bg-center"
     :style="{
-      backgroundImage: `url(https://image.tmdb.org/t/p/w1280/${props.backdropPath})`,
+      backgroundImage: `url(https://image.tmdb.org/t/p/w1280/${props.media.backdrop_path})`,
     }"
   >
     <div class="absolute top-0 h-full w-full bg-black/80" />
@@ -39,23 +31,27 @@ const media = route.name === "MovieDetails" ? "movies" : "series";
       <div class="shrink-0 self-center">
         <img
           class="w-[250px] border-2"
-          :src="`https://image.tmdb.org/t/p/w342/${props.posterPath}`"
+          :src="`https://image.tmdb.org/t/p/w342/${props.media.poster_path}`"
           alt=""
         />
       </div>
       <div class="space-y-4 text-white">
-        <h1 class="text-2xl font-bold">
-          {{ props.title }} ({{ props.releaseYear }})
+        <h1 v-if="'title' in props.media" class="text-2xl font-bold">
+          {{ props.media.title }} ({{ props.media.release_date.split("-")[0] }})
+        </h1>
+        <h1 v-else class="text-2xl font-bold">
+          {{ props.media.name }}
+          ({{ props.media.first_air_date.split("-")[0] }})
         </h1>
         <div class="flex flex-wrap items-center gap-x-4 gap-y-4 text-sm">
-          <span>
-            {{ props.voteAverage }}/10 | {{ props.releaseDate }} |
-            {{ props.runtime }}
+          <span v-if="'release_date' in props.media">
+            {{ props.media.vote_average }}/10 | {{ props.media.release_date }} |
+            {{ runtime() }}
           </span>
           <div class="flex flex-wrap items-center gap-x-4 gap-y-4">
             <RouterLink
               class="rounded-lg bg-rose-800 px-2 py-1 hover:bg-amber-500"
-              v-for="genre in props.genres"
+              v-for="genre in props.media.genres"
               :key="genre.id"
               :to="`/${media}/genres/${genre.id}`"
             >
@@ -63,12 +59,12 @@ const media = route.name === "MovieDetails" ? "movies" : "series";
             </RouterLink>
           </div>
         </div>
-        <p class="italic text-white/50" v-if="props.tagline !== ''">
-          {{ props.tagline }}
+        <p class="italic text-white/50" v-if="props.media.tagline !== ''">
+          {{ props.media.tagline }}
         </p>
         <div class="space-y-4">
           <h2 class="text-lg font-bold">Overview</h2>
-          <p>{{ props.overview }}</p>
+          <p>{{ props.media.overview }}</p>
         </div>
       </div>
     </div>
