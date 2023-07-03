@@ -1,58 +1,55 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { useRoute } from "vue-router";
 import IconLink from "@/components/Icons/IconLink.vue";
 import IconImdb from "@/components/Icons/IconImdb.vue";
 import IconFacebook from "@/components/Icons/IconFacebook.vue";
 import IconTwitter from "@/components/Icons/IconTwitter.vue";
 import IconInstagram from "@/components/Icons/IconInstagram.vue";
-import type { MovieExternalIds, SerieAndPersonExternalIds } from "@/types";
+import type { MovieDetails, SerieDetails } from "@/types";
 
 interface Props {
-  homepage: string | undefined;
-  status: string | undefined;
-  originalLanguage: string | undefined;
-  budget: string | null;
-  revenue: string | null;
-  externalIds: MovieExternalIds | SerieAndPersonExternalIds | undefined;
-  keywords:
-    | [
-        {
-          id: string;
-          name: string;
-        }
-      ]
-    | null;
+  media: MovieDetails | SerieDetails;
+  type: "movies" | "series";
 }
 
 const props = defineProps<Props>();
 
-const route = useRoute();
-const media = route.name === "MovieDetails" ? "movies" : "series";
+function revenue() {
+  const moneyFormat = new Intl.NumberFormat("en-us", {
+    style: "currency",
+    currency: "USD",
+  });
+  return "revenue" in props.media
+    ? moneyFormat.format(props.media.revenue)
+    : null;
+}
 
-const hasExternalIds = computed(() => {
-  if (!props.externalIds) return null;
+function originalLanguage() {
+  if (!props.media.original_language) return null;
+  const langCodeFormat = new Intl.DisplayNames("en-us", {
+    type: "language",
+  });
+  return langCodeFormat.of(props.media.original_language);
+}
+
+function hasExternalIds() {
+  if (!props.media.external_ids) return null;
   return (
-    props.externalIds.facebook_id !== null ||
-    props.externalIds.instagram_id !== null ||
-    props.externalIds.twitter_id !== null ||
-    props.externalIds.imdb_id !== null
+    props.media.external_ids.facebook_id !== null ||
+    props.media.external_ids.instagram_id !== null ||
+    props.media.external_ids.twitter_id !== null ||
+    props.media.external_ids.imdb_id !== null
   );
-});
+}
 
-const langCodeFormat = new Intl.DisplayNames("en-us", {
-  type: "language",
-});
+const keywords =
+  "keywords" in props.media.keywords
+    ? props.media.keywords.keywords
+    : props.media.keywords.results;
 
-const mediaOriginalLang = computed(() => {
-  if (!props.originalLanguage) return null;
-  return langCodeFormat.of(props.originalLanguage);
-});
-
-const hasKeywords = computed(() => {
-  if (!props.keywords) return null;
-  return props.keywords.length > 0;
-});
+function hasKeywords() {
+  if (!keywords) return null;
+  return keywords.length > 0;
+}
 </script>
 
 <template>
@@ -63,8 +60,8 @@ const hasKeywords = computed(() => {
     <div class="w-1/2 space-y-2 sm:w-1/3 md:w-full">
       <h2 class="font-bold">Homepage</h2>
       <a
-        v-if="props.homepage"
-        :href="props.homepage"
+        v-if="props.media.homepage"
+        :href="props.media.homepage"
         target="_blank"
         class="flex items-center gap-x-2 hover:underline hover:decoration-2"
       >
@@ -76,33 +73,33 @@ const hasKeywords = computed(() => {
     <div class="w-1/2 space-y-2 sm:w-1/3 md:w-full">
       <h2 class="font-bold">External sources</h2>
       <div
-        v-if="hasExternalIds"
+        v-if="hasExternalIds()"
         class="flex flex-wrap items-center gap-x-4 gap-y-4"
       >
         <a
-          v-if="props.externalIds?.imdb_id"
-          :href="`https://www.imdb.com/title/${props.externalIds.imdb_id}`"
+          v-if="props.media.external_ids?.imdb_id"
+          :href="`https://www.imdb.com/title/${props.media.external_ids.imdb_id}`"
           target="_blank"
         >
           <IconImdb class="h-6 w-6 duration-300 hover:text-rose-800" />
         </a>
         <a
-          v-if="props.externalIds?.facebook_id"
-          :href="`https://www.facebook.com/${props.externalIds.facebook_id}`"
+          v-if="props.media.external_ids?.facebook_id"
+          :href="`https://www.facebook.com/${props.media.external_ids.facebook_id}`"
           target="_blank"
         >
           <IconFacebook class="h-6 w-6 duration-300 hover:text-rose-800" />
         </a>
         <a
-          v-if="props.externalIds?.twitter_id"
-          :href="`https://twitter.com/${props.externalIds.twitter_id}`"
+          v-if="props.media.external_ids?.twitter_id"
+          :href="`https://twitter.com/${props.media.external_ids.twitter_id}`"
           target="_blank"
         >
           <IconTwitter class="h-6 w-6 duration-300 hover:text-rose-800" />
         </a>
         <a
-          v-if="props.externalIds?.instagram_id"
-          :href="`https://www.instagram.com/${props.externalIds.instagram_id}`"
+          v-if="props.media.external_ids?.instagram_id"
+          :href="`https://www.instagram.com/${props.media.external_ids.instagram_id}`"
           target="_blank"
         >
           <IconInstagram class="h-6 w-6 duration-300 hover:text-rose-800" />
@@ -112,39 +109,43 @@ const hasKeywords = computed(() => {
     </div>
     <div class="w-1/2 space-y-2 sm:w-1/3 md:w-full">
       <h2 class="font-bold">Original Language</h2>
-      <p v-if="mediaOriginalLang" class="text-sm italic">
-        {{ mediaOriginalLang }}
+      <p v-if="props.media.original_language" class="text-sm italic">
+        {{ originalLanguage() }}
       </p>
       <p class="text-sm italic" v-else>No information</p>
     </div>
     <div class="w-1/2 space-y-2 sm:w-1/3 md:w-full">
       <h2 class="font-bold">Status</h2>
-      <p v-if="props.status" class="text-sm italic">
-        {{ props.status }}
+      <p v-if="props.media.status" class="text-sm italic">
+        {{ props.media.status }}
       </p>
       <p class="text-sm italic" v-else>No information</p>
     </div>
     <div class="w-1/2 space-y-2 sm:w-1/3 md:w-full">
       <h2 class="font-bold">Budget</h2>
-      <p v-if="props.budget" class="text-sm italic">{{ props.budget }}</p>
+      <p v-if="'budget' in props.media" class="text-sm italic">
+        {{ props.media.budget }}
+      </p>
       <p class="text-sm italic" v-else>No information</p>
     </div>
     <div class="w-1/2 space-y-2 sm:w-1/3 md:w-full">
       <h2 class="font-bold">Revenue</h2>
-      <p v-if="props.revenue" class="text-sm italic">{{ props.revenue }}</p>
+      <p v-if="'revenue' in props.media" class="text-sm italic">
+        {{ revenue() }}
+      </p>
       <p class="text-sm italic" v-else>No information</p>
     </div>
     <div class="space-y-2 md:w-full">
       <h2 class="font-bold">Keywords</h2>
       <div
-        v-if="hasKeywords"
+        v-if="hasKeywords()"
         class="flex flex-wrap items-center gap-x-2 gap-y-2"
       >
         <RouterLink
           class="rounded-lg bg-rose-800 px-2 py-1 text-sm text-white hover:bg-amber-500"
-          v-for="keyword in props.keywords"
+          v-for="keyword in keywords"
           :key="keyword.id"
-          :to="`/${media}/keywords/${keyword.id}`"
+          :to="`/${props.type}/keywords/${keyword.id}`"
         >
           {{ keyword.name }}
         </RouterLink>
