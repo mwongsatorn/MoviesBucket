@@ -20,48 +20,13 @@ const mediaRecommendationsList = computed(() => {
   return mediaDetails.value!.recommendations.results.slice(0, 7);
 });
 
-const moneyFormat = new Intl.NumberFormat("en-us", {
-  style: "currency",
-  currency: "USD",
-});
-
-const mediaBudget = computed(() => {
-  return "budget" in mediaDetails.value!
-    ? moneyFormat.format(mediaDetails.value.budget)
-    : null;
-});
-
-const mediaRevenue = computed(() => {
-  return "revenue" in mediaDetails.value!
-    ? moneyFormat.format(mediaDetails.value.revenue)
-    : null;
-});
-
-const mediaKeywords = computed(() => {
-  return "keywords" in mediaDetails.value!.keywords
-    ? mediaDetails.value!.keywords.keywords
-    : mediaDetails.value!.keywords.results;
-});
-
 const mediaCredits = computed(() => {
   return "aggregate_credits" in mediaDetails.value!
     ? mediaDetails.value!.aggregate_credits
     : mediaDetails.value!.credits;
 });
 
-function mediaMoreDetailsProps() {
-  return {
-    keywords: mediaKeywords.value,
-    homepage: mediaDetails.value!.homepage,
-    originalLanguage: mediaDetails.value!.original_language,
-    status: mediaDetails.value!.status,
-    budget: mediaBudget.value,
-    revenue: mediaRevenue.value,
-    externalIds: mediaDetails.value!.external_ids,
-  };
-}
-
-provide("credits", mediaCredits);
+provide("credits", mediaCredits.value);
 provide("images", mediaDetails.value?.images);
 provide("videos", mediaDetails.value?.videos.results);
 </script>
@@ -84,7 +49,7 @@ provide("videos", mediaDetails.value?.videos.results);
           </template>
         </CardCarousel>
       </div>
-      <MediaMoreDetails v-bind="mediaMoreDetailsProps()" />
+      <MediaMoreDetails :media="mediaDetails!" :type="props.media" />
     </div>
   </main>
 </template>
