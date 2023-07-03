@@ -8,13 +8,7 @@ const isScrolled = ref(false);
 const route = useRoute();
 
 const isSpecificPages = ref<boolean>(false);
-const specificPages = [
-  "Home",
-  "Movies",
-  "Series",
-  "MovieDetails",
-  "SerieDetails",
-];
+const specificPages = ["Home", "MediaList", "MediaDetails"];
 
 watchEffect(() => {
   if (specificPages.includes(route.name as string)) {
