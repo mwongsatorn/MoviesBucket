@@ -53,7 +53,7 @@ function runtime() {
               class="rounded-lg bg-rose-800 px-2 py-1 hover:bg-amber-500"
               v-for="genre in props.media.genres"
               :key="genre.id"
-              :to="`/${media}/genres/${genre.id}`"
+              :to="`/${props.type}/genres/${genre.id}`"
             >
               {{ genre.name }}
             </RouterLink>
