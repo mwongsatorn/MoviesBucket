@@ -1,28 +1,30 @@
 <script setup lang="ts">
 import { vLazy } from "@/directives/lazy";
 import IconPerson from "./Icons/IconPerson.vue";
+import type { AggregateCreditsCastDetails, CreditsCastDetails } from "@/types";
 
-interface Props {
-  id: number;
-  profilePath: string | null;
-  name: string;
-  character: string | undefined;
+const props = defineProps<{
+  person: CreditsCastDetails | AggregateCreditsCastDetails;
+}>();
+
+function role() {
+  return "roles" in props.person
+    ? props.person.roles[0].character
+    : props.person.character;
 }
-
-const props = defineProps<Props>();
 </script>
 
 <template>
   <RouterLink
-    :to="`/people/${props.id}`"
+    :to="`/people/${props.person.id}`"
     class="relative w-full shrink-0 space-y-1 overflow-hidden rounded-lg shadow-lg"
   >
-    <div class="overflow-hidden" v-if="props.profilePath">
+    <div class="overflow-hidden" v-if="props.person.profile_path">
       <img
         v-lazy
         class="aspect-[2/3] w-full opacity-0 transition duration-500 hover:scale-105"
         alt=""
-        :data-src="`https://image.tmdb.org/t/p/w185/${props.profilePath}`"
+        :data-src="`https://image.tmdb.org/t/p/w300/${props.person.profile_path}`"
       />
     </div>
     <div
@@ -31,7 +33,9 @@ const props = defineProps<Props>();
     >
       <IconPerson class="h-20 w-20 text-white" />
     </div>
-    <p class="line-clamp-1 px-2">{{ props.name }}</p>
-    <p class="line-clamp-1 px-2 text-sm text-gray-400">{{ props.character }}</p>
+    <p class="line-clamp-1 px-2">{{ props.person.name }}</p>
+    <p class="line-clamp-1 px-2 text-sm text-gray-400">
+      {{ role() }}
+    </p>
   </RouterLink>
 </template>
