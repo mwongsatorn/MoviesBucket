@@ -17,30 +17,7 @@ interface Inject {
 }
 
 const credits = inject<Inject>("credits");
-
 const activeSection = ref("short-cast");
-
-function personCastProps(
-  person: CreditsCastDetails | AggregateCreditsCastDetails
-) {
-  return {
-    id: person.id,
-    name: person.name,
-    profilePath: person.profile_path,
-    character: "roles" in person ? person.roles[0].character : person.character,
-  };
-}
-
-function personCrewProps(
-  person: CreditsCrewDetails | AggregateCreditsCrewDetails
-) {
-  return {
-    id: person.id,
-    name: person.name,
-    profilePath: person.profile_path,
-    job: "jobs" in person ? person.jobs[0].job : person.job,
-  };
-}
 </script>
 
 <template>
@@ -63,7 +40,7 @@ function personCrewProps(
           class="snap-start"
           v-for="person in credits!.cast.slice(0, 10)"
           :key="person.id"
-          v-bind="personCastProps(person)"
+          :person="person"
         />
       </template>
     </CardCarousel>
@@ -85,7 +62,7 @@ function personCrewProps(
         <PersonCreditItem
           v-for="person in credits?.cast"
           :key="person.id"
-          v-bind="personCastProps(person)"
+          :person="person"
         />
       </div>
 
@@ -94,7 +71,7 @@ function personCrewProps(
         <PersonCreditItem
           v-for="person in credits?.crew"
           :key="person.id"
-          v-bind="personCrewProps(person)"
+          :person="person"
         />
       </div>
     </section>
