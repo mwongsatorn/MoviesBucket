@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import { vLazy } from "@/directives/lazy";
 import IconPerson from "./Icons/IconPerson.vue";
-import type { AggregateCreditsCastDetails, CreditsCastDetails } from "@/types";
+import type {
+  ShortPersonDetails,
+  AggregateCreditsCastDetails,
+  CreditsCastDetails,
+} from "@/types";
 
 const props = defineProps<{
-  person: CreditsCastDetails | AggregateCreditsCastDetails;
+  person: ShortPersonDetails | CreditsCastDetails | AggregateCreditsCastDetails;
 }>();
 
 function role() {
-  return "roles" in props.person
-    ? props.person.roles[0].character
-    : props.person.character;
+  if ("roles" in props.person) return props.person.roles[0].character;
+  if ("character" in props.person) return props.person.character;
+  return null;
 }
 </script>
 
@@ -34,7 +38,7 @@ function role() {
       <IconPerson class="h-20 w-20 text-white" />
     </div>
     <p class="line-clamp-1 px-2">{{ props.person.name }}</p>
-    <p class="line-clamp-1 px-2 text-sm text-gray-400">
+    <p v-if="role()" class="line-clamp-1 px-2 text-sm text-gray-400">
       {{ role() }}
     </p>
   </RouterLink>
