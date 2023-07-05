@@ -42,6 +42,12 @@ const router = createRouter({
       component: () => import("../views/MediaByGenrePage.vue"),
       props: true,
     },
+    {
+      path: "/search/:searchType?",
+      name: "Search",
+      component: () => import("../views/SearchPage.vue"),
+      props: true,
+    },
   ],
 });
 
