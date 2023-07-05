@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
+import { useRouter } from "vue-router";
 import IconsSearch from "./Icons/IconSearch.vue";
 import IconHamburgerMenu from "./Icons/IconHamburgerMenu.vue";
 import IconCross from "./Icons/IconCross.vue";
@@ -16,6 +17,9 @@ interface Emits {
 }
 const emit = defineEmits<Emits>();
 
+const router = useRouter();
+
+const input = ref("");
 const isExpanded = ref(false);
 
 function closeSearchbar() {
@@ -35,6 +39,16 @@ function handleResize() {
   }
 }
 
+function search() {
+  router.push({
+    name: "Search",
+    query: {
+      query: input.value,
+    },
+  });
+  input.value = "";
+}
+
 onMounted(() => {
   window.addEventListener("resize", handleResize);
 });
@@ -45,7 +59,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div
+  <form
+    @submit.prevent="search()"
     class="w-full max-w-xl sm:ml-auto sm:pl-8"
     :class="isExpanded ? 'flex' : 'hidden sm:flex'"
   >
@@ -60,6 +75,7 @@ onUnmounted(() => {
       ></IconCross>
     </button>
     <input
+      v-model="input"
       class="w-full rounded-l-lg border-2 bg-transparent px-4 py-1 focus:outline-none"
       :class="
         props.isScrolled || !props.isSpecificPages
@@ -72,7 +88,7 @@ onUnmounted(() => {
     <button class="items-stretch rounded-r-lg bg-red-700 px-2">
       <IconsSearch class="h-6 w-6 text-white"></IconsSearch>
     </button>
-  </div>
+  </form>
   <div class="ml-auto flex items-center space-x-4 sm:hidden">
     <button
       @click="expandSearchbar"
