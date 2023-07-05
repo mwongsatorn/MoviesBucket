@@ -5,11 +5,19 @@ import type {
   MovieDetails,
   ShortSerieDetails,
   SerieDetails,
+  ShortPersonDetails,
+  PersonDetails,
 } from "@/types";
+
+type Search = "movie" | "tv" | "person";
 
 interface ShortDetailsDataMap {
   movie: PageResult<ShortMovieDetails>;
   tv: PageResult<ShortSerieDetails>;
+}
+
+interface SearchDataMap extends ShortDetailsDataMap {
+  person: PageResult<ShortPersonDetails>;
 }
 
 interface ShortDetailsWithAll extends ShortDetailsDataMap {
@@ -130,4 +138,18 @@ export function getMediaGenreList(media: string) {
     language: "en",
   });
   return useFetch<{ genres: [{ id: string; name: string }] }>(url);
+}
+
+export function searchQuery<SearchType extends keyof SearchDataMap>(
+  query: string,
+  type: SearchType,
+  page: number = 1
+) {
+  const url = createUrl(`search/${type}`, {
+    api_key: TMDB_API_KEY,
+    language: "en",
+    query,
+    page,
+  });
+  return useFetch<SearchDataMap[SearchType]>(url);
 }
