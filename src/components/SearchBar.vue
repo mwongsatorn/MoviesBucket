@@ -65,6 +65,7 @@ onUnmounted(() => {
     :class="isExpanded ? 'flex' : 'hidden sm:flex'"
   >
     <button
+      type="reset"
       @click="closeSearchbar"
       class="mr-4"
       :class="isExpanded ? '' : 'hidden'"
