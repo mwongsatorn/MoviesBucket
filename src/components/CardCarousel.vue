@@ -57,7 +57,9 @@ onUnmounted(() => {
 <template>
   <section :id="props.name" class="relative mx-auto my-8 max-w-7xl px-4">
     <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-      <h1 class="text-xl font-bold sm:text-2xl">{{ props.title }}</h1>
+      <h1 class="text-xl font-bold capitalize sm:text-2xl">
+        {{ props.title }}
+      </h1>
       <RouterLink
         class="text-sm font-bold text-rose-800 hover:text-rose-900"
         v-if="props.to"
