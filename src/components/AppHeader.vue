@@ -47,7 +47,7 @@ onUnmounted(() => {
     <div class="mx-auto flex h-[56px] max-w-7xl items-center px-4">
       <div class="flex shrink-0 items-center space-x-8">
         <RouterLink :class="isSearchbarExpaned ? 'hidden' : ''" to="/">
-          <img class="" src="../assets/moviesbucket-logo.svg" alt="" />
+          <img src="../assets/mediabucket-logo.svg" alt="" />
         </RouterLink>
         <nav
           class="ml-auto hidden space-x-4 font-bold sm:flex"
