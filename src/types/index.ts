@@ -5,21 +5,24 @@ export interface PageResult<T> {
   total_results: number;
 }
 
-export interface ShortMovieDetails {
+export interface BaseMediaDetails {
   poster_path: string | null;
-  adult: boolean;
   overview: string;
-  release_date: string;
   genre_ids: number[];
   id: number;
-  original_title: string;
   original_language: string;
-  title: string;
   backdrop_path: string | null;
   popularity: number;
   vote_count: number;
-  video: boolean;
   vote_average: number;
+}
+
+export interface ShortMovieDetails extends BaseMediaDetails {
+  adult: boolean;
+  release_date: string;
+  original_title: string;
+  title: string;
+  video: boolean;
   media_type?: "movie";
 }
 
@@ -84,18 +87,9 @@ export interface MovieDetails extends ShortMovieDetails {
   recommendations: PageResult<ShortMovieDetails>;
 }
 
-export interface ShortSerieDetails {
-  poster_path: string | null;
-  popularity: number;
-  id: number;
-  backdrop_path: string;
-  vote_average: number;
-  overview: string;
+export interface ShortSerieDetails extends BaseMediaDetails {
   first_air_date: string;
   origin_country: string[];
-  genre_ids: number[];
-  original_language: string;
-  vote_count: number;
   name: string;
   original_name: string;
   media_type?: "tv";
@@ -197,7 +191,7 @@ export interface SerieDetails extends ShortSerieDetails {
     cast: AggregateCreditsCastDetails[];
     crew: AggregateCreditsCrewDetails[];
   };
-  external_ids: SerieAndPersonExternalIds;
+  external_ids: SerieExternalIds;
   keywords: {
     results: [
       {
@@ -289,19 +283,25 @@ export interface Image {
   width: number;
 }
 
-export interface MovieExternalIds {
+export interface BaseExternalIds {
   imdb_id: string | null;
   facebook_id: string | null;
   instagram_id: string | null;
   twitter_id: string | null;
 }
 
-export interface SerieAndPersonExternalIds {
-  imdb_id: string | null;
-  facebook_id: string | null;
-  instagram_id: string | null;
-  twitter_id: string | null;
+export interface MovieExternalIds extends BaseExternalIds {
+  wikidata_id: string | null;
+}
+
+export interface SerieExternalIds extends BaseExternalIds {
   freebase_id: string | null;
   freebase_mid: string | null;
   tvrage_id: number | null;
+  tvdb_id: number | null;
+}
+
+export interface PersonExternalIds extends SerieExternalIds {
+  tiktok_id: string | null;
+  youtube_id: string | null;
 }
