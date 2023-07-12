@@ -16,6 +16,14 @@ const props = defineProps<Props>();
 
 const scroll = ref<HTMLElement | null>(null);
 const scrollPos = ref<Position>("START");
+const isScrollable = ref<boolean>(false);
+
+const observer = new ResizeObserver((entries) => {
+  const entry = entries[0];
+  if (entry.target.clientWidth === entry.target.scrollWidth)
+    isScrollable.value = false;
+  else isScrollable.value = true;
+});
 
 function scrollHorizontally(dir: 1 | -1) {
   const scrollElement = scroll.value;
@@ -46,10 +54,12 @@ function handleCarouselScroll() {
 }
 
 onMounted(() => {
+  observer.observe(scroll.value!);
   scroll.value?.addEventListener("scroll", handleCarouselScroll);
 });
 
 onUnmounted(() => {
+  observer.disconnect();
   scroll.value?.removeEventListener("scroll", handleCarouselScroll);
 });
 </script>
@@ -78,15 +88,19 @@ onUnmounted(() => {
       </div>
       <button
         @click="scrollHorizontally(-1)"
-        class="absolute left-0 top-4 flex h-[calc(100%-2.5rem)] w-[calc(10%-1rem)] items-center justify-center bg-gradient-to-r from-black to-transparent text-white opacity-40 duration-300 hover:opacity-80 @md:w-[calc(10%-1.5rem)] @2xl:w-[calc(10%-2rem)] @5xl:w-[calc(10%-2.5rem)]"
-        :class="[scrollPos === 'START' ? 'hidden' : '']"
+        class="absolute left-0 top-4 h-[calc(100%-2.5rem)] w-[calc(10%-1rem)] items-center justify-center bg-gradient-to-r from-black to-transparent text-white opacity-40 duration-300 hover:opacity-80 @md:w-[calc(10%-1.5rem)] @2xl:w-[calc(10%-2rem)] @5xl:w-[calc(10%-2.5rem)]"
+        :class="[
+          scrollPos === 'START' || !isScrollable ? 'hidden' : 'hidden sm:flex',
+        ]"
       >
         <IconChevronLeft class="h-6 w-6" />
       </button>
       <button
         @click="scrollHorizontally(1)"
-        class="absolute right-0 top-4 flex h-[calc(100%-2.5rem)] w-[calc(10%-1rem)] items-center justify-center bg-gradient-to-l from-black to-transparent text-white opacity-40 duration-300 hover:opacity-80 @md:w-[calc(10%-1.5rem)] @2xl:w-[calc(10%-2rem)] @5xl:w-[calc(10%-2.5rem)]"
-        :class="[scrollPos === 'END' ? 'hidden' : '']"
+        class="absolute right-0 top-4 h-[calc(100%-2.5rem)] w-[calc(10%-1rem)] items-center justify-center bg-gradient-to-l from-black to-transparent text-white opacity-40 duration-300 hover:opacity-80 @md:w-[calc(10%-1.5rem)] @2xl:w-[calc(10%-2rem)] @5xl:w-[calc(10%-2.5rem)]"
+        :class="[
+          scrollPos === 'END' || !isScrollable ? 'hidden' : 'hidden sm:flex',
+        ]"
       >
         <IconChevronRight class="h-6 w-6" />
       </button>
