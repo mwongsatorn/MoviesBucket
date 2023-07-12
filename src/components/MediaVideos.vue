@@ -76,14 +76,14 @@ function closeVideo() {
         </div>
       </div>
     </div>
+    <Teleport to="body">
+      <MediaItemSlider
+        v-if="showSlider"
+        :initial-index="initialIndex"
+        :slider-item-list="videoList"
+        :item-aspect-ratio="16 / 9"
+        @close-slider="closeVideo()"
+      />
+    </Teleport>
   </section>
-  <Teleport to="body">
-    <MediaItemSlider
-      v-if="showSlider"
-      :initial-index="initialIndex"
-      :slider-item-list="videoList"
-      :item-aspect-ratio="16 / 9"
-      @close-slider="closeVideo()"
-    />
-  </Teleport>
 </template>

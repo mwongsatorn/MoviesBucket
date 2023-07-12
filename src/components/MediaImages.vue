@@ -35,39 +35,41 @@ function closeSlider() {
 </script>
 
 <template>
-  <section class="my-8 px-4" id="backdrops">
-    <h1 class="text-2xl font-bold">
-      Backdrops ({{ images?.backdrops.length }})
-    </h1>
-    <div class="flex flex-wrap gap-2 py-6 @container">
-      <MediaImageCard
-        @click="openSlider('backdrops', index)"
-        v-for="(image, index) in images?.backdrops"
-        :key="index"
-        :file-path="image.file_path"
-        type="backdrops"
+  <section id="images">
+    <section class="my-8 px-4" id="backdrops">
+      <h1 class="text-2xl font-bold">
+        Backdrops ({{ images?.backdrops.length }})
+      </h1>
+      <div class="flex flex-wrap gap-2 py-6 @container">
+        <MediaImageCard
+          @click="openSlider('backdrops', index)"
+          v-for="(image, index) in images?.backdrops"
+          :key="index"
+          :file-path="image.file_path"
+          type="backdrops"
+        />
+      </div>
+    </section>
+    <section class="my-8 px-4" id="posters">
+      <h1 class="text-2xl font-bold">Posters ({{ images?.posters.length }})</h1>
+      <div class="flex flex-wrap gap-2 py-6 @container">
+        <MediaImageCard
+          @click="openSlider('posters', index)"
+          v-for="(image, index) in images?.posters"
+          :key="index"
+          :file-path="image.file_path"
+          type="posters"
+        />
+      </div>
+    </section>
+    <Teleport to="body">
+      <MediaItemSlider
+        v-if="showSlider"
+        :initial-index="initialIndex"
+        :slider-item-list="imageList"
+        :item-aspect-ratio="imageAspectRatio"
+        @close-slider="closeSlider()"
       />
-    </div>
+    </Teleport>
   </section>
-  <section class="my-8 px-4" id="posters">
-    <h1 class="text-2xl font-bold">Posters ({{ images?.posters.length }})</h1>
-    <div class="flex flex-wrap gap-2 py-6 @container">
-      <MediaImageCard
-        @click="openSlider('posters', index)"
-        v-for="(image, index) in images?.posters"
-        :key="index"
-        :file-path="image.file_path"
-        type="posters"
-      />
-    </div>
-  </section>
-  <Teleport to="body">
-    <MediaItemSlider
-      v-if="showSlider"
-      :initial-index="initialIndex"
-      :slider-item-list="imageList"
-      :item-aspect-ratio="imageAspectRatio"
-      @close-slider="closeSlider()"
-    />
-  </Teleport>
 </template>

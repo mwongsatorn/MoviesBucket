@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRoute } from "vue-router";
 import MediaCredits from "@/components/MediaCredits.vue";
 import MediaVideos from "./MediaVideos.vue";
 import MediaImages from "./MediaImages.vue";
-
-const route = useRoute();
-const mediaType = route.name === "MovieDetails" ? "movie" : "serie";
+import TransitionFade from "./TransitionFade.vue";
 
 const activeTab = ref<string>("Credits");
 const sectionTabs: Record<string, any> = {
@@ -28,5 +25,9 @@ const sectionTabs: Record<string, any> = {
       {{ tab }}
     </button>
   </div>
-  <component :is="sectionTabs[activeTab]"></component>
+  <TransitionFade>
+    <KeepAlive>
+      <component :is="sectionTabs[activeTab]"></component>
+    </KeepAlive>
+  </TransitionFade>
 </template>
