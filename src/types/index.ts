@@ -222,6 +222,17 @@ export interface PersonDetails extends ShortPersonDetails {
   place_of_birth: string | null;
   imdb_id: string;
   homepage: string;
+
+  // append_to_response
+
+  external_ids: PersonExternalIds;
+  images: {
+    profiles: Image[];
+  };
+  combined_credits: {
+    cast: (ShortMovieDetails | ShortSerieDetails)[];
+    crew: (ShortMovieDetails | ShortSerieDetails)[];
+  };
 }
 
 export interface CreditsCastDetails extends ShortPersonDetails {
