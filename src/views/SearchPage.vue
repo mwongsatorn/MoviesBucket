@@ -102,7 +102,7 @@ function nextPage() {
 <template>
   <main>
     <section
-      id="media-by-keyword"
+      id="search"
       class="relative mx-auto my-8 max-w-7xl px-4 @container"
     >
       <h1 class="text-xl font-bold sm:text-2xl">
@@ -111,7 +111,7 @@ function nextPage() {
       <div class="mt-2 flex flex-wrap items-center gap-y-2">
         <div class="flex flex-wrap gap-x-4 gap-y-2">
           <RouterLink
-            class="grow rounded-lg bg-rose-800 px-2 py-1 text-sm font-bold capitalize text-white hover:bg-amber-500"
+            class="rounded-lg bg-rose-800 px-2 py-1 text-sm font-bold capitalize text-white hover:bg-amber-500"
             v-for="(_, key, index) in type"
             :key="index"
             :to="{
@@ -122,25 +122,6 @@ function nextPage() {
           >
             {{ key }}: {{ firstPage[key].total_results }}
           </RouterLink>
-        </div>
-        <div class="ml-auto">
-          <button
-            :disabled="page === 1"
-            @click="previousPage()"
-            class="bg-rose-800 px-2.5 py-1 text-white disabled:bg-gray-200"
-          >
-            &lt;
-          </button>
-          <span class="px-2">
-            {{ page }} / {{ firstPage[searchType].total_pages }}
-          </span>
-          <button
-            :disabled="page === firstPage[searchType].total_pages"
-            @click="nextPage()"
-            class="bg-rose-800 px-2.5 py-1 text-white disabled:bg-gray-200"
-          >
-            &gt;
-          </button>
         </div>
       </div>
       <CardGrid>
@@ -153,6 +134,25 @@ function nextPage() {
           />
         </template>
       </CardGrid>
+      <div class="ml-auto w-fit">
+        <button
+          :disabled="page === 1"
+          @click="previousPage()"
+          class="bg-rose-800 px-2.5 py-1 text-white disabled:bg-gray-200"
+        >
+          &lt;
+        </button>
+        <span class="px-2">
+          {{ page }} / {{ firstPage[searchType].total_pages }}
+        </span>
+        <button
+          :disabled="page === firstPage[searchType].total_pages"
+          @click="nextPage()"
+          class="bg-rose-800 px-2.5 py-1 text-white disabled:bg-gray-200"
+        >
+          &gt;
+        </button>
+      </div>
     </section>
   </main>
 </template>
