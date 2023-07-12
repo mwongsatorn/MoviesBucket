@@ -140,6 +140,15 @@ export function getMediaGenreList(media: string) {
   return useFetch<{ genres: [{ id: string; name: string }] }>(url);
 }
 
+export function getPersonDetails(id: string) {
+  const url = createUrl(`person/${id}`, {
+    api_key: TMDB_API_KEY,
+    language: "en",
+    append_to_response: "external_ids,images,combined_credits",
+  });
+  return useFetch<PersonDetails>(url);
+}
+
 export function searchQuery<SearchType extends keyof SearchDataMap>(
   query: string,
   type: SearchType,
