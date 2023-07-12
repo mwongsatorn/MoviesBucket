@@ -47,6 +47,12 @@ const router = createRouter({
       props: true,
     },
     {
+      path: "/people/:id",
+      name: "PersonDetails",
+      component: () => import("../views/PersonDetailsPage.vue"),
+      props: true,
+    },
+    {
       path: "/search/:searchType?",
       name: "Search",
       component: () => import("../views/SearchPage.vue"),
