@@ -16,6 +16,7 @@ function handleGridScroll(
 const cardsContainer = ref<HTMLElement | null>(null);
 const props = defineProps<{
   fetch?: () => Promise<void>;
+  column?: string;
 }>();
 
 props.fetch && (await props.fetch());
@@ -35,7 +36,12 @@ onUnmounted(() => {
 <template>
   <div
     ref="cardsContainer"
-    class="grid grid-cols-2 gap-1.5 py-4 @md:grid-cols-3 @2xl:grid-cols-4 @5xl:grid-cols-5"
+    class="grid gap-1.5 py-4"
+    :class="[
+      column
+        ? column
+        : 'grid-cols-2 @md:grid-cols-3 @2xl:grid-cols-4 @5xl:grid-cols-5',
+    ]"
   >
     <slot name="cards"></slot>
   </div>
