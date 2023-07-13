@@ -47,6 +47,8 @@ function search() {
     },
   });
   input.value = "";
+  isExpanded.value = false;
+  emit("closeSearchbar");
 }
 
 onMounted(() => {
