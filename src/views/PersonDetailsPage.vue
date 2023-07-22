@@ -168,8 +168,12 @@ function knownForList() {
             v-for="(_, tab, index) in tabs"
             @click="activeTab = tab"
             :key="index"
-            :class="[activeTab === tab ? 'bg-rose-800 text-white' : '']"
-            class="flex-grow border px-2 py-4 text-center text-sm uppercase sm:text-base"
+            :class="[
+              activeTab === tab
+                ? 'bg-rose-800 text-white'
+                : 'hover:bg-amber-500 hover:text-white',
+            ]"
+            class="flex-grow bg-gray-50 px-2 py-4 text-center text-sm font-bold uppercase sm:text-base"
           >
             {{ tab }}
           </button>
