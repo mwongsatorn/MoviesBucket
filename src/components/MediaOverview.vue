@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconMediaPlaceholder from "./Icons/IconMediaPlaceholder.vue";
 import type { MovieDetails, SerieDetails } from "@/types";
 interface Props {
   media: MovieDetails | SerieDetails;
@@ -28,12 +29,21 @@ function runtime() {
     <div
       class="relative mx-auto flex max-w-7xl flex-col space-y-4 px-4 pb-12 pt-[calc(56px+2rem)] sm:flex-row sm:space-x-8"
     >
-      <div class="shrink-0 self-center">
+      <div
+        v-if="props.media.poster_path"
+        class="aspect-[2/3] w-[250px] shrink-0 self-center border"
+      >
         <img
-          class="w-[250px] border-2"
+          class="h-full w-full"
           :src="`https://image.tmdb.org/t/p/w342/${props.media.poster_path}`"
           alt=""
         />
+      </div>
+      <div
+        v-else
+        class="flex aspect-[2/3] w-[250px] shrink-0 items-center justify-center self-center border bg-gray-400"
+      >
+        <IconMediaPlaceholder class="h-20 w-20 font-bold text-white" />
       </div>
       <div class="space-y-4 text-white">
         <h1 v-if="'title' in props.media" class="text-2xl font-bold">
@@ -59,7 +69,7 @@ function runtime() {
             </RouterLink>
           </div>
         </div>
-        <p class="italic text-white/50" v-if="props.media.tagline !== ''">
+        <p class="italic text-white/50" v-if="props.media.tagline">
           {{ props.media.tagline }}
         </p>
         <div class="space-y-4">
