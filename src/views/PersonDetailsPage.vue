@@ -10,6 +10,7 @@ import IconYoutube from "@/components/Icons/IconYoutube.vue";
 import PersonKnownFor from "@/components/PersonKnownFor.vue";
 import PersonPhotos from "@/components/PersonPhotos.vue";
 import TransitionFade from "@/components/TransitionFade.vue";
+import IconPerson from "@/components/Icons/IconPerson.vue";
 import type { PersonExternalIds } from "@/types";
 
 const props = defineProps<{ id: string }>();
@@ -120,12 +121,16 @@ function knownForList() {
       <aside
         class="flex flex-col gap-x-4 gap-y-4 bg-gray-50 px-4 py-8 sm:flex-row lg:block"
       >
-        <div class="flex shrink-0 justify-center">
+        <div
+          class="flex aspect-[2/3] w-[250px] shrink-0 items-center justify-center self-center overflow-hidden rounded-lg bg-gray-400 lg:w-full"
+        >
           <img
-            class="w-[280px] rounded-lg"
-            :src="`https://image.tmdb.org/t/p/w300/${person?.profile_path}`"
+            v-if="person?.profile_path"
+            class="h-full w-full"
+            :src="`https://image.tmdb.org/t/p/w300/${person.profile_path}`"
             alt=""
           />
+          <IconPerson class="h-20 w-20 text-white" />
         </div>
         <div class="flex flex-wrap content-start gap-y-4 lg:mt-4">
           <h1 class="w-full text-2xl font-bold capitalize">
