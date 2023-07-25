@@ -60,7 +60,7 @@ function runtime() {
           </span>
           <div class="flex flex-wrap items-center gap-x-4 gap-y-4">
             <RouterLink
-              class="rounded-lg bg-rose-800 px-2 py-1 hover:bg-amber-500"
+              class="rounded-lg bg-rose-800 px-2 py-1 font-bold hover:bg-amber-500"
               v-for="genre in props.media.genres"
               :key="genre.id"
               :to="`/${props.type}/genres/${genre.id}`"

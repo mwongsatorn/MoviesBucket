@@ -142,7 +142,7 @@ function hasKeywords() {
         class="flex flex-wrap items-center gap-x-2 gap-y-2"
       >
         <RouterLink
-          class="rounded-lg bg-rose-800 px-2 py-1 text-sm text-white hover:bg-amber-500"
+          class="rounded-lg bg-rose-800 px-2 py-1 text-sm font-bold text-white hover:bg-amber-500"
           v-for="keyword in keywords"
           :key="keyword.id"
           :to="`/${props.type}/keywords/${keyword.id}`"
