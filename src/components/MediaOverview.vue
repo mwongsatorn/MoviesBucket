@@ -58,6 +58,9 @@ function runtime() {
             {{ props.media.vote_average }}/10 | {{ props.media.release_date }} |
             {{ runtime() }}
           </span>
+          <span v-else>
+            {{ props.media.vote_average }}/10 | {{ props.media.first_air_date }}
+          </span>
           <div class="flex flex-wrap items-center gap-x-4 gap-y-4">
             <RouterLink
               class="rounded-lg bg-rose-800 px-2 py-1 font-bold hover:bg-amber-500"
