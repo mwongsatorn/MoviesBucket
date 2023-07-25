@@ -36,7 +36,7 @@ function closeVideo() {
 <template>
   <section id="videos" class="my-8 px-4">
     <div class="flex flex-wrap items-center justify-between gap-4">
-      <h1 class="text-2xl font-bold">
+      <h1 class="text-xl font-bold capitalize sm:text-2xl">
         Videos ({{ selectedType }} : {{ videoList.length }})
       </h1>
       <select
