@@ -68,6 +68,7 @@ const sideInfo = {
   Birthday: person.value?.birthday,
   "Place of Birth": person.value?.place_of_birth,
   "Also known as": () => {
+    if (person.value?.also_known_as.length === 0) return "-";
     return person.value?.also_known_as.join(", ");
   },
 };
@@ -97,7 +98,9 @@ function socialList() {
 }
 
 function biography() {
-  const biography = person.value?.biography.split("\n");
+  if (!person.value?.biography)
+    return "There is no biography about this person";
+  const biography = person.value.biography.split("\n");
   return biography;
 }
 
@@ -157,16 +160,20 @@ function knownForList() {
             :class="[key === 'Also known as' ? 'w-full' : 'w-1/2 lg:w-full']"
           >
             <h2 class="font-bold">{{ key }}</h2>
-            <p>{{ typeof info === "function" ? info() : info }}</p>
+            <p v-if="info">{{ typeof info === "function" ? info() : info }}</p>
+            <p v-else>-</p>
           </div>
         </div>
       </aside>
       <section>
         <div class="my-8 space-y-4 px-4">
           <h1 class="text-xl font-bold sm:text-2xl">Biography</h1>
-          <p v-for="(p, index) in biography()" :key="index">
-            {{ p }}
-          </p>
+          <template v-if="Array.isArray(biography())">
+            <p v-for="(p, index) in biography()" :key="index">
+              {{ p }}
+            </p>
+          </template>
+          <p v-else>{{ biography() }}</p>
         </div>
         <div class="flex">
           <button
