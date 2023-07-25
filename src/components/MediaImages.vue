@@ -38,7 +38,7 @@ function closeSlider() {
 <template>
   <section id="images" class="@container">
     <section class="my-8 px-4" id="backdrops">
-      <h1 class="text-2xl font-bold">
+      <h1 class="text-xl font-bold capitalize sm:text-2xl">
         Backdrops ({{ images?.backdrops.length }})
       </h1>
       <CardGrid
@@ -56,7 +56,9 @@ function closeSlider() {
       </CardGrid>
     </section>
     <section class="my-8 px-4" id="posters">
-      <h1 class="text-2xl font-bold">Posters ({{ images?.posters.length }})</h1>
+      <h1 class="text-xl font-bold capitalize sm:text-2xl">
+        Posters ({{ images?.posters.length }})
+      </h1>
       <CardGrid>
         <template #cards>
           <MediaImageCard
