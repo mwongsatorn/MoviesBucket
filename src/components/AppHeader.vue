@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted, watchEffect } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 import SearchBar from "./SearchBar.vue";
 
-const isSearchbarExpaned = ref(false);
+const isSearchbarOpened = ref(false);
 const isScrolled = ref(false);
 const route = useRoute();
 
@@ -23,6 +23,10 @@ watchEffect(() => {
 function handleScroll() {
   if (window.scrollY > 0) isScrolled.value = true;
   else isScrolled.value = false;
+}
+
+function toggleSearchbar(isOpen: boolean) {
+  isSearchbarOpened.value = isOpen;
 }
 
 onMounted(() => {
@@ -46,7 +50,7 @@ onUnmounted(() => {
   >
     <div class="mx-auto flex h-[56px] max-w-7xl items-center px-4">
       <div class="flex shrink-0 items-center space-x-8">
-        <RouterLink :class="isSearchbarExpaned ? 'hidden' : ''" to="/">
+        <RouterLink :class="isSearchbarOpened ? 'hidden' : ''" to="/">
           <img src="../assets/mediabucket-logo.svg" alt="" />
         </RouterLink>
         <nav
@@ -60,8 +64,8 @@ onUnmounted(() => {
       <SearchBar
         :is-specific-pages="isSpecificPages"
         :is-scrolled="isScrolled"
-        @close-searchbar="isSearchbarExpaned = false"
-        @expand-searchbar="isSearchbarExpaned = true"
+        :toggle-searchbar="toggleSearchbar"
+        :is-searchbar-opened="isSearchbarOpened"
       />
     </div>
   </header>

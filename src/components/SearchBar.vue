@@ -8,34 +8,18 @@ import IconCross from "./Icons/IconCross.vue";
 interface Props {
   isSpecificPages: boolean;
   isScrolled: boolean;
+  isSearchbarOpened: boolean;
+  toggleSearchbar: (isOpened: boolean) => void;
 }
 const props = defineProps<Props>();
-
-interface Emits {
-  (e: "closeSearchbar"): void;
-  (e: "expandSearchbar"): void;
-}
-const emit = defineEmits<Emits>();
 
 const router = useRouter();
 
 const input = ref("");
-const isExpanded = ref(false);
-
-function closeSearchbar() {
-  isExpanded.value = false;
-  emit("closeSearchbar");
-}
-
-function expandSearchbar() {
-  isExpanded.value = true;
-  emit("expandSearchbar");
-}
 
 function handleResize() {
   if (window.innerWidth > 640) {
-    isExpanded.value = false;
-    emit("closeSearchbar");
+    props.toggleSearchbar(false);
   }
 }
 
@@ -47,8 +31,7 @@ function search() {
     },
   });
   input.value = "";
-  isExpanded.value = false;
-  emit("closeSearchbar");
+  props.toggleSearchbar(false);
 }
 
 onMounted(() => {
@@ -64,13 +47,13 @@ onUnmounted(() => {
   <form
     @submit.prevent="search()"
     class="w-full max-w-xl sm:ml-auto sm:pl-8"
-    :class="isExpanded ? 'flex' : 'hidden sm:flex'"
+    :class="props.isSearchbarOpened ? 'flex' : 'hidden sm:flex'"
   >
     <button
       type="reset"
-      @click="closeSearchbar"
+      @click="props.toggleSearchbar(false)"
       class="mr-4"
-      :class="isExpanded ? '' : 'hidden'"
+      :class="props.isSearchbarOpened ? '' : 'hidden'"
     >
       <IconCross
         class="h-6 w-6"
@@ -94,16 +77,16 @@ onUnmounted(() => {
   </form>
   <div class="ml-auto flex items-center space-x-4 sm:hidden">
     <button
-      @click="expandSearchbar"
+      @click="props.toggleSearchbar(true)"
       class="items-stretch rounded-full"
-      :class="isExpanded ? 'hidden' : ''"
+      :class="props.isSearchbarOpened ? 'hidden' : ''"
     >
       <IconsSearch
         class="h-6 w-6"
         :class="props.isScrolled || !props.isSpecificPages ? '' : 'text-white'"
       ></IconsSearch>
     </button>
-    <button :class="isExpanded ? 'hidden' : ''">
+    <button :class="props.isSearchbarOpened ? 'hidden' : ''">
       <IconHamburgerMenu
         class="h-6 w-6"
         :class="props.isScrolled || !props.isSpecificPages ? '' : 'text-white'"
