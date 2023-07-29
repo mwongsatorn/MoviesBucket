@@ -2,13 +2,13 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import IconsSearch from "./Icons/IconSearch.vue";
-import IconHamburgerMenu from "./Icons/IconHamburgerMenu.vue";
 import IconCross from "./Icons/IconCross.vue";
 
 interface Props {
   isSpecificPages: boolean;
   isScrolled: boolean;
   isSearchbarOpened: boolean;
+  isMobileMenuOpened: boolean;
   toggleSearchbar: (isOpened: boolean) => void;
 }
 const props = defineProps<Props>();
@@ -58,7 +58,7 @@ onUnmounted(() => {
       <IconCross
         class="h-6 w-6"
         :class="props.isScrolled || !props.isSpecificPages ? '' : 'text-white'"
-      ></IconCross>
+      />
     </button>
     <input
       v-model="input"
@@ -83,14 +83,12 @@ onUnmounted(() => {
     >
       <IconsSearch
         class="h-6 w-6"
-        :class="props.isScrolled || !props.isSpecificPages ? '' : 'text-white'"
-      ></IconsSearch>
-    </button>
-    <button :class="props.isSearchbarOpened ? 'hidden' : ''">
-      <IconHamburgerMenu
-        class="h-6 w-6"
-        :class="props.isScrolled || !props.isSpecificPages ? '' : 'text-white'"
-      ></IconHamburgerMenu>
+        :class="
+          props.isScrolled || !props.isSpecificPages || props.isMobileMenuOpened
+            ? ''
+            : 'text-white'
+        "
+      />
     </button>
   </div>
 </template>

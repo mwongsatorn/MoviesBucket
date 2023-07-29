@@ -2,9 +2,11 @@
 import { ref, onMounted, onUnmounted, watchEffect } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 import SearchBar from "./SearchBar.vue";
+import IconHamburgerMenu from "./Icons/IconHamburgerMenu.vue";
 
 const isSearchbarOpened = ref(false);
 const isScrolled = ref(false);
+const isMobileMenuOpened = ref(false);
 const route = useRoute();
 
 const isSpecificPages = ref<boolean>(false);
@@ -25,18 +27,26 @@ function handleScroll() {
   else isScrolled.value = false;
 }
 
+function handleResize() {
+  if (window.innerWidth > 640) {
+    isMobileMenuOpened.value = false;
+  }
+}
+
 function toggleSearchbar(isOpen: boolean) {
   isSearchbarOpened.value = isOpen;
 }
 
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
+  window.addEventListener("resize", handleResize);
   if (specificPages.includes(route.name as string))
     isSpecificPages.value = true;
   else isSpecificPages.value = false;
 });
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
+  window.removeEventListener("resize", handleResize);
 });
 </script>
 
@@ -44,7 +54,9 @@ onUnmounted(() => {
   <header
     class="top-0 z-50 w-full transition duration-300"
     :class="[
-      isScrolled || !isSpecificPages ? 'bg-white shadow-lg' : '',
+      isScrolled || !isSpecificPages || isMobileMenuOpened
+        ? 'bg-white shadow-lg'
+        : '',
       isSpecificPages ? 'fixed' : 'sticky',
     ]"
   >
@@ -66,7 +78,46 @@ onUnmounted(() => {
         :is-scrolled="isScrolled"
         :toggle-searchbar="toggleSearchbar"
         :is-searchbar-opened="isSearchbarOpened"
+        :is-mobile-menu-opened="isMobileMenuOpened"
       />
+      <button
+        @click="isMobileMenuOpened = !isMobileMenuOpened"
+        :class="isSearchbarOpened ? 'hidden' : 'ml-4 sm:hidden'"
+      >
+        <IconHamburgerMenu
+          class="h-6 w-6"
+          :class="
+            isScrolled || !isSpecificPages || isMobileMenuOpened
+              ? ''
+              : 'text-white'
+          "
+        />
+      </button>
+    </div>
+
+    <div
+      class="grid transition-[grid-template-rows] duration-300 childs:overflow-hidden"
+      :class="[
+        isMobileMenuOpened ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
+        isScrolled || !isSpecificPages || isMobileMenuOpened
+          ? ''
+          : 'text-white',
+      ]"
+    >
+      <nav>
+        <RouterLink
+          class="flex items-center justify-center px-4 py-2 font-bold hover:bg-rose-800 hover:text-white"
+          to="/movies"
+        >
+          Movies
+        </RouterLink>
+        <RouterLink
+          class="flex items-center justify-center px-4 py-2 font-bold hover:bg-rose-800 hover:text-white"
+          to="/series"
+        >
+          Series
+        </RouterLink>
+      </nav>
     </div>
   </header>
 </template>
