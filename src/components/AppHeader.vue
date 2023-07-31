@@ -20,6 +20,7 @@ watchEffect(() => {
   } else {
     isSpecificPages.value = false;
   }
+  isMobileMenuOpened.value = false;
 });
 
 function handleScroll() {
