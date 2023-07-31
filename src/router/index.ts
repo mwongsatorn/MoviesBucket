@@ -3,7 +3,8 @@ import HomePage from "../views/HomePage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  scrollBehavior() {
+  scrollBehavior(to, from) {
+    if (to.name === from.name) return;
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ left: 0, top: 0 });
