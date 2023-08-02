@@ -51,7 +51,7 @@ provide("videos", mediaDetails.value?.videos.results);
             v-for="(_, tab) in sectionTabs"
             :key="tab"
             @click="activeTab = tab"
-            class="flex-grow bg-gray-50 px-2 py-4 text-center text-sm uppercase sm:text-base"
+            class="flex-grow bg-gray-100 px-2 py-4 text-center text-sm uppercase sm:text-base"
             :class="[
               activeTab === tab
                 ? 'bg-rose-800 text-white'

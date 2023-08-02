@@ -55,7 +55,7 @@ function hasKeywords() {
 <template>
   <aside
     id="more-details"
-    class="flex flex-wrap gap-y-4 bg-gray-50 px-4 py-4 md:flex-col"
+    class="flex flex-wrap gap-y-4 bg-gray-100 px-4 py-4 md:flex-col"
   >
     <div class="w-1/2 space-y-2 sm:w-1/3 md:w-full">
       <h2 class="font-bold">Homepage</h2>
