@@ -10,11 +10,11 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <div class="group relative cursor-pointer bg-gray-100">
+  <div class="group relative aspect-auto w-full cursor-pointer bg-gray-400">
     <img
       v-lazy
       class="h-full w-full opacity-0 transition duration-500"
-      :data-src="`https://image.tmdb.org/t/p/w300/${props.filePath}`"
+      :data-src="`https://image.tmdb.org/t/p/w400/${props.filePath}`"
       alt=""
     />
     <div
