@@ -75,6 +75,12 @@ provide("videos", mediaDetails.value?.videos.results);
               :media="media"
               :type="props.media"
             />
+            <div
+              v-if="mediaRecommendationsList.length === 0"
+              class="grow italic text-rose-800"
+            >
+              There are no recommendations for this media
+            </div>
           </template>
         </CardCarousel>
       </div>
