@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watchEffect } from "vue";
 import { RouterLink, useRoute } from "vue-router";
+import AppLink from "./AppLink.vue";
 import SearchBar from "./SearchBar.vue";
 import IconHamburgerMenu from "./Icons/IconHamburgerMenu.vue";
 
@@ -62,16 +63,30 @@ onUnmounted(() => {
     ]"
   >
     <div class="mx-auto flex h-[56px] max-w-7xl items-center px-4">
-      <div class="flex shrink-0 items-center space-x-8">
-        <RouterLink :class="isSearchbarOpened ? 'hidden' : ''" to="/">
+      <div class="flex h-full shrink-0 items-center space-x-8">
+        <AppLink :class="isSearchbarOpened ? 'hidden' : ''" to="/">
           <img src="../assets/mediabucket-logo.svg" alt="" />
-        </RouterLink>
+        </AppLink>
         <nav
-          class="ml-auto hidden space-x-4 font-bold sm:flex"
+          class="ml-auto hidden h-full space-x-4 font-bold sm:flex"
           :class="[isScrolled || !isSpecificPages ? '' : 'text-white']"
         >
-          <RouterLink to="/movies">Movies</RouterLink>
-          <RouterLink to="/series">Series</RouterLink>
+          <AppLink
+            class="flex items-center border-y-[5px] border-transparent px-2"
+            inactive-class="hover:border-b-amber-500"
+            exact-active-class="border-b-rose-800"
+            to="/movies"
+          >
+            Movies
+          </AppLink>
+          <AppLink
+            class="flex items-center border-y-[5px] border-transparent px-2"
+            inactive-class="hover:border-b-amber-500"
+            exact-active-class="border-b-rose-800"
+            to="/series"
+          >
+            Series
+          </AppLink>
         </nav>
       </div>
       <SearchBar
@@ -105,19 +120,23 @@ onUnmounted(() => {
           : 'text-white',
       ]"
     >
-      <nav>
-        <RouterLink
-          class="flex items-center justify-center px-4 py-2 font-bold hover:bg-rose-800 hover:text-white"
+      <nav class="bg-gray-100">
+        <AppLink
+          class="flex items-center justify-center px-4 py-2 font-bold"
+          inactive-class="hover:bg-amber-500 hover:text-white"
+          exact-active-class="bg-rose-800 text-white"
           to="/movies"
         >
           Movies
-        </RouterLink>
-        <RouterLink
-          class="flex items-center justify-center px-4 py-2 font-bold hover:bg-rose-800 hover:text-white"
+        </AppLink>
+        <AppLink
+          class="flex items-center justify-center px-4 py-2 font-bold"
+          inactive-class="hover:bg-amber-500 hover:text-white"
+          exact-active-class="bg-rose-800 text-white"
           to="/series"
         >
           Series
-        </RouterLink>
+        </AppLink>
       </nav>
     </div>
   </header>
