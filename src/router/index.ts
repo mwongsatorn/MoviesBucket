@@ -4,7 +4,7 @@ import HomePage from "../views/HomePage.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from) {
-    if (to.name === from.name) return;
+    if (to.path === from.path) return;
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ left: 0, top: 0 });
