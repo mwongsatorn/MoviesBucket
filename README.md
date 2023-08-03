@@ -1,28 +1,28 @@
 <br>
 <br>
 
-<img style="width:300px; display:block; margin-left:auto; margin-right:auto;" src="./src/assets/mediabucket-logo.svg" />
+<p align="center">
+  <img width="300px" src="./src/assets/mediabucket-logo.svg" />
+</p>
 
 ---
 
 <br>
 
-> <font size="4"> Web application for browsing movies, series and people in the film industry.</font>
+> Web application for browsing movies, series and people in the film industry. 🎥🎥🎥
 
-Built by using [Vue.js (Vue 3)](https://vuejs.org/) <img src="https://api.iconify.design/logos:vue.svg" />, [TypeScript](https://www.typescriptlang.org/) <img src="https://api.iconify.design/logos:typescript-icon.svg" /> and [TailwindCSS ](https://tailwindcss.com/) <img src="https://api.iconify.design/logos:tailwindcss-icon.svg" />
+Built by using [Vue.js (Vue 3)](https://vuejs.org/) ![vue-icon](https://api.iconify.design/logos:vue.svg), [TypeScript](https://www.typescriptlang.org/) ![typescript-icon](https://api.iconify.design/logos:typescript-icon.svg) and [TailwindCSS](https://tailwindcss.com/) ![tailwind-icon](https://api.iconify.design/logos:tailwindcss-icon.svg)
 
-Live Demo: https://mediabucket.vercel.app
-
-<br>
-
-# Screenshots
-
-<img style="width: 90%; display:block; margin-left:auto; margin-right:auto;" src="./public/screenshot-1.png" />
+Live preview 👁‍🗨 : https://mediabucket.vercel.app
 
 <br>
 
-<img style="width: 90%; display:block; margin-left:auto; margin-right:auto;" src="./public/screenshot-2.png" />
+# Screenshots 🖼️
 
+<p align="center">
+<img style="width: 90%;" src="./public/screenshot-1.png" />
 <br>
-
-<img style="width: 90%; display:block; margin-left:auto; margin-right:auto;" src="./public/screenshot-3.png" />
+<img style="width: 90%;" src="./public/screenshot-2.png" />
+<br>
+<img style="width: 90%;" src="./public/screenshot-3.png" />
+</p>
