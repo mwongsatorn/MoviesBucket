@@ -2,17 +2,17 @@
 import { RouterLink } from "vue-router";
 import IconPerson from "@/components/Icons/IconPerson.vue";
 import type {
-  AggregateCreditsCastDetails,
-  AggregateCreditsCrewDetails,
-  CreditsCastDetails,
-  CreditsCrewDetails,
+  ShortPersonAggregateCastDetails,
+  ShortPersonAggregateCrewDetails,
+  ShortPersonCastDetails,
+  ShortPersonCrewDetails,
 } from "@/types";
 
 type Person =
-  | CreditsCastDetails
-  | CreditsCrewDetails
-  | AggregateCreditsCastDetails
-  | AggregateCreditsCrewDetails;
+  | ShortPersonCastDetails
+  | ShortPersonCrewDetails
+  | ShortPersonAggregateCastDetails
+  | ShortPersonAggregateCrewDetails;
 
 const props = defineProps<{ person: Person }>();
 

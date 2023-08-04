@@ -72,8 +72,8 @@ export interface MovieDetails extends ShortMovieDetails {
     results: Video[];
   };
   credits: {
-    cast: CreditsCastDetails[];
-    crew: CreditsCrewDetails[];
+    cast: ShortPersonCastDetails[];
+    crew: ShortPersonCrewDetails[];
   };
   external_ids: MovieExternalIds;
   keywords: {
@@ -184,12 +184,12 @@ export interface SerieDetails extends ShortSerieDetails {
     results: Video[];
   };
   credits: {
-    cast: CreditsCastDetails[];
-    crew: CreditsCrewDetails[];
+    cast: ShortPersonCastDetails[];
+    crew: ShortPersonCrewDetails[];
   };
   aggregate_credits: {
-    cast: AggregateCreditsCastDetails[];
-    crew: AggregateCreditsCrewDetails[];
+    cast: ShortPersonAggregateCastDetails[];
+    crew: ShortPersonAggregateCrewDetails[];
   };
   external_ids: SerieExternalIds;
   keywords: {
@@ -235,13 +235,13 @@ export interface PersonDetails extends ShortPersonDetails {
   };
 }
 
-export interface CreditsCastDetails extends ShortPersonDetails {
+export interface ShortPersonCastDetails extends ShortPersonDetails {
   credit_id: string;
   character: string;
   order: number;
 }
 
-export interface AggregateCreditsCastDetails extends ShortPersonDetails {
+export interface ShortPersonAggregateCastDetails extends ShortPersonDetails {
   roles: [
     {
       credit_id: string;
@@ -253,7 +253,7 @@ export interface AggregateCreditsCastDetails extends ShortPersonDetails {
   order: number;
 }
 
-export interface AggregateCreditsCrewDetails extends ShortPersonDetails {
+export interface ShortPersonAggregateCrewDetails extends ShortPersonDetails {
   jobs: [
     {
       credit_id: string;
@@ -265,7 +265,7 @@ export interface AggregateCreditsCrewDetails extends ShortPersonDetails {
   department: string;
 }
 
-export interface CreditsCrewDetails extends ShortPersonDetails {
+export interface ShortPersonCrewDetails extends ShortPersonDetails {
   credit_id: string;
   job: string;
   department: string;

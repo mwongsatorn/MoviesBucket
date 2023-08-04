@@ -3,12 +3,15 @@ import { vLazy } from "@/directives/lazy";
 import IconPerson from "./Icons/IconPerson.vue";
 import type {
   ShortPersonDetails,
-  AggregateCreditsCastDetails,
-  CreditsCastDetails,
+  ShortPersonAggregateCastDetails,
+  ShortPersonCastDetails,
 } from "@/types";
 
 const props = defineProps<{
-  person: ShortPersonDetails | CreditsCastDetails | AggregateCreditsCastDetails;
+  person:
+    | ShortPersonDetails
+    | ShortPersonCastDetails
+    | ShortPersonAggregateCastDetails;
 }>();
 
 function role() {
