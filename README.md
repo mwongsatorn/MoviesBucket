@@ -13,6 +13,8 @@
 
 Built by using [Vue.js (Vue 3)](https://vuejs.org/) ![vue-icon](https://api.iconify.design/logos:vue.svg), [TypeScript](https://www.typescriptlang.org/) ![typescript-icon](https://api.iconify.design/logos:typescript-icon.svg) and [TailwindCSS](https://tailwindcss.com/) ![tailwind-icon](https://api.iconify.design/logos:tailwindcss-icon.svg)
 
+Data provided by [The Movie Database (TMDB)](https://www.themoviedb.org/)
+
 Live preview 👁‍🗨 : https://mediabucket.vercel.app
 
 <br>
