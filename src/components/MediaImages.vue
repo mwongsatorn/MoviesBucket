@@ -36,12 +36,13 @@ function closeSlider() {
 </script>
 
 <template>
-  <section id="images" class="@container">
-    <section class="my-8 px-4" id="backdrops">
+  <section id="images" class="my-8 space-y-8 px-4 @container">
+    <section id="backdrops">
       <h1 class="text-xl font-bold capitalize sm:text-2xl">
         Backdrops ({{ images?.backdrops.length }})
       </h1>
       <CardGrid
+        v-if="images?.backdrops.length !== 0"
         column="grid-cols-1 @md:grid-cols-2 @2xl:grid-cols-3 @5xl:grid-cols-4 "
       >
         <template #cards>
@@ -54,12 +55,15 @@ function closeSlider() {
           />
         </template>
       </CardGrid>
+      <p v-else class="mt-4 italic text-rose-800">
+        There are no backdrops for this media
+      </p>
     </section>
-    <section class="my-8 px-4" id="posters">
+    <section id="posters">
       <h1 class="text-xl font-bold capitalize sm:text-2xl">
         Posters ({{ images?.posters.length }})
       </h1>
-      <CardGrid>
+      <CardGrid v-if="images?.posters.length !== 0">
         <template #cards>
           <MediaImageCard
             @click="openSlider('posters', index)"
@@ -70,6 +74,9 @@ function closeSlider() {
           />
         </template>
       </CardGrid>
+      <p v-else class="mt-4 italic text-rose-800">
+        There are no posters for this media
+      </p>
     </section>
     <Teleport to="body">
       <MediaItemSlider
