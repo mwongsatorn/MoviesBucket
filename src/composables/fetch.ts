@@ -13,9 +13,19 @@ interface useFetchReturnWithExecute<ReturnData>
   execute: () => Promise<useFetchReturn<ReturnData>>;
 }
 
+const TMDB_ACCESS_TOKEN: string = import.meta.env.VITE_TMDB_ACCESS_TOKEN;
+const defaultOptions = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${TMDB_ACCESS_TOKEN}`,
+  },
+} satisfies RequestInit;
+
 export function useFetch<ReturnData>(
   url: string | URL,
-  immediate = false
+  options: RequestInit = defaultOptions,
+  immediate: boolean = false
 ): useFetchReturnWithExecute<ReturnData> &
   PromiseLike<useFetchReturn<ReturnData>> {
   const data = shallowRef<ReturnData | null>(null);
@@ -26,7 +36,7 @@ export function useFetch<ReturnData>(
   async function execute(): Promise<useFetchReturn<ReturnData>> {
     try {
       isLoading.value = true;
-      const res = await fetch(url);
+      const res = await fetch(url, options);
       response.value = res;
       const result: ReturnData = await res.json();
       if (!res.ok) throw result;

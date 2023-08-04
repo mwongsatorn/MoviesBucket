@@ -9,8 +9,6 @@ import type {
   PersonDetails,
 } from "@/types";
 
-type Search = "movie" | "tv" | "person";
-
 interface ShortDetailsDataMap {
   movie: PageResult<ShortMovieDetails>;
   tv: PageResult<ShortSerieDetails>;
@@ -30,7 +28,6 @@ interface DetailsDataMap {
 }
 
 const baseUrl: string = "https://api.themoviedb.org/3/";
-const TMDB_API_KEY: string = import.meta.env.VITE_TMDB_API_KEY;
 
 function createUrl(endpoint: string, params: Record<string, any>): URL {
   const url = new URL(endpoint, baseUrl);
@@ -44,7 +41,6 @@ export function getPopularMedia<MediaType extends keyof ShortDetailsDataMap>(
   page: number = 1
 ) {
   const url = createUrl(`${media}/popular`, {
-    api_key: TMDB_API_KEY,
     language: "en",
     page,
   });
@@ -56,7 +52,6 @@ export function getTopRatedMedia<MediaType extends keyof ShortDetailsDataMap>(
   page: number = 1
 ) {
   const url = createUrl(`${media}/top_rated`, {
-    api_key: TMDB_API_KEY,
     language: "en",
     page,
   });
@@ -69,7 +64,6 @@ export function getTrendingMedia<MediaType extends keyof ShortDetailsWithAll>(
   page: number = 1
 ) {
   const url = createUrl(`trending/${media}/${time_window}`, {
-    api_key: TMDB_API_KEY,
     language: "en",
     page,
   });
@@ -78,7 +72,6 @@ export function getTrendingMedia<MediaType extends keyof ShortDetailsWithAll>(
 
 export function getUpcomingMovies(page: number = 1) {
   const url = createUrl("movie/upcoming", {
-    api_key: TMDB_API_KEY,
     language: "en",
     page,
   });
@@ -90,7 +83,6 @@ export function getMediaDetails<MediaType extends keyof DetailsDataMap>(
   media: MediaType
 ) {
   const url = createUrl(`${media}/${id}`, {
-    api_key: TMDB_API_KEY,
     language: "en",
     append_to_response:
       "videos,credits,aggregate_credits,images,external_ids,recommendations,keywords",
@@ -102,7 +94,6 @@ export function getMediaByKeywordId<
   MediaType extends keyof ShortDetailsDataMap
 >(media: MediaType, id: string, page: number) {
   const url = createUrl(`discover/${media}`, {
-    api_key: TMDB_API_KEY,
     language: "en",
     with_keywords: id,
     page,
@@ -112,7 +103,6 @@ export function getMediaByKeywordId<
 
 export function getKeywordDetails(id: string) {
   const url = createUrl(`keyword/${id}`, {
-    api_key: TMDB_API_KEY,
     language: "en",
   });
   return useFetch<{ id: string; name: string }>(url);
@@ -124,7 +114,6 @@ export function getMediaByGenreId<MediaType extends keyof ShortDetailsDataMap>(
   page: number
 ) {
   const url = createUrl(`discover/${media}`, {
-    api_key: TMDB_API_KEY,
     language: "en",
     with_genres: id,
     page,
@@ -134,7 +123,6 @@ export function getMediaByGenreId<MediaType extends keyof ShortDetailsDataMap>(
 
 export function getMediaGenreList(media: string) {
   const url = createUrl(`genre/${media}/list`, {
-    api_key: TMDB_API_KEY,
     language: "en",
   });
   return useFetch<{ genres: [{ id: string; name: string }] }>(url);
@@ -142,7 +130,6 @@ export function getMediaGenreList(media: string) {
 
 export function getPersonDetails(id: string) {
   const url = createUrl(`person/${id}`, {
-    api_key: TMDB_API_KEY,
     language: "en",
     append_to_response: "external_ids,images,combined_credits",
   });
@@ -155,7 +142,6 @@ export function searchQuery<SearchType extends keyof SearchDataMap>(
   page: number = 1
 ) {
   const url = createUrl(`search/${type}`, {
-    api_key: TMDB_API_KEY,
     language: "en",
     query,
     page,
