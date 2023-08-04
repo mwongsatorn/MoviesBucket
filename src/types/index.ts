@@ -26,6 +26,18 @@ export interface ShortMovieDetails extends BaseMediaDetails {
   media_type?: "movie";
 }
 
+export interface ShortMovieWithCastDetails extends ShortMovieDetails {
+  character: string;
+  credit_id: string;
+  order: number;
+}
+
+export interface ShortMovieWithCrewDetails extends ShortMovieDetails {
+  job: string;
+  credit_id: string;
+  department: string;
+}
+
 export interface MovieDetails extends ShortMovieDetails {
   belongs_to_collection: null | Record<string, string>;
   budget: number;
@@ -93,6 +105,18 @@ export interface ShortSerieDetails extends BaseMediaDetails {
   name: string;
   original_name: string;
   media_type?: "tv";
+}
+
+export interface ShortSerieWithCastDetails extends ShortSerieDetails {
+  character: string;
+  credit_id: string;
+  order: number;
+}
+
+export interface ShortSerieWithCrewDetails extends ShortSerieDetails {
+  job: string;
+  credit_id: string;
+  department: string;
 }
 
 export interface SerieDetails extends ShortSerieDetails {
@@ -230,8 +254,8 @@ export interface PersonDetails extends ShortPersonDetails {
     profiles: Image[];
   };
   combined_credits: {
-    cast: (ShortMovieDetails | ShortSerieDetails)[];
-    crew: (ShortMovieDetails | ShortSerieDetails)[];
+    cast: (ShortMovieWithCastDetails | ShortSerieWithCastDetails)[];
+    crew: (ShortMovieWithCrewDetails | ShortSerieWithCrewDetails)[];
   };
 }
 
