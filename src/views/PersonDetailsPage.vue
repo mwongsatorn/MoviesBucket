@@ -32,7 +32,7 @@ const socialListTemplate: Partial<
 > = {
   imdb_id: {
     icon: IconImdb,
-    link: "https://www.imdb.com/title/",
+    link: "https://www.imdb.com/name/",
   },
   facebook_id: {
     icon: IconFacebook,
