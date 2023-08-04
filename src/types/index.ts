@@ -5,7 +5,7 @@ export interface PageResult<T> {
   total_results: number;
 }
 
-export interface BaseMediaDetails {
+export interface BaseMedia {
   poster_path: string | null;
   overview: string;
   genre_ids: number[];
@@ -17,7 +17,7 @@ export interface BaseMediaDetails {
   vote_average: number;
 }
 
-export interface ShortMovieDetails extends BaseMediaDetails {
+export interface ShortMovie extends BaseMedia {
   adult: boolean;
   release_date: string;
   original_title: string;
@@ -26,19 +26,19 @@ export interface ShortMovieDetails extends BaseMediaDetails {
   media_type?: "movie";
 }
 
-export interface ShortMovieWithCastDetails extends ShortMovieDetails {
+export interface ShortMovieWithCast extends ShortMovie {
   character: string;
   credit_id: string;
   order: number;
 }
 
-export interface ShortMovieWithCrewDetails extends ShortMovieDetails {
+export interface ShortMovieWithCrew extends ShortMovie {
   job: string;
   credit_id: string;
   department: string;
 }
 
-export interface MovieDetails extends ShortMovieDetails {
+export interface Movie extends ShortMovie {
   belongs_to_collection: null | Record<string, string>;
   budget: number;
   genres: [
@@ -84,8 +84,8 @@ export interface MovieDetails extends ShortMovieDetails {
     results: Video[];
   };
   credits: {
-    cast: ShortPersonCastDetails[];
-    crew: ShortPersonCrewDetails[];
+    cast: ShortPersonWithCast[];
+    crew: ShortPersonWithCrew[];
   };
   external_ids: MovieExternalIds;
   keywords: {
@@ -96,10 +96,10 @@ export interface MovieDetails extends ShortMovieDetails {
       }
     ];
   };
-  recommendations: PageResult<ShortMovieDetails>;
+  recommendations: PageResult<ShortMovie>;
 }
 
-export interface ShortSerieDetails extends BaseMediaDetails {
+export interface ShortSerie extends BaseMedia {
   first_air_date: string;
   origin_country: string[];
   name: string;
@@ -107,19 +107,19 @@ export interface ShortSerieDetails extends BaseMediaDetails {
   media_type?: "tv";
 }
 
-export interface ShortSerieWithCastDetails extends ShortSerieDetails {
+export interface ShortSerieWithCast extends ShortSerie {
   character: string;
   credit_id: string;
   order: number;
 }
 
-export interface ShortSerieWithCrewDetails extends ShortSerieDetails {
+export interface ShortSerieWithCrew extends ShortSerie {
   job: string;
   credit_id: string;
   department: string;
 }
 
-export interface SerieDetails extends ShortSerieDetails {
+export interface Serie extends ShortSerie {
   created_by: [
     {
       id: number;
@@ -208,12 +208,12 @@ export interface SerieDetails extends ShortSerieDetails {
     results: Video[];
   };
   credits: {
-    cast: ShortPersonCastDetails[];
-    crew: ShortPersonCrewDetails[];
+    cast: ShortPersonWithCast[];
+    crew: ShortPersonWithCrew[];
   };
   aggregate_credits: {
-    cast: ShortPersonAggregateCastDetails[];
-    crew: ShortPersonAggregateCrewDetails[];
+    cast: ShortPersonWithAggregateCast[];
+    crew: ShortPersonWithAggregateCrew[];
   };
   external_ids: SerieExternalIds;
   keywords: {
@@ -224,10 +224,10 @@ export interface SerieDetails extends ShortSerieDetails {
       }
     ];
   };
-  recommendations: PageResult<ShortSerieDetails>;
+  recommendations: PageResult<ShortSerie>;
 }
 
-export interface ShortPersonDetails {
+export interface ShortPerson {
   adult: boolean;
   gender: number | null;
   id: number;
@@ -238,7 +238,7 @@ export interface ShortPersonDetails {
   profile_path: string | null;
 }
 
-export interface PersonDetails extends ShortPersonDetails {
+export interface Person extends ShortPerson {
   birthday: string;
   deathday: string | null;
   also_known_as: string[];
@@ -254,18 +254,18 @@ export interface PersonDetails extends ShortPersonDetails {
     profiles: Image[];
   };
   combined_credits: {
-    cast: (ShortMovieWithCastDetails | ShortSerieWithCastDetails)[];
-    crew: (ShortMovieWithCrewDetails | ShortSerieWithCrewDetails)[];
+    cast: (ShortMovieWithCast | ShortSerieWithCast)[];
+    crew: (ShortMovieWithCrew | ShortSerieWithCrew)[];
   };
 }
 
-export interface ShortPersonCastDetails extends ShortPersonDetails {
+export interface ShortPersonWithCast extends ShortPerson {
   credit_id: string;
   character: string;
   order: number;
 }
 
-export interface ShortPersonAggregateCastDetails extends ShortPersonDetails {
+export interface ShortPersonWithAggregateCast extends ShortPerson {
   roles: [
     {
       credit_id: string;
@@ -277,7 +277,7 @@ export interface ShortPersonAggregateCastDetails extends ShortPersonDetails {
   order: number;
 }
 
-export interface ShortPersonAggregateCrewDetails extends ShortPersonDetails {
+export interface ShortPersonWithAggregateCrew extends ShortPerson {
   jobs: [
     {
       credit_id: string;
@@ -289,7 +289,7 @@ export interface ShortPersonAggregateCrewDetails extends ShortPersonDetails {
   department: string;
 }
 
-export interface ShortPersonCrewDetails extends ShortPersonDetails {
+export interface ShortPersonWithCrew extends ShortPerson {
   credit_id: string;
   job: string;
   department: string;

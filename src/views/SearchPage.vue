@@ -2,23 +2,18 @@
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { searchQuery } from "@/composables/tmdb";
-import type {
-  ShortMovieDetails,
-  ShortPersonDetails,
-  ShortSerieDetails,
-  PageResult,
-} from "@/types";
+import type { ShortMovie, ShortPerson, ShortSerie, PageResult } from "@/types";
 import CardGrid from "@/components/CardGrid.vue";
 import MediaCard from "@/components/MediaCard.vue";
 import PersonCard from "@/components/PersonCard.vue";
 
 interface FirstPage {
-  movies: PageResult<ShortMovieDetails>;
-  series: PageResult<ShortSerieDetails>;
-  people: PageResult<ShortPersonDetails>;
+  movies: PageResult<ShortMovie>;
+  series: PageResult<ShortSerie>;
+  people: PageResult<ShortPerson>;
 }
 
-type Card = ShortMovieDetails | ShortSerieDetails | ShortPersonDetails;
+type Card = ShortMovie | ShortSerie | ShortPerson;
 type SearchType = "movies" | "series" | "people";
 const route = useRoute();
 const router = useRouter();

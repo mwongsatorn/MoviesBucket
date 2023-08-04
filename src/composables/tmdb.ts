@@ -1,30 +1,30 @@
 import { useFetch } from "./fetch";
 import type {
   PageResult,
-  ShortMovieDetails,
-  MovieDetails,
-  ShortSerieDetails,
-  SerieDetails,
-  ShortPersonDetails,
-  PersonDetails,
+  ShortMovie,
+  Movie,
+  ShortSerie,
+  Serie,
+  ShortPerson,
+  Person,
 } from "@/types";
 
 interface ShortDetailsDataMap {
-  movie: PageResult<ShortMovieDetails>;
-  tv: PageResult<ShortSerieDetails>;
+  movie: PageResult<ShortMovie>;
+  tv: PageResult<ShortSerie>;
 }
 
 interface SearchDataMap extends ShortDetailsDataMap {
-  person: PageResult<ShortPersonDetails>;
+  person: PageResult<ShortPerson>;
 }
 
 interface ShortDetailsWithAll extends ShortDetailsDataMap {
-  all: PageResult<ShortMovieDetails> | PageResult<ShortSerieDetails>;
+  all: PageResult<ShortMovie> | PageResult<ShortSerie>;
 }
 
 interface DetailsDataMap {
-  movie: MovieDetails;
-  tv: SerieDetails;
+  movie: Movie;
+  tv: Serie;
 }
 
 const baseUrl: string = "https://api.themoviedb.org/3/";
@@ -75,7 +75,7 @@ export function getUpcomingMovies(page: number = 1) {
     language: "en",
     page,
   });
-  return useFetch<PageResult<ShortMovieDetails>>(url);
+  return useFetch<PageResult<ShortMovie>>(url);
 }
 
 export function getMediaDetails<MediaType extends keyof DetailsDataMap>(
@@ -133,7 +133,7 @@ export function getPersonDetails(id: string) {
     language: "en",
     append_to_response: "external_ids,images,combined_credits",
   });
-  return useFetch<PersonDetails>(url);
+  return useFetch<Person>(url);
 }
 
 export function searchQuery<SearchType extends keyof SearchDataMap>(

@@ -5,15 +5,15 @@ import PersonCard from "@/components/PersonCard.vue";
 import PersonCreditItem from "@/components/PersonCreditItem.vue";
 import CardCarousel from "./CardCarousel.vue";
 import type {
-  ShortPersonCastDetails,
-  ShortPersonCrewDetails,
-  ShortPersonAggregateCastDetails,
-  ShortPersonAggregateCrewDetails,
+  ShortPersonWithCast,
+  ShortPersonWithCrew,
+  ShortPersonWithAggregateCast,
+  ShortPersonWithAggregateCrew,
 } from "@/types";
 
 interface Inject {
-  cast: ShortPersonCastDetails[] | ShortPersonAggregateCastDetails[];
-  crew: ShortPersonCrewDetails[] | ShortPersonAggregateCrewDetails[];
+  cast: ShortPersonWithCast[] | ShortPersonWithAggregateCast[];
+  crew: ShortPersonWithCrew[] | ShortPersonWithAggregateCrew[];
 }
 
 const credits = inject<Inject>("credits");

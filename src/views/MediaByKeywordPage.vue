@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { getMediaByKeywordId, getKeywordDetails } from "@/composables/tmdb";
-import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
+import type { ShortMovie, ShortSerie } from "@/types";
 import CardGrid from "@/components/CardGrid.vue";
 import MediaCard from "@/components/MediaCard.vue";
 
@@ -13,7 +13,7 @@ const props = defineProps<{
 
 const type = props.media === "movies" ? "movie" : "tv";
 
-const cards = ref<(ShortMovieDetails | ShortSerieDetails)[]>([]);
+const cards = ref<(ShortMovie | ShortSerie)[]>([]);
 
 const { data: keyword } = await getKeywordDetails(props.id);
 

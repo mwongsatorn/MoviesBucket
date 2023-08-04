@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
+import type { ShortMovie, ShortSerie } from "@/types";
 import CardGrid from "./CardGrid.vue";
 import MediaCard from "./MediaCard.vue";
 
 const props = defineProps<{
-  list: (ShortMovieDetails | ShortSerieDetails)[];
+  list: (ShortMovie | ShortSerie)[];
 }>();
 </script>
 

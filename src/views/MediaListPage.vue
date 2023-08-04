@@ -8,13 +8,13 @@ import {
   getTopRatedMedia,
   getUpcomingMovies,
 } from "@/composables/tmdb";
-import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
+import type { ShortMovie, ShortSerie } from "@/types";
 
 interface MediaList {
-  trending: ShortMovieDetails[] | ShortSerieDetails[];
-  "top-rated": ShortMovieDetails[] | ShortSerieDetails[];
-  popular: ShortMovieDetails[] | ShortSerieDetails[];
-  upcoming?: ShortMovieDetails[];
+  trending: ShortMovie[] | ShortSerie[];
+  "top-rated": ShortMovie[] | ShortSerie[];
+  popular: ShortMovie[] | ShortSerie[];
+  upcoming?: ShortMovie[];
 }
 
 type Media = "movies" | "series";

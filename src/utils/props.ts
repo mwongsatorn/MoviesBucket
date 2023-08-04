@@ -1,12 +1,10 @@
-import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
+import type { ShortMovie, ShortSerie } from "@/types";
 
 function mediaReleaseYear(date: string) {
   return date.split("-", 1)[0];
 }
 
-export function mediaDisplayProps(
-  media: ShortMovieDetails | ShortSerieDetails
-) {
+export function mediaDisplayProps(media: ShortMovie | ShortSerie) {
   return {
     id: media.id,
     title: "title" in media ? media.title : media.name,
@@ -20,7 +18,7 @@ export function mediaDisplayProps(
   };
 }
 
-export function mediaCardProps(media: ShortMovieDetails | ShortSerieDetails) {
+export function mediaCardProps(media: ShortMovie | ShortSerie) {
   return {
     id: media.id,
     title: "title" in media ? media.title : media.name,

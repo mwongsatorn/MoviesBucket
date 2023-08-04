@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { mediaDisplayProps } from "@/utils/props";
-import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
+import type { ShortMovie, ShortSerie } from "@/types";
 import MediaDisplayItem from "./MediaDisplayItem.vue";
 import IconChevronLeft from "./Icons/IconChevronLeft.vue";
 import IconChevronRight from "./Icons/IconChevronRight.vue";
 
 interface Props {
   sectionName: string;
-  items: ShortMovieDetails[] | ShortSerieDetails[];
+  items: ShortMovie[] | ShortSerie[];
 }
 
 const props = defineProps<Props>();

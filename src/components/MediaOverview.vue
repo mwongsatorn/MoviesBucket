@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import IconMediaPlaceholder from "./Icons/IconMediaPlaceholder.vue";
-import type { MovieDetails, SerieDetails } from "@/types";
+import type { Movie, Serie } from "@/types";
 interface Props {
-  media: MovieDetails | SerieDetails;
+  media: Movie | Serie;
   type: "movies" | "series";
 }
 

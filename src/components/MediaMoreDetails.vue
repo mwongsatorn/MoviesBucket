@@ -4,10 +4,10 @@ import IconImdb from "@/components/Icons/IconImdb.vue";
 import IconFacebook from "@/components/Icons/IconFacebook.vue";
 import IconTwitter from "@/components/Icons/IconTwitter.vue";
 import IconInstagram from "@/components/Icons/IconInstagram.vue";
-import type { MovieDetails, SerieDetails } from "@/types";
+import type { Movie, Serie } from "@/types";
 
 interface Props {
-  media: MovieDetails | SerieDetails;
+  media: Movie | Serie;
   type: "movies" | "series";
 }
 

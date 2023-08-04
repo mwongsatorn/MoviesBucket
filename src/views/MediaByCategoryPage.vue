@@ -8,7 +8,7 @@ import {
 } from "@/composables/tmdb";
 import CardGrid from "@/components/CardGrid.vue";
 import MediaCard from "@/components/MediaCard.vue";
-import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
+import type { ShortMovie, ShortSerie } from "@/types";
 
 type Media = "movies" | "series";
 type Category = "top-rated" | "trending" | "popular" | "upcoming";
@@ -25,7 +25,7 @@ async function getCardlist(page: number) {
     return getUpcomingMovies(page);
   throw "never";
 }
-const cards = ref<(ShortMovieDetails | ShortSerieDetails)[]>([]);
+const cards = ref<(ShortMovie | ShortSerie)[]>([]);
 let page = 0;
 
 const title = `${props.category} ${props.media}`;

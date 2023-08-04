@@ -2,10 +2,10 @@
 import { RouterLink } from "vue-router";
 import { vLazy } from "@/directives/lazy";
 import IconMediaPlaceholder from "./Icons/IconMediaPlaceholder.vue";
-import type { ShortMovieDetails, ShortSerieDetails } from "@/types";
+import type { ShortMovie, ShortSerie } from "@/types";
 
 interface Props {
-  media: ShortMovieDetails | ShortSerieDetails;
+  media: ShortMovie | ShortSerie;
   type: "movies" | "series";
 }
 const props = defineProps<Props>();
