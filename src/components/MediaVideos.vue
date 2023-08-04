@@ -50,31 +50,36 @@ function closeVideo() {
       </select>
     </div>
     <div class="flex flex-wrap gap-2 py-6 @container">
-      <div
-        @click="expandVideo(index)"
-        v-for="(video, index) in videoList"
-        :key="video.id"
-        class="group w-full cursor-pointer @lg:w-[calc(50%-8px)] @2xl:w-[calc(33.33%-8px)]"
-      >
-        <div class="relative aspect-video w-full bg-gray-300">
-          <img
-            v-lazy
-            :data-src="`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`"
-            class="block w-full object-cover object-center opacity-0 transition duration-500"
-            alt=""
-          />
-          <div
-            class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/50 text-white opacity-0 group-hover:opacity-100"
-          >
-            <IconPlayVideo class="h-12 w-12" />
+      <template v-if="videoList.length !== 0">
+        <div
+          @click="expandVideo(index)"
+          v-for="(video, index) in videoList"
+          :key="video.id"
+          class="group w-full cursor-pointer @lg:w-[calc(50%-8px)] @2xl:w-[calc(33.33%-8px)]"
+        >
+          <div class="relative aspect-video w-full bg-gray-300">
+            <img
+              v-lazy
+              :data-src="`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`"
+              class="block w-full object-cover object-center opacity-0 transition duration-500"
+              alt=""
+            />
+            <div
+              class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/50 text-white opacity-0 group-hover:opacity-100"
+            >
+              <IconPlayVideo class="h-12 w-12" />
+            </div>
+          </div>
+
+          <div class="py-2">
+            <p class="font-bold">{{ video.name }}</p>
+            <p class="text-sm text-gray-600">{{ video.type }}</p>
           </div>
         </div>
-
-        <div class="py-2">
-          <p class="font-bold">{{ video.name }}</p>
-          <p class="text-sm text-gray-600">{{ video.type }}</p>
-        </div>
-      </div>
+      </template>
+      <p v-else class="mt-4 italic text-rose-800">
+        There are no videos for this media
+      </p>
     </div>
     <Teleport to="body">
       <MediaItemSlider
