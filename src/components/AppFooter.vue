@@ -11,7 +11,7 @@ import IconGithub from "./Icons/IconGithub.vue";
         <a href="https://www.themoviedb.org/" target="_blank">
           <img class="h-5" src="/TMDb-logo.svg" alt="" />
         </a>
-        <div>Data is provided by The Movie Database (TMDb)</div>
+        <div>Data provided by The Movie Database (TMDb)</div>
       </div>
 
       <a
