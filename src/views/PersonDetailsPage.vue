@@ -122,7 +122,7 @@ function knownForList() {
   <main>
     <div class="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-[300px_1fr]">
       <aside
-        class="flex flex-col gap-x-4 gap-y-4 bg-gray-50 px-4 py-8 sm:flex-row lg:block"
+        class="flex flex-col gap-x-4 gap-y-4 bg-gray-100 px-4 py-8 sm:flex-row lg:block"
       >
         <div
           class="flex aspect-[2/3] w-[250px] shrink-0 items-center justify-center self-center overflow-hidden rounded-lg bg-gray-400 lg:w-full"
@@ -185,7 +185,7 @@ function knownForList() {
                 ? 'bg-rose-800 text-white'
                 : 'hover:bg-amber-500 hover:text-white',
             ]"
-            class="flex-grow bg-gray-50 px-2 py-4 text-center text-sm font-bold uppercase sm:text-base"
+            class="flex-grow bg-gray-100 px-2 py-4 text-center text-sm font-bold uppercase sm:text-base"
           >
             {{ tab }}
           </button>
